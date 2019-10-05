@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+.container {
+  margin: auto;
+  font-family: sans-serif;
+  line-height: 1.5;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  background-color: #F0FFF0;
+}
+
+h2 {
+  color: white;
+  text-align: center;
+  background-color: purple;
+}
+
+.flex-grid {
+  display: flex;
+  margin: auto -1rem 1rem;
+}
+
+.col {
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+  padding: .5rem;
+}
+
+.sidebar {
+  flex: 1;
+}
+
+.main {
+  flex: 5;
+}
+
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: white;
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: purple;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+
+#wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="flex-grid">
+    <aside class="col sidebar">
+      <h2>Sidebar</h2>      
+      
+      <div class="dropdown">
+      <button class="dropbtn">Prices</button>
+      <div class="dropdown-content">
+        <a href="#">Below $3</a>
+        <a href="#">$3 - $6</a>
+        <a href="#">Above $6</a>
+  </div>
+</div>
+<br>
+<br>
+
+<h3>Food Type:</h3>
+  <input type="radio" name="food"> Entree<br>
+  <input type="radio" name="food"> Dessert<br>
+  <input type="radio" name="food"> Breakfast<br>  
+
+    </aside>
+    <section class="col main">
+      <h2>The Product List</h2>
+          <div id="wrapper">
+     		 <div class="card">
+        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130582848012319/burger.jpg" alt="Hamburger" style="width:100%">
+        <h1>Hamburger</h1>
+        <p class="price">$5.99</p>
+        <p>Best burger in the buisness. Probably.</p>
+        <p><button>Configure</button></p>
+      </div>  
+      <div class="card">
+        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130585561595923/cake.jpg" alt="Cake" style="width:100%">
+        <h1>Chocolate Cake</h1>
+        <p class="price">$12.99</p>
+        <p>This cake is not a lie.</p>
+        <p><button>Configure</button></p>  
+      </div> 
+      <div class="card">
+        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130586585006080/cereal.jpg" alt="Cereal" style="width:100%">
+        <h1>Cereal</h1>
+        <p class="price">$1.50</p>
+        <p>It's ok to be a cereal killer. I wont tell.</p>
+        <p><button>Configure</button></p>
+      </div>  
+      <div class="card">
+        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130588086566912/chicken.jpg" alt="Chicken" style="width:100%">
+        <h1>Fried Chicken</h1>
+        <p class="price">$6.32</p>
+        <p>At most 25% cardboard.</p>
+        <p><button>Configure</button></p>
+      </div>  
+      <div class="card">
+        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130589155983370/pizza.jpg" alt="Pizza" style="width:100%">
+        <h1>Pizza</h1>
+        <p class="price">$103.99</p>
+        <p>Bet you're curious why it's so expensive.</p>
+        <p><button>Configure</button></p>
+      </div>  
+      <div class="card">
+        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130590879842357/spaghetti.jpg" alt="Spaghetti" style="width:100%">
+        <h1>Spaghetti</h1>
+        <p class="price">$6.29</p>
+        <p>Fork not included.</p>
+        <p><button>Configure</button></p>
+      </div>  
+      <div class="card">
+        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130591966298134/taco.jpg" alt="Tacos" style="width:100%">
+        <h1>Tacos</h1>
+        <p class="price">$-5.00</p>
+        <p>I fired the person who set this price.</p>
+        <p><button>Configure</button></p>
+      </div>  
+      <div class="card">
+        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130594466103306/waffle.jpg" alt="Waffles" style="width:100%">
+        <h1>Not Pancakes</h1>
+        <p class="price">$3.99</p>
+        <p>Deformed pancakes need love too.</p>
+        <p><button>Configure</button></p>
+      </div>  
+    </div>
+    </section>
+  </div>
+</div>
+
+
+
+</body>
+</html>
