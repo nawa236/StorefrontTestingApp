@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,21 +31,22 @@ h2 {
 }
 
 .sidebar {
-  flex: 1;
+  flex: 0 0 10em;
 }
 
 .main {
-  flex: 5;
+  flex: 1;
 }
 
 
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    background-color: white;
+  background-color: white;
   max-width: 300px;
-  margin: auto;
+  margin: 10px;
   text-align: center;
   font-family: arial;
+  
 }
 
 .price {
@@ -70,7 +72,7 @@ h2 {
 
 #wrapper {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap;  
 }
 
 .dropbtn {
@@ -112,6 +114,18 @@ h2 {
 </head>
 <body>
 
+  <?php
+  function makeCard($image,$name,$price,$description) {
+      echo "<div class=\"card\">";
+      echo "<img src=$image alt=$name style=\"width:100%\">";
+      echo "<h1>$name</h1>";
+      echo "<p class=\"price\">$price</p>";
+      echo "<p>$description</p>";
+      $id = "button" . $name;
+      echo "<p><button id=$id>Configure</button></p>";
+      echo "</div>";   }
+  ?>
+  
 <div class="container">
   <div class="flex-grid">
     <aside class="col sidebar">
@@ -137,61 +151,16 @@ h2 {
     <section class="col main">
       <h2>The Product List</h2>
           <div id="wrapper">
-     		 <div class="card">
-        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130582848012319/burger.jpg" alt="Hamburger" style="width:100%">
-        <h1>Hamburger</h1>
-        <p class="price">$5.99</p>
-        <p>Best burger in the buisness. Probably.</p>
-        <p><button>Configure</button></p>
-      </div>  
-      <div class="card">
-        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130585561595923/cake.jpg" alt="Cake" style="width:100%">
-        <h1>Chocolate Cake</h1>
-        <p class="price">$12.99</p>
-        <p>This cake is not a lie.</p>
-        <p><button>Configure</button></p>  
-      </div> 
-      <div class="card">
-        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130586585006080/cereal.jpg" alt="Cereal" style="width:100%">
-        <h1>Cereal</h1>
-        <p class="price">$1.50</p>
-        <p>It's ok to be a cereal killer. I wont tell.</p>
-        <p><button>Configure</button></p>
-      </div>  
-      <div class="card">
-        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130588086566912/chicken.jpg" alt="Chicken" style="width:100%">
-        <h1>Fried Chicken</h1>
-        <p class="price">$6.32</p>
-        <p>At most 25% cardboard.</p>
-        <p><button>Configure</button></p>
-      </div>  
-      <div class="card">
-        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130589155983370/pizza.jpg" alt="Pizza" style="width:100%">
-        <h1>Pizza</h1>
-        <p class="price">$103.99</p>
-        <p>Bet you're curious why it's so expensive.</p>
-        <p><button>Configure</button></p>
-      </div>  
-      <div class="card">
-        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130590879842357/spaghetti.jpg" alt="Spaghetti" style="width:100%">
-        <h1>Spaghetti</h1>
-        <p class="price">$6.29</p>
-        <p>Fork not included.</p>
-        <p><button>Configure</button></p>
-      </div>  
-      <div class="card">
-        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130591966298134/taco.jpg" alt="Tacos" style="width:100%">
-        <h1>Tacos</h1>
-        <p class="price">$-5.00</p>
-        <p>I fired the person who set this price.</p>
-        <p><button>Configure</button></p>
-      </div>  
-      <div class="card">
-        <img src="https://cdn.discordapp.com/attachments/539230457070354461/630130594466103306/waffle.jpg" alt="Waffles" style="width:100%">
-        <h1>Not Pancakes</h1>
-        <p class="price">$3.99</p>
-        <p>Deformed pancakes need love too.</p>
-        <p><button>Configure</button></p>
+            <?php
+     	 	makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130582848012319/burger.jpg","Hamburger","$5.99","Best burger in the buisness. Probably.");
+            makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130585561595923/cake.jpg","Chocolate Cake","$12.99","This cake is not a lie.");
+            makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130586585006080/cereal.jpg","Cereal","$1.50","It's ok to be a cereal killer. I wont tell.");
+            makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130588086566912/chicken.jpg","Fried Chicken","$6.32","At most 25% cardboard.");
+            makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130589155983370/pizza.jpg","Pizza","$103.99","Bet you're curious why it's so expensive.");
+            makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130590879842357/spaghetti.jpg","Spaghetti","$6.29","Fork not included.");
+            makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130591966298134/taco.jpg","Tacos","$-5.00","I fired the person who set this price.");
+            makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130594466103306/waffle.jpg","Not Pancakes","$3.99","Deformed pancakes need love too.");
+            ?>
       </div>  
     </div>
     </section>
