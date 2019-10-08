@@ -1,116 +1,8 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-
-.container {
-  margin: auto;
-  font-family: sans-serif;
-  line-height: 1.5;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  background-color: #F0FFF0;
-}
-
-h2 {
-  color: white;
-  text-align: center;
-  background-color: purple;
-}
-
-.flex-grid {
-  display: flex;
-  margin: auto -1rem 1rem;
-}
-
-.col {
-  margin-left: 0.3rem;
-  margin-right: 0.3rem;
-  padding: .5rem;
-}
-
-.sidebar {
-  flex: 0 0 10em;
-}
-
-.main {
-  flex: 1;
-}
-
-
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  background-color: white;
-  max-width: 300px;
-  margin: 10px;
-  text-align: center;
-  font-family: arial;
-  
-}
-
-.price {
-  color: grey;
-  font-size: 22px;
-}
-
-.card button {
-  border: none;
-  outline: 0;
-  padding: 12px;
-  color: white;
-  background-color: purple;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
-}
-
-.card button:hover {
-  opacity: 0.7;
-}
-
-#wrapper {
-  display: flex;
-  flex-wrap: wrap;  
-}
-
-.dropbtn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {background-color: #ddd;}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
-
-</style>
+    <title>Product List</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -166,8 +58,6 @@ h2 {
     </section>
   </div>
 </div>
-
-
 
 </body>
 </html>
