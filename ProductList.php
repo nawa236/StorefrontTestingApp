@@ -1,63 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
     <title>Product List</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <?php
-  function makeCard($image,$name,$price,$description) {
-      echo "<div class=\"card\">";
-      echo "<img src=$image alt=$name style=\"width:100%\">";
-      echo "<h1>$name</h1>";
-      echo "<p class=\"price\">$price</p>";
-      echo "<p>$description</p>";
-      $id = "button" . $name;
-      echo "<p><button id=$id>Configure</button></p>";
-      echo "</div>";   }
-  ?>
-  
 <div class="container">
   <div class="flex-grid">
     <aside class="col sidebar">
-      <h2>Sidebar</h2>      
-      
-      <div class="dropdown">
-      <button class="dropbtn">Prices</button>
-      <div class="dropdown-content">
-        <a href="#">Below $3</a>
-        <a href="#">$3 - $6</a>
-        <a href="#">Above $6</a>
-  </div>
-</div>
+      <h2>Sidebar</h2>
+
+
+  <h3> Price:</h3>
+  <select class="dropdown select price" id="optionPrice">
+     <option value="All">All</option>
+     <option value="Low">Below $4</option>
+     <option value="Med">$4 - $8</option>
+     <option value="High">Above $8</option>
+   </select>
+
 <br>
 <br>
 
 <h3>Food Type:</h3>
-  <input type="radio" name="food"> Entree<br>
-  <input type="radio" name="food"> Dessert<br>
-  <input type="radio" name="food"> Breakfast<br>  
+  <input type="radio" name="food" class="select foodType" id="radioAllFood" value="All"  checked > All <br>
+  <input type="radio" name="food" class="select foodType" id="radioEntree" value="Entree" > Entree<br>
+  <input type="radio" name="food" class="select foodType" id="radioDessert" value="Dessert"> Dessert<br>
+  <input type="radio" name="food" class="select foodType" id="radioBreakfast" value="Breakfast"> Breakfast<br>
 
     </aside>
     <section class="col main">
       <h2>The Product List</h2>
-          <div id="wrapper">
-            <?php
-     	 	makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130582848012319/burger.jpg","Hamburger","$5.99","Best burger in the buisness. Probably.");
-            makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130585561595923/cake.jpg","Chocolate Cake","$12.99","This cake is not a lie.");
-            makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130586585006080/cereal.jpg","Cereal","$1.50","It's ok to be a cereal killer. I wont tell.");
-            makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130588086566912/chicken.jpg","Fried Chicken","$6.32","At most 25% cardboard.");
-            makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130589155983370/pizza.jpg","Pizza","$103.99","Bet you're curious why it's so expensive.");
-            makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130590879842357/spaghetti.jpg","Spaghetti","$6.29","Fork not included.");
-            makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130591966298134/taco.jpg","Tacos","$-5.00","I fired the person who set this price.");
-            makeCard("https://cdn.discordapp.com/attachments/539230457070354461/630130594466103306/waffle.jpg","Not Pancakes","$3.99","Deformed pancakes need love too.");
-            ?>
-      </div>  
+          <div id="wrapper" class="filter">
+      </div>
     </div>
     </section>
   </div>
 </div>
 
+<script>
+var food = "All";
+var price = "All";
+$(document).ready(function(){
+	filter();
+
+	function filter(){
+	$.ajax({
+            url:"ProductCards.php",
+            method:"POST",
+            data:{food:food, price:price},
+            success:function(data){
+                $('.filter').html(data);
+            }
+        });
+	}
+
+    $('.select').click(function(){
+	var changed = false;
+	var tempPrice = $("#optionPrice :selected").val();
+	if(tempPrice != price){
+		price = tempPrice;
+		changed = true;
+	}
+	var tempFood = $("input[name=food]:checked").val()
+
+	if(tempFood != food){
+		food=tempFood;
+		changed = true;
+	}
+	
+	if(changed)
+		filter();
+
+    });
+});
+</script>
 </body>
 </html>
