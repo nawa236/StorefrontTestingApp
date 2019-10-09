@@ -74,12 +74,16 @@ $(document).ready(function(){
 		food=tempFood;
 		changed = true;
 	}
-	
-	if(changed)
+
+	if(changed){
 		filter();
+	}
 
     });
+
+
 });
 </script>
+
 </body>
 </html>
