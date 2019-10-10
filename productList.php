@@ -8,14 +8,26 @@
 
     <title>Product List</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a href="#account">Account</a>
+  <a href="#cart">Cart</a>
+  <div class="search-container">
+   <!-- <form action=" ">  -->
+      <input type="text" placeholder="Search.." name="search" size ="30">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+</div>
 
 <div class="container">
   <div class="flex-grid">
     <aside class="col sidebar">
       <h2>Sidebar</h2>
-
+<div class="sidebarContents">
 
   <h3> Price:</h3>
   <select class="dropdown select price" id="optionPrice">
@@ -33,6 +45,8 @@
   <input type="radio" name="food" class="select foodType" id="radioEntree" value="Entree" > Entree<br>
   <input type="radio" name="food" class="select foodType" id="radioDessert" value="Dessert"> Dessert<br>
   <input type="radio" name="food" class="select foodType" id="radioBreakfast" value="Breakfast"> Breakfast<br>
+
+</div>
 
     </aside>
     <section class="col main">
@@ -52,7 +66,7 @@ $(document).ready(function(){
 
 	function filter(){
 	$.ajax({
-            url:"ProductCards.php",
+            url:"filterProducts.php",
             method:"POST",
             data:{food:food, price:price},
             success:function(data){
