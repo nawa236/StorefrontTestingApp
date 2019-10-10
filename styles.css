@@ -122,7 +122,8 @@ h2 {
   color: grey;
   font-size: 22px;
 }
-.card button {
+.card a.button {
+  display:inline-block;
   border: none;
   outline: 0;
   padding: 12px;
@@ -131,6 +132,7 @@ h2 {
   text-align: center;
   cursor: pointer;
   width: 100%;
+  box-sizing: border-box;
   font-size: 18px;
 }
 .card button:hover {
