@@ -16,10 +16,8 @@
   <a href="#account">Account</a>
   <a href="#cart">Cart</a>
   <div class="search-container">
-   <!-- <form action=" ">  -->
-      <input type="text" placeholder="Search.." name="search" size ="30">
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
+      <input type="text" placeholder="Search.." name="search" size ="30" id="searchBox">
+      <button id="buttonSearchBox"><i class="fa fa-search"></i></button>
   </div>
 </div>
 
@@ -61,6 +59,7 @@
 <script>
 var food = "All";
 var price = "All";
+var searchInput = "";
 $(document).ready(function(){
 	filter();
 
@@ -68,12 +67,28 @@ $(document).ready(function(){
 	$.ajax({
             url:"filterProducts.php",
             method:"POST",
-            data:{food:food, price:price},
+            data:{food:food, price:price,searchInput:searchInput},
             success:function(data){
                 $('.filter').html(data);
             }
         });
 	}
+
+    $("#buttonSearchBox").click(function(){
+	searchSubmit();
+    });
+
+    $("#searchBox").keypress(function(){
+  	if ( event.which == 13 ) {
+    	    searchSubmit(); 
+        }
+    });
+
+    function searchSubmit(){
+   	searchInput = document.getElementById("searchBox").value;
+        filter();
+    }
+
 
     $('.select').click(function(){
 	var changed = false;

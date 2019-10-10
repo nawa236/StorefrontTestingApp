@@ -2,12 +2,15 @@
 
 include('dbConnect.php');
 include('productCard.php');
+$search = $_POST["searchInput"];
+if(str_replace(" ","",$search) == "")
+        $query = "SELECT * FROM product WHERE name IS NOT NULL";
+else
+        $query = "SELECT * FROM product WHERE name LIKE '%" . $search . "%'";
 
-if($_POST["food"] == "All")
-        $query = "SELECT * FROM product WHERE catagory IS NOT NULL";
-else{
-        $query = "SELECT * FROM product WHERE catagory = '" . $_POST["food"] . "'";
-}
+if($_POST["food"] != "All")
+        $query .= " AND catagory = '" . $_POST["food"] . "'";
+
 if($_POST["price"] == "Low")
         $query .= " AND price < 4";
 if($_POST["price"] == "Med")

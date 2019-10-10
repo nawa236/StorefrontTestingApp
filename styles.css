@@ -27,6 +27,10 @@ body {background-color: #F0FFF0;
   color: white;
 }
 
+.topnav a.active:hover {
+  opacity: 0.8;
+}
+
 .topnav .search-container {
   float: right;
 }
@@ -72,7 +76,6 @@ body {background-color: #F0FFF0;
 
 .container {
   margin: auto;
-  font-family: sans-serif;
   line-height: 1.5;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
