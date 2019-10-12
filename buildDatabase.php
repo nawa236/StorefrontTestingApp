@@ -34,6 +34,24 @@ if($result = mysqli_query($connection, $query)){
 	}
 }
 
+// check to see if the store databases are populated, and then populate tables
+$tables = [ "size", "color","category","product"];
+
+foreach($tables as $t){
+    $query = "SELECT * FROM $t;";
+    $dbname = 'EmployeeTraining';
+    $connection = new mysqli($servername, $username, $password, $dbname);
+    if($connection -> connect_error){
+        echo "Error connection to database.";
+    }
+    if($result = mysqli_query($connection, $query)){
+        $row  = mysqli_num_rows($result);
+        if($row < 1){
+            populateTable($connection, $t);
+        }
+    }
+}
+
 // the following functions set the individual table code with constraints
 function productTable(){
     $query = "CREATE TABLE product (
@@ -171,6 +189,54 @@ function buildTables($connection) {
         $sql = call_user_func($value);
         if(mysqli_query($connection, $sql) === FALSE){
             echo mysqli_error($connection);
+        }
+    }
+}
+
+function populateTable($connection, $table){
+    $schema = mysqli_query($connection, "DESCRIBE $table;");
+    $sql = "INSERT INTO $table (";
+    $types = "";
+    foreach($schema as $field){
+        if($field["Field"] != "id"){
+            $sql .= $field["Field"] . ",";
+            switch (substr($field["Type"],0,3)):
+                case "int":
+                    $types .= "i";
+                    break;
+                case "dec":
+                    $types .= "d";
+                    break;
+                default:
+                    $types .= "s";
+            endswitch;
+        }
+    }
+    $sql = rtrim($sql, ',') . ") VALUES (";
+    $count = 1;
+    if(file_exists("resources/$table.csv")){
+        if(($fhandle = fopen("resources/$table.csv", "r")) !== FALSE){
+            while (($data = fgetcsv($fhandle, 0, ",")) !== FALSE) {
+                if($data != null){
+                    $is = ($table == "product" ? 0 : 1);
+                    if($count == 1){
+                        for($i = $is; $i < count($data) ; $i++){
+                            $sql .= "?,";
+                        }
+                        $sql = rtrim($sql, ',') . ");";
+                        $count++;
+                    }
+                    $query = mysqli_prepare($connection, $sql);
+                    $params = array();
+                    array_push($params,$types);
+                    for($i = $is; $i < count($data); $i++){
+                        if($data[$i] == null) { $data[$i] = " "; }
+                        $params[] = & $data[$i];
+                    }
+                    call_user_func_array(array($query, 'bind_param'), $params);
+                    mysqli_stmt_execute($query);
+                }
+            }
         }
     }
 }
