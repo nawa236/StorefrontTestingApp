@@ -13,10 +13,12 @@
 <body>
 <div class="topnav">
   <a class="active" href="https://www.cs.uky.edu/~memu225/StorefrontTestingApp/productList.php">Home</a>
-  <a href="#account">Account</a>
   <a href="#cart">Cart</a>
+  <a href="#orders">Orders</a>
+  <a class="account" href="#account">Account</a>
+
   <div class="search-container">
-      <input type="text" placeholder="Search.." name="search" size ="30" id="searchBox">
+      <input type="text" class="textbox" placeholder="Search.." name="search" id="searchBox">
       <button id="buttonSearchBox"><i class="fa fa-search"></i></button>
   </div>
 </div>
