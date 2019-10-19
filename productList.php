@@ -63,8 +63,15 @@ var food = "All";
 var price = "All";
 var searchInput = "";
 $(document).ready(function(){
+let searchParams = new URLSearchParams(window.location.search)
+	if( searchParams.has('search')){
+	let param = searchParams.get('search')
+		if( document.getElementById("searchBox").value != param){
+			searchInput = param;
+			document.getElementById("searchBox").value = searchInput;
+		}
+	}
 	filter();
-
 	function filter(){
 	$.ajax({
             url:"filterProducts.php",
@@ -88,7 +95,7 @@ $(document).ready(function(){
 
     function searchSubmit(){
    	searchInput = document.getElementById("searchBox").value;
-        filter();
+	window.location.href='./productList.php?search=' + searchInput;
     }
 
 
@@ -115,6 +122,5 @@ $(document).ready(function(){
 
 });
 </script>
-
 </body>
 </html>

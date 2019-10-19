@@ -45,6 +45,26 @@ if(isset($_GET['productName'])){
 echo "<h1> This does not match the intended final design this purely exists as a base template to demonstrate that the pages are properly communicating. </h1>";
 ?>
 
+<script>
+var searchInput = "";
+$(document).ready(function(){
+
+    $("#buttonSearchBox").click(function(){
+	searchSubmit();
+    });
+
+    $("#searchBox").keypress(function(){
+  	if ( event.which == 13 ) {
+    	    searchSubmit(); 
+        }
+    });
+
+    function searchSubmit(){
+   	searchInput = document.getElementById("searchBox").value;
+	window.location.href='./productList.php?search=' + searchInput;
+    }
+});
+</script>
 
 </body>
 </html>
