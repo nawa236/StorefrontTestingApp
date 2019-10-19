@@ -148,6 +148,7 @@ h2 {
   display:inline-block;
   border: none;
   outline: 0;
+  text-decoration: none;
   padding: 12px;
   color: white;
   background-color: purple;

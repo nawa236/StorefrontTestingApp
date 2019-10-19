@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="topnav">
-  <a class="active" href="https://www.cs.uky.edu/~memu225/StorefrontTestingApp/productList.php">Home</a>
+  <a class="active" href="./productList.php">Home</a>
   <a href="#cart">Cart</a>
   <a href="#orders">Orders</a>
   <a class="account" href="#account">Account</a>

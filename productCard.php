@@ -11,11 +11,12 @@ function __construct($name,$price,$description,$foodType) {
       echo "<p class=\"price\">\$$formattedPrice</p>";
       echo "<p>$description</p>";
       $id = "button" . $name;
-     // echo '<p><button id=$id class="productLink">Configure</button></p>';
+      // echo '<p><button id=$id class="productLink">Configure</button></p>';
       $filteredName = str_replace(" ","",$name) ;
-      echo '<p><a href="#';
-      echo $filteredName; 
-      echo '" class="button" >Configure</a></p>';
+      echo '<p><a href="./productPage.php?productName=';
+      echo $name; 
+      echo '" class="button" ';
+      echo "id=$id >Configure</a></p>";
     echo "</div>";
  }
 
