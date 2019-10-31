@@ -1,0 +1,19 @@
+To get the email verification link working with your local XAMPP setup, please do the following:
+
+Find xampp/php/php.ini on your installation
+In php.ini find [mail function] and change:
+	SMTP=smtp.gmail.com
+	smtp_port=587
+	sendmail_from = trissentialbugsite@gmail.com
+	sendmail_path = "\"C:\xampp\sendmail\sendmail.exe\" -t" // Replace with your XAMPP installation if not installed in root of C:\
+	
+	Now go to xampp\sendmail\sendmail.ini and change:
+		[sendmail]
+		
+		smtp_server=smtp.gmail.com
+		smtp_port=587
+		error_logfile=error.log //uncomment
+		debug_logfile=debug.log //uncomment
+		auth_username=trissentialbugsite@gmail.com
+		auth_password=BugsAreFeaturesToo
+		force_sender=trissentialbugsite@gmail.com

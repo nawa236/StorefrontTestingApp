@@ -55,10 +55,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         {
             $password = trim($_POST['password']);
             $fetchedquery = mysqli_fetch_assoc($usernamecheckquery);
-            if ($password == $fetchedquery["password"]) {
+            if (password_verify($password, $fetchedquery["password"])) {
                 $idnum = $fetchedquery["id"];
                 setcookie("TriStorefrontUser", $idnum, "/");
                 $cookiecheck = "You are now logged in";
+                echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'ProductList.php';</script>";
                 //header("Location: ProductList.php");
             }
             else {
