@@ -1,6 +1,6 @@
 <?php 
 
 
-$connect = new PDO("mysql:host=mysql.cs.uky.edu;dbname=memu225", "memu225", "Angrysalad592");
+$connect = new PDO("mysql:host=localhost;dbname=EmployeeTraining", "memu225", "Angrysalad592");
 
 ?>

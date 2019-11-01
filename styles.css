@@ -7,6 +7,8 @@ body {background-color: #F0FFF0;
   background-color: #D8BFD8
 }
 
+img {max-width:100%;}
+
 .topnav a {
   float: right;
   display: block;
@@ -135,6 +137,7 @@ h2 {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   background-color: white;
   max-width: 300px;
+  min-width: 300px;
   margin: 10px;
   text-align: center;
   font-family: arial;
@@ -158,9 +161,30 @@ h2 {
   box-sizing: border-box;
   font-size: 18px;
 }
+
+
+a.oButton {
+  display:inline-block;
+  border: none;
+  outline: 0;
+  padding: 8px;
+  color: white;
+  background-color: purple;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+
 .card a.button:hover {
   opacity: 0.7;
 }
+
+a.oButton:hover {
+  opacity: 0.7;
+}
+
+
 #wrapper {
   display: flex;
   flex-wrap: wrap;  
