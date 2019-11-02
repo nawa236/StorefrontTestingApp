@@ -13,7 +13,7 @@
 
 include('dbConnect.php');
 include('productCard.php');
-$query = "SELECT DISTINCT oID FROM orders,order_products WHERE oID=id AND custid=1;";
+$query = "SELECT DISTINCT oID, status FROM orders,order_products WHERE oID=id AND custid=1;";
 
 
 $statement = $connect->prepare($query);
@@ -24,6 +24,8 @@ $total_row = $statement->rowCount();
 if($total_row > 0) {
 	foreach($result as $row){
 		echo "<p>Order ID: " . $row['oID']. "  ";
+                echo "Status: " . $row['status']. "  ";
+
 		echo '<a href="./orderHistorySingle.php?order=';
       		echo $row['oID']; 
       		echo '" class="oButton" ';

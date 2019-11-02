@@ -19,6 +19,7 @@ if($_POST["price"] == "Med")
 if($_POST["price"] == "High")
         $query .= " AND price > 8";
 
+$query .= " AND id in (SELECT min(id) FROM product WHERE inventory > 0 group by name);";
 $statement = $connect->prepare($query);
 $statement->execute();
 $result = $statement->fetchAll();
