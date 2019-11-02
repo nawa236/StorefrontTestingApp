@@ -169,6 +169,18 @@ function orderTable(){
     return $query;
 }
 
+function orderProductsTable(){
+    $query = "CREATE TABLE order_products(
+              oid INT(11) NOT NULL,
+              pid INT(11) NOT NULL,
+              quantity INT(11) NOT NULL,
+              FOREIGN KEY fk_order (oid) REFERENCES orders(id) ON UPDATE RESTRICT,
+              FOREIGN KEY fk_product (pid) REFERENCES product(id) ON UPDATE RESTRICT
+              );";
+
+    return $query;
+}
+
 function bugTable(){
     $query = "CREATE TABLE bug (
 			id INT(11) NOT NULL AUTO_INCREMENT,
@@ -200,7 +212,7 @@ function assignmentTable(){
 public function buildTables($connection) {
     $db = new Database();
     $functions = [ "size" => "sizeTable", "color" => "colorTable", "category" => "categoryTable",
-        "product" => "productTable", "authentication" => "authenticationTable", "customer" => "customerTable", "order" => "orderTable", "bug" => "bugTable", "assignment" => "assignmentTable"];
+        "product" => "productTable", "authentication" => "authenticationTable", "customer" => "customerTable", "order" => "orderTable", "orderproduct" => "orderProductsTable", "bug" => "bugTable", "assignment" => "assignmentTable"];
 
     foreach($functions as $func=>$value){
         $sql = call_user_func(array($db,$value));
