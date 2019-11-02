@@ -7,45 +7,9 @@
 
     <title>Product Page</title>
     <link rel="stylesheet" href="styles.css">
-<style>
-
-.choose {
-  margin-bottom: 20px;
-}
- 
-.choose button {
-  border: 2px solid #E1E8EE;
-  border-radius: 6px;
-  padding: 13px 20px;
-  font-size: 14px;
-  color: #5E6977;
-  background-color: #fff;
-  cursor: pointer;
-  transition: all .5s;
-}
- 
-.choose button:hover
-{
-  border: 2px solid #86939E;
-  outline: none;
-}
-
-.choose button.active{
-background-color: #358ED7;
-color: white;
-}
-
-button.flashy{
-background-color: Yellow;
-
-}
-</style>
-
 
 </head>
 <body>
-
-
 
 <?php
 require('header.php');
@@ -65,6 +29,9 @@ $statement->execute();
 $origResult = $statement->fetchAll();
 $pName = $origResult[0]['name'];
 echo "<h2> Product Page for: $pName </h2>";
+
+echo "<h1> No quantity select yet and no stock deduction from adding to cart </h1>";
+
 foreach($origResult as $row){
 	echo "Name: " . $row['name'] . "<br>";
 	echo "Description: " . $row['description'] . "<br>";

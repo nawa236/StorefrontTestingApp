@@ -13,7 +13,7 @@ if($total_row == 1){
 	$query = "INSERT INTO order_products VALUES(" . $result[0]['id'] . ", " . $pID . ",1);";
 	$statement = $connect->prepare($query);
 	$statement->execute();
-	echo "Successfully added the item to the cart";
+	echo "Successfully added the item to the cart.";
 }
 else if($total_row == 0){
 	$query = "INSERT INTO orders(status,custid) values ('Incomplete'," . $uID . ");";

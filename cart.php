@@ -30,7 +30,7 @@
 			$result = $statement->fetchAll();
 			echo "<h1> Cart Contents </h1>"; 
 			foreach($result as $row){
-			    echo " Product ID: " . $row['pID'] . " Quantity: " . $row['quantity'] . "<br>";
+			    echo " Product ID: " . $row['pid'] . " Quantity: " . $row['quantity'] . "<br>";
 			}
 		}
 	?>

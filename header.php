@@ -19,8 +19,8 @@
   $cookie_name1 = "TriStorefrontUser";
   $cookie_name2 = "TriStorefrontName";
   if(!isset($_COOKIE[$cookie_name2])){
-	setcookie("TriStorefrontUser", 1 , time()+300);
-	setcookie("TriStorefrontName", "Test", time()+300); 
+	setcookie("TriStorefrontUser", 1 , time()+3600);
+	setcookie("TriStorefrontName", "Test", time()+3600); 
   }
   $accountName = $_COOKIE[$cookie_name2] . "'s Account";
   ?>

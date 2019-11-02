@@ -10,7 +10,7 @@
 
 
 <?php
-
+require('header.php');
 include('dbConnect.php');
 $order = $_GET["order"];
 
@@ -25,7 +25,7 @@ $total_row = $statement->rowCount();
 echo "<h1> Order ID: " . $_GET["order"] . " Contents </h1>"; 
 if($total_row > 0) {
 	foreach($result as $row){
-		echo " Product ID: " . $row['pID'] . " Quantity: " . $row['quantity'] . "<br>";
+		echo " Product ID: " . $row['pid'] . " Quantity: " . $row['quantity'] . "<br>";
 	}
 }
 

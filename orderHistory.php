@@ -10,10 +10,10 @@
 
 
 <?php
-
+require('header.php');
 include('dbConnect.php');
-include('productCard.php');
-$query = "SELECT DISTINCT oID, status FROM orders,order_products WHERE oID=id AND custid=1;";
+$id = $_COOKIE["TriStorefrontUser"];
+$query = "SELECT DISTINCT oID, status FROM orders,order_products WHERE oid=id AND status != 'Incomplete' and custid=$id;";
 
 
 $statement = $connect->prepare($query);
