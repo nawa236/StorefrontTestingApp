@@ -27,8 +27,10 @@ else if($total_row == 0){
 	$result = $statement->fetchAll();
         $query = "INSERT INTO order_products VALUES(" . $result[0]['id'] . ", " . $pID . ",1);";
         $statement = $connect->prepare($query);
-        $statement->execute();
-        echo "Successfully added the item to the cart";
+        if($statement->execute())
+            echo "Successfully added the item to the cart.";
+	else
+	    echo "Item was not added to the cart.";
 }
 else
 echo "Well, there are multiple carts, everything is on fire apparently.";
