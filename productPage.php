@@ -30,13 +30,11 @@ $origResult = $statement->fetchAll();
 $pName = $origResult[0]['name'];
 echo "<h2> Product Page for: $pName </h2>";
 
-echo "<h1> No quantity select yet and no stock deduction from adding to cart </h1>";
-
 foreach($origResult as $row){
-	echo "Name: " . $row['name'] . "<br>";
-	echo "Description: " . $row['description'] . "<br>";
-        echo "Price: " . $row['price'] . "<br>";
-        echo "Stock: " . $row['inventory'] . "<br>";
+	echo "<b>Name:</b> " . $row['name'] . "<br>";
+	echo "<b>Description:</b> " . $row['description'] . "<br>";
+        echo "<b>Price:</b> " . $row['price'] . "<br>";
+        echo "<b>Stock:</b> " . $row['inventory'] . "<br>";
 }
 
 echo "<br>";
@@ -44,6 +42,7 @@ echo "<br>";
 $currentColor = $origResult[0]['color'];
 $currentSize = $origResult[0]['size'];
 $currentSKU = $origResult[0]['sku'];
+$inv = $origResult[0]['inventory'];
 
 
 $query = "SELECT DISTINCT color.description, product.color FROM product, color  WHERE product.color = color.id AND name = '" .$pName;
@@ -87,9 +86,6 @@ $skuResult = $statement->fetchAll();
             echo $row['description'] . "</button>";
         }
         ?>
-
-
-
          </div>
 </div>
 
@@ -129,7 +125,8 @@ $skuResult = $statement->fetchAll();
 
 <div class="toCart">
         <div class="choose">
-                <button id="button_addToCart" class="flashy">Add to Cart</button>
+		<button id="button_addToCart" class="flashy">Add to Cart</button>
+		<input type="number" onkeypress="return event.charCode >=48" min="1" value="1" style="width: 48px" id="quantitySelect"> 
         </div>
 </div>
 
@@ -139,9 +136,10 @@ $skuResult = $statement->fetchAll();
 var currentColor = "<?php echo $currentColor ?>";
 var currentSize = "<?php echo $currentSize ?>";
 var currentSKU = "<?php echo $currentSKU ?>";
+var inv =  "<?php echo $inv ?>";
 var pName = "<?php echo $pName ?>";
 var pID = "<?php echo $id ?>";
-var uID = "<?php echo $_COOKIE['TriStorefrontUser']; ?>"
+var uID = "<?php echo $_COOKIE['TriStorefrontUser']; ?>";
 $(document).ready(function(){
  $('.bColor').click(function(){
         if(currentColor != $.trim($(this).val())){
@@ -167,14 +165,15 @@ $(document).ready(function(){
     });
 
  $('.flashy').click(function(){
-	addToCart();
+	var quantity = document.getElementById("quantitySelect").value;
+	addToCart(quantity);
     });
 
-function addToCart(){
+function addToCart(quantity){
 $.ajax({
             url:"addToCart.php",
             method:"POST",
-            data:{pID:pID, uID:uID},
+            data:{pID:pID, uID:uID, quantity:quantity, inv:inv},
             success:function(data){
                 alert(data);
             }
