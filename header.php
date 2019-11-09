@@ -9,33 +9,30 @@
 </head>
 <body>
 
-
-<div class="topnav">
-  <a class="active" href="./productList.php">Home</a>
-  <a href="./cart.php">Cart</a>
-  <a href="./orderHistory.php">Orders</a>
 <?php
   include('dbConnect.php');
   $accountName = "Account";
   $cookie_name1 = "TriStorefrontUser";
   $cookie_name2 = "TriStorefrontName";
   if(!isset($_COOKIE[$cookie_name1]))
-	setcookie("TriStorefrontUser", 1 , time()+3600);
+        setcookie("TriStorefrontUser", 1 , time()+3600);
   if(!isset($_COOKIE[$cookie_name2])){
-	$query = "SELECT fname FROM customer WHERE id=" . $_COOKIE[$cookie_name1] . ";";
-	$statement = $connect->prepare($query);
-	$statement->execute();
-	$result = $statement->fetchAll();
-	$newName = $result[0]['fname'];
-	setcookie("TriStorefrontName", $newName, time()+3600);
+        $query = "SELECT fname FROM customer WHERE id=" . $_COOKIE[$cookie_name1] . ";";
+        $statement = $connect->prepare($query);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $newName = $result[0]['fname'];
+        setcookie("TriStorefrontName", $newName, time()+3600);
         $accountName = $newName . "'s Account";
   }
   else
-  	$accountName = $_COOKIE[$cookie_name2] . "'s Account";
-  ?>
+        $accountName = $_COOKIE[$cookie_name2] . "'s Account";
+?>
 
-
-
+<div class="topnav">
+  <a class="active" href="./productList.php">Home</a>
+  <a href="./cart.php">Cart</a>
+  <a href="./orderHistory.php">Orders</a>
   <a class="account" href="#account"><?php echo $accountName ?></a>
 
   <div class="search-container">
