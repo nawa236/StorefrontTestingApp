@@ -40,6 +40,11 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         if ($hash == $fetchedquery["hash"]) {
             $query = "UPDATE authentication SET status = 1 WHERE email = '$email'";
             $result = mysqli_query($connection, $query);
+            $idnum = $fetchedquery["id"];
+            setcookie("TriStorefrontUser", $idnum, "/");
+            $message = "Account verified successfully. Please click on the link below to go to the login page and login!";
+            $verified = 1;
+            echo "<script type='text/javascript'>alert('Please enter your information on the next page'); window.location = 'firsttime.php';</script>";
         }
         else {
             $message = "There has been an error verifying your account, please make sure you have copied the URL correctly and try again.\nIf you continue to have problems please contact an administrator";
@@ -49,8 +54,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         $message = "There has been an error verifying your account, please make sure you have copied the URL correctly and try again.\nIf you continue to have problems please contact an administrator";
     }
 
-    $message = "Account verified successfully. Please click on the link below to go to the login page and login!";
-    $verified = 1;
+
         
 
 }
