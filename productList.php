@@ -30,10 +30,10 @@
 <fieldset>
 <legend><b>Price</b></legend>
 <div class="slidecontainer">
-  <p id="minPriceDisplay">Min: $0</p>
+  <p>Min: $<input type="number" id="minBox" value="0" min="0" max="150" onkeypress="return event.charCode >=48" style="width: 45px"></p>
   <input type="range" min="0" max="150" value="0" class="slider" id="minPriceSlider" oninput="updateMin(this.value)" onchange="finalizeMin(this.value)">
 
-  <p id="maxPriceDisplay">Max: $150</p>
+  <p>Max: $<input type="number" id="maxBox" value="150" min="0" max="150" onkeypress="return event.charCode >=48" style="width: 45px"></p>
   <input type="range" min="0" max="150" value="150" class="slider" id="maxPriceSlider" oninput="updateMax(this.value)" onchange="finalizeMax(this.value)">
 </div>
 
@@ -69,6 +69,31 @@ var maxPrice = 150;
 var searchInput = "";
 var sort = "name Asc";
 
+document.getElementById("minBox").onchange = function() {moveSliderMin(document.getElementById('minBox').value)};
+document.getElementById("maxBox").onchange = function() {moveSliderMax(document.getElementById('maxBox').value)};
+
+function moveSliderMin(newVal){ 
+    if(newVal == minPrice)
+	return;
+    if(newVal > 150){
+	newVal = 150;
+	document.getElementById('minBox').value = 150;
+    }
+    document.getElementById('minPriceSlider').value = newVal;
+    finalizeMin(newVal);
+}
+
+function moveSliderMax(newVal){
+    if(newVal == maxPrice)
+        return;
+    if(newVal > 150){
+        newVal = 150;
+        document.getElementById('maxBox').value = 150;
+    }
+    document.getElementById('maxPriceSlider').value = newVal;
+    finalizeMax(newVal);
+}
+
 function finalizeMin(newVal){
     minPrice = newVal;
     updateMin(newVal);
@@ -84,17 +109,17 @@ function finalizeMax(newVal){
 }
 
 function updateMin(newVal){
-    document.getElementById('minPriceDisplay').innerHTML="Min: $" + newVal;
+    document.getElementById('minBox').value=newVal;
     if(newVal >= Number(document.getElementById('maxPriceSlider').value)){
 	document.getElementById('maxPriceSlider').value = Number(newVal);
-        document.getElementById('maxPriceDisplay').innerHTML="Max: $" + Number(newVal);
+        document.getElementById('maxBox').value=Number(newVal);
      }
 }
 function updateMax(newVal){
-    document.getElementById('maxPriceDisplay').innerHTML="Max: $" + newVal;
+    document.getElementById('maxBox').value=newVal;
     if(newVal <= Number(document.getElementById('minPriceSlider').value)){
     	document.getElementById('minPriceSlider').value = Number(newVal);
-    	document.getElementById('minPriceDisplay').innerHTML="Min: $" + Number(newVal);
+    	document.getElementById('minBox').value=Number(newVal);
     }
 }
 
@@ -140,6 +165,18 @@ $(document).ready(function(){
 	if(changed){
 		filter();
 	}
+    });
+
+    $("#minBox").keypress(function(){
+  	if ( event.which == 13 ) {
+    	    moveSliderMin(document.getElementById('minBox').value);
+        }
+    });
+
+     $("#maxBox").keypress(function(){
+        if ( event.which == 13 ) {
+            moveSliderMax(document.getElementById('maxBox').value);
+        }
     });
 
 });
