@@ -16,10 +16,10 @@
 		
 	?>
 	<form action= "./reciept.php">
-		Billing Information:
-		First name:<br>
+		Billing Information:<br>
+		First name: 
 		<input type="text" name="firstname"><br>
-		Last name:<br>
+		Last name: 
 		<input type="text" name="lastname"><br>
 		Address:
 		<input type="text" name="address"><br>
@@ -87,7 +87,7 @@
 		Card Number:
 		<input type="text" name="creditcard"><br>
 		Expiration Date:
-		<input type="date" name="expiration" min="2019-11" max="2023-11"><br>
+		<input type="month" name="expiration" min="2019-11" max="2023-11"><br>
 		<script>
 			var min = new Date();
 			var max = new Date();

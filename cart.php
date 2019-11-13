@@ -30,9 +30,14 @@
 			$result = $statement->fetchAll();
 			echo "<h1> Cart Contents </h1>"; 
 			echo "<form action="./checkout.php">";
+			$total = 0;
 			foreach($result as $row){
-			    new cartCard($row['name'],$row['price'],$row['quantity');
+			    /*new cartCard($row['name'],$row['price'],$row['quantity');*/
+				$total += ($price * $quantity)
 			}
+			echo "<p> Total: ";
+			echo $total;
+			echo "</p>";
 			echo "<input type="submit" value="Checkout">";
 			echo "</form>";
 		}
