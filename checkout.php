@@ -15,7 +15,7 @@
 		include('dbConnect.php');
 		
 	?>
-	<form>
+	<form action= "./reciept.php">
 		Billing Information:
 		First name:<br>
 		<input type="text" name="firstname"><br>

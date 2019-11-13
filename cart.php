@@ -29,9 +29,12 @@
 			$statement->execute();
 			$result = $statement->fetchAll();
 			echo "<h1> Cart Contents </h1>"; 
+			echo "<form action="./checkout.php">";
 			foreach($result as $row){
 			    new cartCard($row['name'],$row['price'],$row['quantity');
 			}
+			echo "<input type="submit" value="Checkout">";
+			echo "</form>";
 		}
 	?>
 </body>
