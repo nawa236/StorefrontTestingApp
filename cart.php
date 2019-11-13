@@ -24,13 +24,13 @@
 			echo "<p> Error: Multiple incomplete orders detected </p>";
 		} else {
 			$oID = $result[0]['id'];
-			$query = "SELECT * FROM order_products WHERE oID=$oID";
+			$query = "SELECT * FROM order_products NATURAL JOIN product WHERE oID=$oID";
 			$statement = $connect->prepare($query);
 			$statement->execute();
 			$result = $statement->fetchAll();
 			echo "<h1> Cart Contents </h1>"; 
 			foreach($result as $row){
-			    echo " Product ID: " . $row['pid'] . " Quantity: " . $row['quantity'] . "<br>";
+			    new cartCard($row['name'],$row['price'],$row['quantity');
 			}
 		}
 	?>
