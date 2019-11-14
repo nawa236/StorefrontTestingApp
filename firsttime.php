@@ -21,7 +21,6 @@ $dbname = 'EmployeeTraining';
 $connection = new mysqli($servername, $username, $password, $dbname);
 
 $userid = 0;
-$loggedin = 0;
 $pageinfo = "";
 
 $emailError = "";
@@ -36,7 +35,7 @@ $address1Error = "";
 $cityError = "";
 $state_provinceError = "";
 $postalcodeError = "";
-$accountMessage = "test";
+$accountMessage = "";
 
 
 
@@ -48,53 +47,8 @@ if($connection -> connect_error){
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // If POST is related to login form
-    if (isset($_POST['email']) || isset ($_POST['password'])) {
-        if (empty($_POST['email']) && empty($_POST['password'])) {
-            $emailError = "Email is required";
-            $emailError = "password is required";
 
-        }
-        else if (empty($_POST['email'])) {
-            $emailError = "Email is required";
-        }
-        else if (empty($_POST['password'])) {
-            $passwordError = "password is required";
-        }
-        else {
-
-            $username = trim($_POST['email']);
-            $usernamecheck = "SELECT * FROM  authentication WHERE email = '" . $username . "'"; 
-            $usernamecheckquery = mysqli_query($connection, $usernamecheck);
-            $usernamecheckcount = mysqli_num_rows($usernamecheckquery);
-
-            if ($usernamecheckcount == 0) {
-
-                $accountError = "No user found with that email.";
-            }
-            else
-            {
-                $password = trim($_POST['password']);
-                $fetchedquery = mysqli_fetch_assoc($usernamecheckquery);
-                if (password_verify($password, $fetchedquery["password"])) {
-                    $idnum = $fetchedquery["id"];
-                    setcookie("TriStorefrontUser", $idnum, "/");
-                    $cookiecheck = "You are now logged in";
-                    //echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'ProductList.php';</script>";
-                    //header("Location: ProductList.php");
-                }
-                else {
-                    $accountError = "Incorrect password";
-                }
-
-
-
-            }
-        }
-    }
-    // Else post must be related to account info
-    else {
-        if (empty($_POST['fname']) || empty($_POST['mname']) || empty($_POST['lname']) || empty($_POST['address1']) || empty($_POST['city']) || empty($_POST['state_province']) || empty($_POST['postalcode'])) {
+    if (empty($_POST['fname']) || empty($_POST['mname']) || empty($_POST['lname']) || empty($_POST['address1']) || empty($_POST['city']) || empty($_POST['state_province']) || empty($_POST['postalcode'])) {
 
             if (empty($_POST['fname'])) {
                 $fnameError = "Please enter a first name";
@@ -117,7 +71,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             if (empty($_POST['postalcode'])) {
                 $postalcodeError = "Please enter a postal code";
             }
-        }
+    }
         else {
 
             $fname = trim($_POST['fname']);
@@ -147,14 +101,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         }
-    }
 }
 
 
 
 
 if(isset($_COOKIE["TriStorefrontUser"])) {
-    $loggedin = 1;
     $userid = $_COOKIE["TriStorefrontUser"];
     $idcheck = "SELECT * FROM  authentication WHERE id = '" . $userid . "'"; 
     $idcheckresult = mysqli_query($connection, $idcheck);
@@ -163,7 +115,6 @@ if(isset($_COOKIE["TriStorefrontUser"])) {
     // This should never happen, but this will occur if there isn't actually account authentication info in the DB even though a cookie is set.
     if ($idcheckcount == 0) {
             $pageinfo = "An error has occured. Please attempt to log in below. Contact an adminstrator if this issue continues to persist";
-            $loggedin = 0;
     }
     else {
 
@@ -180,6 +131,9 @@ if(isset($_COOKIE["TriStorefrontUser"])) {
         }
     }
 }
+else {
+    echo "<script type='text/javascript'>alert('Please log in to continue account creation'); window.location = 'firsttimelogin.php';</script>";
+}
 
 
 
@@ -191,9 +145,7 @@ require('header.php');
 
 <h3 id="formhead"> <?php echo $pageinfo ?> </h3>
 
-<?php 
-if ($loggedin = 1) { 
-echo '
+
 <form id="info_form" action="firsttime.php" method="post">
 <fieldset>
 <legend>Account Information</legend>
@@ -220,7 +172,6 @@ echo '
 <div class="form-group">
 <label for="address2">Address 2: </label>
 <input class="form-control" type="text" name="address2" id="address2" maxlength="50" />
-<span class="error"> <?php echo $address2Error;?> </span> </div>
 
 <div class="form-group">
 <label for="city">City: </label>
@@ -242,30 +193,6 @@ echo '
 </fieldset>
 </form>
 
-<span class="message"> <?php echo $accountMessage; ?> </span>
-<span class="error"> <?php echo $duplicateError; ?> </span>
-';} // if
-else {
-echo '
-<form id="login_form" action="login.php" method="post">
-<fieldset>
-<legend>Login</legend>
-<div class="form-group">	
-<label for="email">Email: </label>
-<input class="form-control" type="text" name="email" id="email" maxlength="50" />
-<span class="error"> <?php echo $emailError;?> </span> </div>
-
-<div class="form-group">
-<label for="password">Password: </label>
-<input class="form-control" type="password" name="password" id="password" maxlength="10" />
-<span class="error"> <?php echo $passwordError;?> </span> </div>
-
-<input type="hidden" name="utype" value="2" />
-<input class="btn btn-default" type="submit" name="submit" value="Login" />
-</fieldset>
-</form>
-';} // else
-?>
 <span class="message"> <?php echo $accountMessage; ?> </span>
 
 </body>
