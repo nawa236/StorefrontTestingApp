@@ -1,0 +1,35 @@
+	<?php
+		require('header.php');
+		include('dbConnect.php');
+		foreach($_GET as $query_string_variable => $value) {
+			if($query_string_variable == 'save'){
+				$option = 1;
+			} else if($query_string_variable == 'checkout'){
+				$option = 2;
+			} else if($query_string_variable == 'oID'){
+				$oID = $value;
+			} else {
+				$q = (int)$value;
+				$pID = (int)$query_string_variable;
+				if($q == 0){
+					$query = "DELETE FROM order_products WHERE pid = $pID AND oid=$oID";
+					$statement = $connect->prepare($query);
+					$statement->execute();
+				} else {
+					$query = "UPDATE order_products SET quantity = $q WHERE pid = $pID AND oid=$oID";
+					$statement = $connect->prepare($query);
+					$statement->execute();
+				}
+			}
+		};
+		
+		if($option == 1){
+			header('Location: ./cart.php');
+			die();
+		}else if($option == 2){
+			header('Location: ./checkout.php');
+			die();
+		}else{
+			echo "How did you get here?";
+		}
+	?>

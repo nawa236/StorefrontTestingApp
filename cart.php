@@ -19,6 +19,7 @@
 		$statement->execute();
 		$result = $statement->fetchAll();
 		$total_row = $statement->rowCount();
+
 		if ($total_row == 0){
 			echo "<p> There is nothing in your cart </p>";
 		} else if ($total_row >= 2) {
@@ -30,20 +31,28 @@
 			$statement->execute();
 			$result = $statement->fetchAll();
 			echo "<h1> Cart Contents </h1>";
-			echo '<form action="./checkout.php">';
-			$total = 0;
+			echo '<form action="./save.php">';
+			echo '<input type="hidden" name="oID" value="' . $oID . '" />';
+			$subtotal = 0;
 			echo '<div id="wrapper" class="filter">';
 			foreach($result as $row){
 				$price = $row['price'];
 				$quantity = $row['quantity'];
 			        new cartCard($row['name'],$row['sku'],$price,$quantity,$row['id']);
-				$total += ($price * $quantity);
+				$subtotal += ($price * $quantity);
 			}
 			echo "</div>";
+			echo '<p style="text-align: right; margin: 10px;"> Subtotal: $';
+			echo number_format($subtotal,2);
+			echo '<p style="text-align: right; margin: 10px;"> Tax (6%): $';
+			$tax = $subtotal * .06;
+			echo number_format($tax,2);
 			echo '<p style="text-align: right; margin: 10px;"> Total: $';
+			$total = $subtotal + $tax;
 			echo number_format($total,2);
 			echo "</p>";
-			echo '<input type="submit" value="Checkout" style="float: right; margin: 10px;">';
+			echo '<input type="submit" value="Checkout" name="checkout" style="float: right; margin: 10px;">';
+			echo '<input type="submit" value="Save" name="save" style="float: right; margin: 10px;">';
 			echo "</form>";
 		}
 	?>

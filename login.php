@@ -8,13 +8,7 @@ ini_set('display_errors',1);
 error_reporting(E_ALL);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-$servername = 'localhost';
-$username = 'root';
-$password = ''; // use your own username and password for the server.
-
-$dbversion = 0.1;
-$dbname = 'EmployeeTraining';
-$connection = new mysqli($servername, $username, $password, $dbname);
+require('dbConnect.php');
 
 $emailError = "";
 $passwordError = "";
@@ -56,15 +50,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $password = trim($_POST['password']);
             $fetchedquery = mysqli_fetch_assoc($usernamecheckquery);
             if (password_verify($password, $fetchedquery["password"])) {
+                $idnum = $fetchedquery["id"];
+                setcookie("TriStorefrontUser", $idnum,time()+3600, "/");
+                $cookiecheck = "You are now logged in";
+                echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'productList.php';</script>";
+                //header("Location: productList.php");
                 if ($fetchedquery["type"] == 1) {
                     $idnum = $fetchedquery["id"];
-                    setcookie("TriStorefrontUser", $idnum, "/");
+                    setcookie("TriStorefrontUser", $idnum,time()+3600, "/");
                     $cookiecheck = "You are now logged in";
                     echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'adminpage.php';</script>";   
                 }
                 else {
                     $idnum = $fetchedquery["id"];
-                    setcookie("TriStorefrontUser", $idnum, "/");
+                    setcookie("TriStorefrontUser", $idnum,time()+3600, "/");
                     $cookiecheck = "You are now logged in";
                     echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'ProductList.php';</script>";
                 }

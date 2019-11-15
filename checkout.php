@@ -5,17 +5,45 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <title>Cart</title>
+    <title>Checkout</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
+	<form action= "./reciept.php">
 	<?php
 		require('header.php');
 		include('dbConnect.php');
+		$id = $_COOKIE["TriStorefrontUser"];
+		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
+		$statement = $connect->prepare($query);
+		$statement->execute();
+		$result = $statement->fetchAll();
+		$total_row = $statement->rowCount();
+		$oID = $result[0]['id'];
+		$query = "SELECT * FROM order_products, product WHERE pid=id AND oid=$oID";
+		$statement = $connect->prepare($query);
+		$statement->execute();
+		$result = $statement->fetchAll();
+		$subtotal = 0;
+		echo '<div style="float:right; margin: 10px;">';
+		foreach($result as $row){
+			$price = $row['price'];
+			$quantity = $row['quantity'];
+			$subtotal += ($price * $quantity);
+		}
+		$tax = $subtotal * .06;
+		$total = $subtotal + $tax;
 		
+		echo '<input type="radio" name="ship" value="standard" checked> Standard (Free)<br>';
+		echo '<input type="radio" name="ship" value="2day"> 2-Day (+$10.99)<br>';
+		echo '<input type="radio" name="ship" value="overnight"> Over-Night (+$99.99)<br>';
+		
+		echo "<p>Subtotal = $$subtotal </p>";
+		echo "<p>Tax = $$tax </p>";
+		echo "<p>Total = $$total </p>";
+		echo '</div>';
 	?>
-	<form action= "./reciept.php">
+	
 		Billing Information:<br>
 		First name: 
 		<input type="text" name="firstname"><br>
@@ -92,12 +120,7 @@
 			<span>/</span>
 			<input type="text" name="year" placeholder="YY" maxlength="2" size="2">
 		</span><br>
-		<script>
-			var yyyy = today.getFullYear();
-			document.getElementById("year").setAttribute("min", yyyy);
-			yyyy = today.getFullYear()+4;
-			document.getElementById("year").setAttribute("min", yyyy);
-		</script>
+
 		Security Code:
 		<input type="text" name="security" maxlength="3"><br>
 		<input type="submit" value="Checkout"><br>
