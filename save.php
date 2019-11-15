@@ -2,11 +2,11 @@
 		require('header.php');
 		include('dbConnect.php');
 		foreach($_GET as $query_string_variable => $value) {
-			if($query_string_variable === 'save'){
+			if($query_string_variable == 'save'){
 				$option = 1;
-			} else if($query_string_variable === 'checkout'){
+			} else if($query_string_variable == 'checkout'){
 				$option = 2;
-			else if($query_string_variable === 'oID'){
+			else if($query_string_variable == 'oID'){
 				$oID = $value;
 			} /*else {
 				$q = (int)$value;
