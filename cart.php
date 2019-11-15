@@ -31,7 +31,7 @@
 			$statement->execute();
 			$result = $statement->fetchAll();
 			echo "<h1> Cart Contents </h1>";
-			echo '<form action="./save.php" method="POST">';
+			echo '<form action="./save.php">';
 			echo '<input type="hidden" name="oID" value="' . $oID . '" />';
 			$total = 0;
 			echo '<div id="wrapper" class="filter">';
