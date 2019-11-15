@@ -100,13 +100,7 @@
 			<span>/</span>
 			<input type="text" name="year" placeholder="YY" maxlength="2" size="2">
 		</span><br>
-		<script>
-			var yyyy = today.getFullYear();
-			yyyy = yyyy.toString().substr(-2)
-			document.getElementById("year").setAttribute("min", yyyy);
-			yyyy = today.getFullYear()+4;
-			document.getElementById("year").setAttribute("min", yyyy);
-		</script>
+
 		Security Code:
 		<input type="text" name="security" maxlength="3"><br>
 		<input type="submit" value="Checkout"><br>
