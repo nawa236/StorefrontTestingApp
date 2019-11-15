@@ -7,7 +7,7 @@ function __construct($name,$sku,$price,$quantity,$pid) {
       echo "<h1 style=\"float:left;\">$name</h1>";
       $formattedPrice = number_format ($price,2);
       echo "<p style=\"float:right;\">SKU: "
-	  echo $sku;
+      echo "$sku";
 	  echo "</p>"
       echo '<p class=\"price\" style=\"float:right;\">$' . $formattedPrice . '</p>';
       echo '<p style=\"float:right;\">Quantity: <input type="number" id="cart_quantity_' . $pid; 
