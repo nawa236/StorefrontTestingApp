@@ -9,10 +9,11 @@
 			else if($query_string_variable === 'oID'){
 				$oID = $value;
 			} else {
-				$query = "UPDATE order_products SET quantity = $value WHERE pid = $query_string_variable AND oid=$oID";
+				$q = (int)$value;
+				$pID = (int)$query_string_variable;
+				$query = "UPDATE order_products SET quantity = $q WHERE pid = $pID AND oid=$oID";
 				$statement = $connect->prepare($query);
 				$statement->execute();
-				echo mysql_errno($link) . ": " . mysql_error($connect). "\n";
 			}
 		};
 		
