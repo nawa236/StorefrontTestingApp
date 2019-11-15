@@ -14,6 +14,11 @@
 		include('dbConnect.php');
 		include('cartCard.php');
 		$id = $_COOKIE["TriStorefrontUser"];
+		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';"; /*need to confirm status possibilites*/
+		$statement = $connect->prepare($query);
+		$statement->execute();
+		$result = $statement->fetchAll();
+		$total_row = $statement->rowCount();
 
 		if ($total_row == 0){
 			echo "<p> There is nothing in your cart </p>";
