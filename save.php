@@ -18,9 +18,11 @@
 		};
 		
 		if($option == 1){
-			echo "Saved";
+			header('Location: ./cart.php');
+			die();
 		}else if($option == 2){
-			echo "Checking out";
+			header('Location: ./checkout.php');
+			die();
 		}else{
 			echo "How did you get here?";
 		}
