@@ -15,7 +15,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 $servername = 'localhost';
 $username = 'root';
-$password = ''; // use your own username and password for the server.
+$password = 'TriBugApp'; // use your own username and password for the server.
 
 $dbversion = 0.1;
 $dbname = 'EmployeeTraining';

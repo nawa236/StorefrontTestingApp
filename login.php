@@ -1,4 +1,4 @@
-kltttttttt'<!DOCTYPE html>
+<!DOCTYPE html>
 
 <?php
 
@@ -10,7 +10,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 $servername = 'localhost';
 $username = 'root';
-$password = ''; // use your own username and password for the server.
+$password = 'TriBugApp'; // use your own username and password for the server.
 
 $dbversion = 0.1;
 $dbname = 'EmployeeTraining';
@@ -59,7 +59,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $idnum = $fetchedquery["id"];
                 setcookie("TriStorefrontUser", $idnum, "/");
                 $cookiecheck = "You are now logged in";
-                echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'ProductList.php';</script>";
+                echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'productList.php';</script>";
                 //header("Location: ProductList.php");
             }
             else {
