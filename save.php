@@ -6,7 +6,7 @@
 				$option = 1;
 			} else if($query_string_variable == 'checkout'){
 				$option = 2;
-			else if($query_string_variable == 'oID'){
+			} else if($query_string_variable == 'oID'){
 				$oID = $value;
 			} /*else {
 				$q = (int)$value;
