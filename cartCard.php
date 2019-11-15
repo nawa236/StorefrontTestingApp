@@ -13,7 +13,7 @@ function __construct($name,$sku,$price,$quantity,$pid) {
       $total = $price * $quantity;
       echo number_format($total,2). " </p>";
       echo '<p style="float:right; margin: 10px;">	Quantity: <input type="number" id="cart_quantity_' . $pid; 
-      echo '" style="width: 60px" name="cart_quantity_' . $pid;
+      echo '" style="width: 60px" name="' . $pid;
 	  echo ' min="0" onkeypress="return event.charCode >= 48" step="1" value=' . $quantity . '> </p>';
       echo '<p style="float:right; margin: 10px;">	$' . $formattedPrice . ' </p>';
     echo "</div>";
