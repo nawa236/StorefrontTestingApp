@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
+	<form action= "./reciept.php">
 	<?php
 		require('header.php');
 		include('dbConnect.php');
@@ -34,12 +34,16 @@
 		$tax = $subtotal * .06;
 		$total = $subtotal + $tax;
 		
-		echo "<p>Subtotal = $ $subtotal </p>";
-		echo "<p>Tax = $ $tax </p>";
-		echo "<p>Total = $ $total </p>";
+		echo '<input type="radio" name="ship" value="male"> Standard (Free)<br>';
+		echo '<input type="radio" name="ship" value="female"> 2-Day (+$10.99)<br>';
+		echo '<input type="radio" name="ship" value="other"> Over-Night (+$99.99)<br>';
+		
+		echo "<p>Subtotal = $$subtotal </p>";
+		echo "<p>Tax = $$tax </p>";
+		echo "<p>Total = $$total </p>";
 		echo '</div>';
 	?>
-	<form action= "./reciept.php">
+	
 		Billing Information:<br>
 		First name: 
 		<input type="text" name="firstname"><br>
