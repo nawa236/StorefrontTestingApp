@@ -11,9 +11,15 @@
 			} else {
 				$q = (int)$value;
 				$pID = (int)$query_string_variable;
-				$query = "UPDATE order_products SET quantity = $q WHERE pid = $pID AND oid=$oID";
-				$statement = $connect->prepare($query);
-				$statement->execute();
+				if($q == 0){
+					$query = "DELETE FROM order_products WHERE pid = $pID AND oid=$oID";
+					$statement = $connect->prepare($query);
+					$statement->execute();
+				} else {
+					$query = "UPDATE order_products SET quantity = $q WHERE pid = $pID AND oid=$oID";
+					$statement = $connect->prepare($query);
+					$statement->execute();
+				}
 			}
 		};
 		
