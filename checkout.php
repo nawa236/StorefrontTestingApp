@@ -34,9 +34,9 @@
 		$tax = $subtotal * .06;
 		$total = $subtotal + $tax;
 		
-		echo '<input type="radio" name="ship" value="male"> Standard (Free)<br>';
-		echo '<input type="radio" name="ship" value="female"> 2-Day (+$10.99)<br>';
-		echo '<input type="radio" name="ship" value="other"> Over-Night (+$99.99)<br>';
+		echo '<input type="radio" name="ship" value="standard" checked> Standard (Free)<br>';
+		echo '<input type="radio" name="ship" value="2day"> 2-Day (+$10.99)<br>';
+		echo '<input type="radio" name="ship" value="overnight"> Over-Night (+$99.99)<br>';
 		
 		echo "<p>Subtotal = $$subtotal </p>";
 		echo "<p>Tax = $$tax </p>";
