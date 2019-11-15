@@ -5,19 +5,36 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <title>Cart</title>
+    <title>Checkout</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 	<?php
-		require('header.php');
+		require('header.php1');
 		include('dbConnect.php');
 		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
 		$statement = $connect->prepare($query);
 		$statement->execute();
 		$result = $statement->fetchAll();
-		$order = $row['oID'];
+		$total_row = $statement->rowCount();
+		$oID = $result[0]['id'];
+		$query = "SELECT * FROM order_products, product WHERE pid=id AND oid=$oID";
+		$statement = $connect->prepare($query);
+		$statement->execute();
+		$result = $statement->fetchAll();
+		$subtotal = 0;
+		foreach($result as $row){
+			$price = $row['price'];
+			$quantity = $row['quantity'];
+			$subtotal += ($price * $quantity);
+		}
+		$tax = $subtotal * .06;
+		$total = $subtotal + $tax;
+		
+		echo "Subtotal = $" . $subtotal;
+		echo "Tax = $" . $tax;
+		echo "Total = $" . $total;
 	?>
 	<form action= "./reciept.php">
 		Billing Information:<br>

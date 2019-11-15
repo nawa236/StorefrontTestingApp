@@ -33,16 +33,22 @@
 			echo "<h1> Cart Contents </h1>";
 			echo '<form action="./save.php">';
 			echo '<input type="hidden" name="oID" value="' . $oID . '" />';
-			$total = 0;
+			$subtotal = 0;
 			echo '<div id="wrapper" class="filter">';
 			foreach($result as $row){
 				$price = $row['price'];
 				$quantity = $row['quantity'];
 			        new cartCard($row['name'],$row['sku'],$price,$quantity,$row['id']);
-				$total += ($price * $quantity);
+				$subtotal += ($price * $quantity);
 			}
 			echo "</div>";
+			echo '<p style="text-align: right; margin: 10px;"> Subtotal: $';
+			echo number_format($subtotal,2);
+			echo '<p style="text-align: right; margin: 10px;"> Tax (6%): $';
+			$tax = subtotal * .06;
+			echo number_format($tax,2);
 			echo '<p style="text-align: right; margin: 10px;"> Total: $';
+			$total = $subtotal + $tax;
 			echo number_format($total,2);
 			echo "</p>";
 			echo '<input type="submit" value="Checkout" name="checkout" style="float: right; margin: 10px;">';
