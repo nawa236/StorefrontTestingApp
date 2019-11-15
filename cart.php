@@ -31,8 +31,8 @@
 			$statement->execute();
 			$result = $statement->fetchAll();
 			echo "<h1> Cart Contents </h1>";
-			echo '<form action="./checkout.php">';
-			/*echo '<input type="hidden" name="oID" value="' . $oID . '" />*/
+			echo '<form action="./save.php" method="POST">';
+			echo '<input type="hidden" name="oID" value="' . $oID . '" />
 			$total = 0;
 			echo '<div id="wrapper" class="filter">';
 			foreach($result as $row){
@@ -45,7 +45,8 @@
 			echo '<p style="text-align: right; margin: 10px;"> Total: $';
 			echo number_format($total,2);
 			echo "</p>";
-			echo '<input type="submit" value="Checkout" style="float: right; margin: 10px;">';
+			echo '<input type="submit" value="Checkout" name="checkout" style="float: right; margin: 10px;">';
+			echo '<input type="submit" value="Save" name="save" style="float: right; margin: 10px;">';
 			echo "</form>";
 		}
 	?>
