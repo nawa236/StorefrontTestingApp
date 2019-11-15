@@ -12,13 +12,7 @@ ini_set('display_errors',1);
 error_reporting(E_ALL);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-$servername = 'localhost';
-$username = 'root';
-$password = ''; // use your own username and password for the server.
-
-$dbversion = 0.1;
-$dbname = 'EmployeeTraining';
-$connection = new mysqli($servername, $username, $password, $dbname);
+require('dbConnect.php');
 
 $verified = 0;
 

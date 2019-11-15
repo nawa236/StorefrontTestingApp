@@ -15,14 +15,14 @@
   $cookie_name1 = "TriStorefrontUser";
   $cookie_name2 = "TriStorefrontName";
   if(!isset($_COOKIE[$cookie_name1]))
-        setcookie("TriStorefrontUser", 1 , time()+3600);
+        setcookie("TriStorefrontUser", 1 , time()+3600, '/');
   if(!isset($_COOKIE[$cookie_name2])){
         $query = "SELECT fname FROM customer WHERE id=" . $_COOKIE[$cookie_name1] . ";";
         $statement = $connect->prepare($query);
         $statement->execute();
         $result = $statement->fetchAll();
         $newName = $result[0]['fname'];
-        setcookie("TriStorefrontName", $newName, time()+3600);
+        setcookie("TriStorefrontName", $newName, time()+3600, '/');
         $accountName = $newName . "'s Account";
   }
   else

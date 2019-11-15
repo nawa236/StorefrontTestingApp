@@ -7,19 +7,12 @@
 <body>
 <?php
 
-
 // set error handling
 ini_set('display_errors',1);
 error_reporting(E_ALL);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-$servername = 'localhost';
-$username = 'root';
-$password = 'TriBugApp'; // use your own username and password for the server.
-
-$dbversion = 0.1;
-$dbname = 'EmployeeTraining';
-$connection = new mysqli($servername, $username, $password, $dbname);
+require('dbConnect.php');
 
 $emailError = "";
 $passwordError = "";
@@ -65,9 +58,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $password = trim($_POST['password']);
                 $hashpassword = password_hash($password, PASSWORD_DEFAULT);
                 $currentusers = mysqli_query($connection, "SELECT COUNT(*) FROM authentication");
-                $testid = mysqli_fetch_assoc($currentusers)["COUNT(*)"] + 1;
                 $regHash = md5(rand (0,1000));
-                $query = "INSERT INTO authentication(id, password, email, type, hash, status) values ('$testid', '$hashpassword', '$username', '0', '$regHash', '0')";
+                $query = "INSERT INTO authentication(password, email, type, hash, status) values ('$hashpassword', '$username', '0', '$regHash', '0')";
                 $result = mysqli_query($connection, $query);
 
                 if ($result == 1) {

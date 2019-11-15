@@ -12,14 +12,7 @@ ini_set('display_errors',1);
 error_reporting(E_ALL);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-$servername = 'localhost';
-$username = 'root';
-$password = ''; // use your own username and password for the server.
-
-$dbversion = 0.1;
-$dbname = 'EmployeeTraining';
-$connection = new mysqli($servername, $username, $password, $dbname);
-
+require('dbConnect.php');
 $userid = 0;
 $pageinfo = "";
 
@@ -92,8 +85,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $custinfoquery = "UPDATE customer SET fname = '$fname', mname = '$mname', lname = '$lname', address1 = '$address1', address2 = '$address2', city = '$city', state_province = '$state_province', postalcode = '$postalcode' WHERE id = $userid";
             $custinforesult = mysqli_query($connection, $custinfoquery);
             if ($custinforesult == 1) {
+		setcookie("TriStorefrontName", $fname, time()+3600, '/');
                 $accountMessage = "Account Information Successfully Added";
-                echo "<script type='text/javascript'>alert('Account Information Successfully Added!'); window.location = 'ProductList.php';</script>";
+                echo "<script type='text/javascript'>alert('Account Information Successfully Added!'); window.location = 'productList.php';</script>";
             }
             else {
             $accountMessage = "There was a problem adding your account information. Please try again.";
