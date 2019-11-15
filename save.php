@@ -7,14 +7,19 @@
 		$result = $statement->fetchAll();
 		$order = $row['oID'];
 		foreach($_GET as $query_string_variable => $value) {
+			if($query_string_variable === 'save'){
+				$option = 1;
+			} else if($query_string_variable === 'checkout'){
+				$option = 2;
+			} else {
 			echo "$query_string_variable  = $value <br>";
+			}
 		};
-		if($_GET['save']) {
-			//User hit the save button, handle accordingly
-			echo "save";
-		}
-		//You can do an else, but I prefer a separate statement
-		if($_GET['checkout' {
-			echo "checkout";
+		if($option === 1){
+			echo "Saved";
+		}else if($option === 2){
+			echo "Checking out";
+		}else{
+			echo "How did you get here?";
 		}
 	?>
