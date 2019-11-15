@@ -11,7 +11,7 @@
 <body>
 
 	<?php
-		require('header.php1');
+		require('header.php');
 		include('dbConnect.php');
 		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
 		$statement = $connect->prepare($query);
