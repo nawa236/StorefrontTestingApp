@@ -13,6 +13,7 @@
 	<?php
 		require('header.php');
 		include('dbConnect.php');
+		$id = $_COOKIE["TriStorefrontUser"];
 		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
 		$statement = $connect->prepare($query);
 		$statement->execute();
