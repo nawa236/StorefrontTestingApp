@@ -17,9 +17,9 @@
 			}*/
 		};
 		
-		if($option === 1){
+		if($option == 1){
 			echo "Saved";
-		}else if($option === 2){
+		}else if($option == 2){
 			echo "Checking out";
 		}else{
 			echo "How did you get here?";
