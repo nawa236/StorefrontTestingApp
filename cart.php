@@ -40,10 +40,10 @@
 				$total += ($price * $quantity);
 			}
 			echo "</div>";
-			echo "<p> Total: $";
+			echo '<p style="text-align: right; margin: 10px;"> Total: $';
 			echo number_format($total,2);
 			echo "</p>";
-			echo '<input type="submit" value="Checkout">';
+			echo '<input type="submit" value="Checkout" style="float: right; margin: 10px;">';
 			echo "</form>";
 		}
 	?>
