@@ -3,7 +3,7 @@
 class cartCard {
 
 function __construct($name,$sku,$price,$quantity,$pid) {
-      echo '<div class="card">';
+      echo '<div class="cartcard">';
       echo "<h1>$name</h1>";
       $formattedPrice = number_format ($price,2);
       echo "SKU: " . $sku;
