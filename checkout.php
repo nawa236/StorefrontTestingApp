@@ -13,7 +13,14 @@
 	<?php
 		require('header.php');
 		include('dbConnect.php');
-		
+		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
+		$statement = $connect->prepare($query);
+		$statement->execute();
+		$result = $statement->fetchAll();
+		$order = $row['oID'];
+		foreach($_GET as $query_string_variable => $value) {
+		echo "$query_string_variable  = $value <Br />";
+}
 	?>
 	<form action= "./reciept.php">
 		Billing Information:<br>
@@ -94,6 +101,7 @@
 		</span><br>
 		<script>
 			var yyyy = today.getFullYear();
+			yyyy = yyyy.toString().substr(-2)
 			document.getElementById("year").setAttribute("min", yyyy);
 			yyyy = today.getFullYear()+4;
 			document.getElementById("year").setAttribute("min", yyyy);

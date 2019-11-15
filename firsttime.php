@@ -108,7 +108,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 if(isset($_COOKIE["TriStorefrontUser"])) {
     $userid = $_COOKIE["TriStorefrontUser"];
-    $idcheck = "SELECT * FROM  authentication WHERE id = '" . $userid . "'"; 
+    $idcheck = "SELECT * FROM  authentication WHERE id = '" . $userid . "'";
     $idcheckresult = mysqli_query($connection, $idcheck);
     $idcheckcount = mysqli_num_rows($idcheckresult);
 
@@ -120,9 +120,10 @@ if(isset($_COOKIE["TriStorefrontUser"])) {
 
         $usercheckquery = "SELECT * FROM customer WHERE id = '" . $userid . "'";
         $usercheckresult = mysqli_query($connection, $usercheckquery);
-        $usercheckcount = mysqli_num_rows($idcheckresult);
+        $usercheckcount = mysqli_num_rows($usercheckresult);
 
         if ($usercheckcount == 0) {
+
             $userfetchedresult = mysqli_fetch_assoc($idcheckresult);
             $useremail = $userfetchedresult["email"];
             $custinitquery = "INSERT INTO customer(id, email) VALUES ('$userid', '$useremail')";
@@ -140,7 +141,6 @@ else {
 
 
 
-require('header.php');
 ?>
 
 <h3 id="formhead"> <?php echo $pageinfo ?> </h3>

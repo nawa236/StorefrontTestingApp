@@ -56,11 +56,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $password = trim($_POST['password']);
             $fetchedquery = mysqli_fetch_assoc($usernamecheckquery);
             if (password_verify($password, $fetchedquery["password"])) {
+<<<<<<< HEAD
                 $idnum = $fetchedquery["id"];
                 setcookie("TriStorefrontUser", $idnum, "/");
                 $cookiecheck = "You are now logged in";
                 echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'productList.php';</script>";
                 //header("Location: ProductList.php");
+=======
+                if ($fetchedquery["type"] == 1) {
+                    $idnum = $fetchedquery["id"];
+                    setcookie("TriStorefrontUser", $idnum, "/");
+                    $cookiecheck = "You are now logged in";
+                    echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'adminpage.php';</script>";   
+                }
+                else {
+                    $idnum = $fetchedquery["id"];
+                    setcookie("TriStorefrontUser", $idnum, "/");
+                    $cookiecheck = "You are now logged in";
+                    echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'ProductList.php';</script>";
+                }
+>>>>>>> 3a86cb38ce853154345fcd1a8f09fb4c9268bd6a
             }
             else {
                 $accountError = "Incorrect password";
