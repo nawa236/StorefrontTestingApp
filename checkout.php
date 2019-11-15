@@ -25,6 +25,7 @@
 		$statement->execute();
 		$result = $statement->fetchAll();
 		$subtotal = 0;
+		echo '<div style="float:right; margin: 10px;">';
 		foreach($result as $row){
 			$price = $row['price'];
 			$quantity = $row['quantity'];
@@ -33,9 +34,10 @@
 		$tax = $subtotal * .06;
 		$total = $subtotal + $tax;
 		
-		echo "Subtotal = $ $subtotal";
-		echo "Tax = $ $tax";
-		echo "Total = $ $total";
+		echo "<p>Subtotal = $ $subtotal </p>";
+		echo "<p>Tax = $ $tax </p>";
+		echo "<p>Total = $ $total </p>";
+		echo '</div>';
 	?>
 	<form action= "./reciept.php">
 		Billing Information:<br>
