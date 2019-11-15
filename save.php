@@ -9,12 +9,12 @@
 		foreach($_GET as $query_string_variable => $value) {
 			echo "$query_string_variable  = $value <br>";
 		};
-		if($_get["save"]) {
+		if($_GET['save']) {
 			//User hit the save button, handle accordingly
 			echo "save";
 		}
 		//You can do an else, but I prefer a separate statement
-		if($_Pget["checkout"]) {
+		if($_GET['checkout' {
 			echo "checkout";
 		}
 	?>
