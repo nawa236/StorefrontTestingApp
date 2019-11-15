@@ -8,13 +8,13 @@
 				$option = 2;
 			else if($query_string_variable === 'oID'){
 				$oID = $value;
-			} else {
+			} /*else {
 				$q = (int)$value;
 				$pID = (int)$query_string_variable;
 				$query = "UPDATE order_products SET quantity = $q WHERE pid = $pID AND oid=$oID";
 				$statement = $connect->prepare($query);
 				$statement->execute();
-			}
+			}*/
 		};
 		
 		if($option === 1){
