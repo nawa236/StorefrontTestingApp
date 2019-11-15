@@ -87,20 +87,16 @@
 		Card Number:
 		<input type="text" name="creditcard"><br>
 		Expiration Date:
-		<input type="month" name="expiration" min="2019-11" max="2023-11"><br>
+		<span class="expiration">
+			<input type="text" name="month" placeholder="MM" maxlength="2" size="2">
+			<span>/</span>
+			<input type="text" name="year" placeholder="YY" maxlength="2" size="2">
+		</span><br>
 		<script>
-			var min = new Date();
-			var max = new Date();
-			var mm = today.getMonth()+1; //January is 0!
 			var yyyy = today.getFullYear();
-			if(mm<10){
-				mm='0'+mm
-			} 
-			min = yyyy+'-'+mm;
-			document.getElementById("datefield").setAttribute("min", min);
+			document.getElementById("year").setAttribute("min", yyyy);
 			yyyy = today.getFullYear()+4;
-			max = yyyy+'-'+mm;
-			document.getElementById("datefield").setAttribute("min", max);
+			document.getElementById("year").setAttribute("min", yyyy);
 		</script>
 		Security Code:
 		<input type="text" name="security" maxlength="3"><br>
