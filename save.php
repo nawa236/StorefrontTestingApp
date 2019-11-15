@@ -1,20 +1,21 @@
 	<?php
 		require('header.php');
 		include('dbConnect.php');
-		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
-		$statement = $connect->prepare($query);
-		$statement->execute();
-		$result = $statement->fetchAll();
-		$order = $row['oID'];
 		foreach($_GET as $query_string_variable => $value) {
 			if($query_string_variable === 'save'){
 				$option = 1;
 			} else if($query_string_variable === 'checkout'){
 				$option = 2;
+			else if($query_string_variable === 'oID'){
+				$oID = $value;
 			} else {
-			echo "$query_string_variable  = $value <br>";
+				$query = "UPDATE order_products SET quantity = $value WHERE pid = $query_string_variable AND oid=$oID";
+				$statement = $connect->prepare($query);
+				$statement->execute();
+				echo mysql_errno($link) . ": " . mysql_error($connect). "\n";
 			}
 		};
+		
 		if($option === 1){
 			echo "Saved";
 		}else if($option === 2){
