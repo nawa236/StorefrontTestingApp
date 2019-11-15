@@ -17,7 +17,7 @@
 		$statement = $connect->prepare($query);
 		$statement->execute();
 		$result = $statement->fetchAll();
-		$order = $row['oID'];
+		/*$order = $row['oID'];*/
 		/*foreach($_GET as $query_string_variable => $value) {
 			echo "$query_string_variable  = $value <Br />";
 		};*/
