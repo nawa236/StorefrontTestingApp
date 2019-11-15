@@ -32,9 +32,9 @@
 		$tax = $subtotal * .06;
 		$total = $subtotal + $tax;
 		
-		echo "Subtotal = $" . $subtotal;
-		echo "Tax = $" . $tax;
-		echo "Total = $" . $total;
+		echo "Subtotal = $ $subtotal";
+		echo "Tax = $ $tax";
+		echo "Total = $ $total";
 	?>
 	<form action= "./reciept.php">
 		Billing Information:<br>
