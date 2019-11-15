@@ -187,8 +187,7 @@ h2 {
 .cartcard {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   background-color: white;
-  max-width: 1000px;
-  min-width: 800px;
+  width: 1000px;
   margin: 10px;
   text-align: center;
   font-family: arial;
