@@ -184,6 +184,16 @@ h2 {
   font-family: arial;
   
 }
+.cartcard {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  width:1500px;
+  max-width:100%;
+  margin: 10px;
+  text-align: center;
+  font-family: arial;
+  
+}
 .price {
   color: grey;
   font-size: 22px;
