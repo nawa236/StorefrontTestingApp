@@ -45,7 +45,7 @@
 			echo '<p style="text-align: right; margin: 10px;"> Subtotal: $';
 			echo number_format($subtotal,2);
 			echo '<p style="text-align: right; margin: 10px;"> Tax (6%): $';
-			$tax = subtotal * .06;
+			$tax = $subtotal * .06;
 			echo number_format($tax,2);
 			echo '<p style="text-align: right; margin: 10px;"> Total: $';
 			$total = $subtotal + $tax;
