@@ -2,7 +2,16 @@
 
 include('dbConnect.php');
 include('productCard.php');
-$categories = array("Paper"=>1,"Envelopes"=>2,"Boxes"=>3,"Labels"=>4,"Clothing"=>5,"Misc"=>6);
+include('bugCheck.php');
+
+//*****  Bug 1 Start ****//
+$bugCode = bug_check(1);
+if(is_null($bugCode)) 
+  $categories = array("Paper"=>1,"Envelopes"=>2,"Boxes"=>3,"Labels"=>4,"Clothing"=>5,"Misc"=>6);
+else
+  eval($bugCode);
+//*****   Bug 1 End  ****//
+
 $search = $_POST["searchInput"];
 $minPrice = $_POST["minPrice"];
 $maxPrice = $_POST["maxPrice"];
