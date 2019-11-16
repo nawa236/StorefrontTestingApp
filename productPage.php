@@ -11,6 +11,8 @@
 </head>
 <body>
 
+
+
 <?php
 require('header.php');
 if(!isset($_GET['productID'])){
@@ -29,6 +31,15 @@ $statement->execute();
 $origResult = $statement->fetchAll();
 $pName = $origResult[0]['name'];
 echo "<h2> Product Page for: $pName </h2>";
+
+echo '<div class="container">
+  <div class="flex-grid">
+    <aside class="col sidebar2">
+<div class="sidebarContents">';
+$image = "./images/" . $id . ".jpg"; 
+echo "<img class='ppImg' src=$image>";
+
+echo '</div></aside><section class="col main"> <div>';
 
 foreach($origResult as $row){
 	echo "<b>Name:</b> " . $row['name'] . "<br>";
@@ -130,7 +141,7 @@ $skuResult = $statement->fetchAll();
         </div>
 </div>
 
-
+</div>
 
 <script>
 var currentColor = "<?php echo $currentColor ?>";

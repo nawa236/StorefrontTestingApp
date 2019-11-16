@@ -9,6 +9,11 @@ body {background-color: #F0FFF0;
 
 img {max-width:100%;}
 
+
+.desc {
+height:40px;
+}
+
 .topnav a {
   float: right;
   display: block;
@@ -171,6 +176,13 @@ h2 {
   max-width: 175px;
   min-width: 130px;
 }
+
+.sidebar2 {
+  flex: 1;
+  max-width: 500px;
+  min-width: 400px;
+}
+
 .main {
   flex: 8;
 }
