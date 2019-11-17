@@ -85,9 +85,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $custinfoquery = "UPDATE customer SET fname = '$fname', mname = '$mname', lname = '$lname', address1 = '$address1', address2 = '$address2', city = '$city', state_province = '$state_province', postalcode = '$postalcode' WHERE id = $userid";
             $custinforesult = mysqli_query($connection, $custinfoquery);
             if ($custinforesult == 1) {
-		setcookie("TriStorefrontName", $fname, time()+3600, '/');
-                $accountMessage = "Account Information Successfully Added";
-                echo "<script type='text/javascript'>alert('Account Information Successfully Added!'); window.location = 'productList.php';</script>";
+                $accountstatusquery = "UPDATE authentication SET status = 2 WHERE id = $userid";
+                $accountstatusresult = mysqli_query($connection, $accountstatusquery);
+                if ($accountstatusresult == 1) {
+                    setcookie("TriStorefrontName", $fname, time()+3600, '/');
+                    $accountMessage = "Account Information Successfully Added";
+                    echo "<script type='text/javascript'>alert('Account Information Successfully Added!'); window.location = 'productList.php';</script>";
+                }
+                else {
+                    $accountMessage = "There was a problem adding your account information. Please try again.";
+                }
             }
             else {
             $accountMessage = "There was a problem adding your account information. Please try again.";
