@@ -102,67 +102,56 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	}
 }
 
-if($_SERVER["REQUEST_METHOD"] == "GET"){
+//query for user account information output
+$sql = "SELECT id, fname, mname, lname, address1, address2, city, state_province, postalcode, email FROM customer";
+$res = mysqli_query($connection, $sql);
 
-	//query for user account information output
-	$sql = "SELECT id, fname, mname, lname, address1, address2, city, state_province, postalcode, email FROM customer";
-	$res = mysqli_query($connection, $sql);
-
-	//cycles through results outputting desired information
-	if(mysqli_num_rows($res) > 0){
-		while($row = mysqli_fetch_assoc($res)){
-			echo "id: " . $row["id"]. "<br/>" . "Name: " . $row["fname"]. " " . $row["mname"]. " " . $row["lname"]. "<br/>" . "Address: " . $row["address1"]. " " . $row["city"]. " " . $row["state_province"]. " " . $row["postalcode"]. "<br/>" . "Email: " . $row["email"]. "<br/>";
-		}
-	}
-
-	//query for user order history output
-	$query = "SELECT DISTINCT oID, status FROM orders, order_products WHERE oid = id AND status != 'Incomplete' AND custid = $id";
-	$result = mysqli_query($connection, $query);
-
-	//cycles through results to output desired information
-	if(mysqli_num_rows($result) > 0){
-		while($row = mysqli_fetch_assoc($result)){
-			echo "Order ID: " . $row['oID']. "<br/>" . "Status: " . $row['status']. "<br/>";
-		}
+//cycles through results outputting desired information
+if(mysqli_num_rows($res) > 0){
+	while($row = mysqli_fetch_assoc($res)){
+		echo "id: " . $row["id"]. "<br/>" . "Name: " . $row["fname"]. " " . $row["mname"]. " " . $row["lname"]. "<br/>" . "Address: " . $row["address1"]. " " . $row["city"]. " " . $row["state_province"]. " " . $row["postalcode"]. "<br/>" . "Email: " . $row["email"]. "<br/>";
 	}
 }
 
 ?>
 
-<form id = "Account Page" action = "accountPages.php" method = "post">
+<form id = "Account Page" action = "accountPage.php" method = "post">
 <fieldset>
 <legend>Account Information</legend>
 <p>
 	<label>First Name</label>
-	<input type = "text" id = "fname"/>
+	<input type = "text" name = "fname" value = "fname"/>
 </p>
 <p>
 	<label>Middle Name</label>
-	<input type = "text" id = "mname"/>
+	<input type = "text" name = "mname" value = "mname"/>
 </p>
 <p>
 	<label>Last Name</label>
-	<input type = "text" id = "lname"/>
+	<input type = "text" name = "lname" value = "lname"/>
 </p>
 <p>
 	<label>Address</label>
-	<input type = "text" id = "address1"/>
+	<input type = "text" name = "address1" value = "address1"/>
 </p>
 <p>
 	<label>City</label>
-	<input type = "text" id = "city"/>
+	<input type = "text" name = "city" value = "city"/>
 </p>
 <p>
 	<label>State-Province</label>
-	<input type = "text" id = "state_province"/>
+	<input type = "text" name = "state_province" value = "state_province"/>
 </p>
 <p>
 	<label>Postal-Code</label>
-	<input type = "number" id = "postalcode"/>
+	<input type = "number" name = "postalcode" value = "postalcode"/>
 </p>
 <p>
 	<label>Email</label>
-	<input type = "text" id = "email"/>
+	<input type = "email" name = "email" value = "email"/>
+</p>
+<p>
+	<input type = "submit" value = "Submit"/>
 </p>
 </fieldset>
 </form>
