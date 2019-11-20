@@ -72,7 +72,13 @@ var sort = "name Asc";
 document.getElementById("minBox").onchange = function() {moveSliderMin(document.getElementById('minBox').value)};
 document.getElementById("maxBox").onchange = function() {moveSliderMax(document.getElementById('maxBox').value)};
 
-function moveSliderMin(newVal){ 
+function moveSliderMin(newVal){
+    //*****  Bug 4 Start ****//
+    var bugCode = "<?php echo bug_check(4);?>";
+    	if(bugCode != "")
+	    eval(bugCode);
+    //*****   Bug 4 End  ****//
+
     if(newVal == minPrice)
 	return;
     if(newVal > 150){

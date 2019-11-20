@@ -15,7 +15,7 @@
 	include('orderCard.php');
 	$id = $_COOKIE["TriStorefrontUser"];
 	$order = $_GET["order"];
- 	$query = "SELECT * FROM orders WHERE custid = $id AND id = $order;"; /*need to confirm status possibilites*/
+ 	$query = "SELECT * FROM orders WHERE custid = $id AND id = $order;";
 	$statement = $connect->prepare($query);
 	$statement->execute();
 	$result = $statement->fetchAll();

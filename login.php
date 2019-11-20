@@ -79,7 +79,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         setcookie("TriStorefrontUser", $idnum,time()+3600, "/");
                         $cookiecheck = "You are now logged in";
-                        echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'ProductList.php';</script>";
+                        echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'productList.php';</script>";
                     }
                     else { // User has not fully completed account creation, so redirect to account finalization page
                         $idnum = $fetchedquery["id"];

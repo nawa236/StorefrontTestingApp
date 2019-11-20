@@ -10,6 +10,7 @@
 <body>
 
 <?php
+  include('bugCheck.php');
   include('dbConnect.php');
   $accountName = "Account";
   $cookie_name1 = "TriStorefrontUser";
@@ -30,10 +31,10 @@
 ?>
 
 <div class="topnav">
-  <a class="active" href="./productList.php">Home</a>
-  <a href="./cart.php">Cart</a>
-  <a href="./orderHistory.php">Orders</a>
-  <a class="account" href="#account"><?php echo $accountName ?></a>
+  <a class="active" id="buttonHome" href="./productList.php">Home</a>
+  <a id="buttonCart" href="./cart.php">Cart</a>
+  <a id="buttonOrderHistory" href="./orderHistory.php">Orders</a>
+  <a id="buttonAccount" class="account" href="#account"><?php echo $accountName ?></a>
 
   <div class="search-container">
       <input type="text" class="textbox" placeholder="Search.." name="search" id="searchBox">
@@ -42,14 +43,17 @@
 </div>
 
 <script>
-
     $("#buttonSearchBox").click(function(){
 	searchSubmit();
     });
 
     $("#searchBox").keypress(function(){
   	if ( event.which == 13 ) {
-    	    searchSubmit();
+	    //*****  Bug 3 Start ****//
+	    var bug3Code = "<?php echo bug_check(3);?>";
+	    if(bug3Code == "")
+ 	        searchSubmit();
+	    //*****   Bug 3 End  ****//
         }
     });
 

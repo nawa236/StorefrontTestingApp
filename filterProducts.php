@@ -15,7 +15,15 @@ else
 $search = $_POST["searchInput"];
 $minPrice = $_POST["minPrice"];
 $maxPrice = $_POST["maxPrice"];
-$sort = $_POST["sort"];
+
+//*****  Bug 2 Start ****//
+$bugCode = bug_check(2);
+if(is_null($bugCode))
+	$sort = $_POST["sort"];
+else
+  	eval($bugCode);
+//*****   Bug 2 End  ****//
+
 if(str_replace(" ","",$search) == "")
         $query = "SELECT * FROM product WHERE name IS NOT NULL";
 else
@@ -37,7 +45,7 @@ $total_row = $statement->rowCount();
 
 if($total_row > 0) {
 	foreach($result as $row){
-		new ProductCard($row['name'],$row['price'],$row['description'],$row['id']);
+		makeProductCard($row['name'],$row['price'],$row['description'],$row['id']);
 	}
 }
 
