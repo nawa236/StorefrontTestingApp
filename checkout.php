@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<form action= "./reciept.php">
+
 	<?php
 		require('header.php');
 		include('dbConnect.php');
@@ -25,25 +25,8 @@
 		$statement->execute();
 		$result = $statement->fetchAll();
 		$subtotal = 0;
-		echo '<div style="float:right; margin: 10px;">';
-		foreach($result as $row){
-			$price = $row['price'];
-			$quantity = $row['quantity'];
-			$subtotal += ($price * $quantity);
-		}
-		$tax = $subtotal * .06;
-		$total = $subtotal + $tax;
-		
-		echo '<input type="radio" name="ship" value="standard" checked> Standard (Free)<br>';
-		echo '<input type="radio" name="ship" value="2day"> 2-Day (+$10.99)<br>';
-		echo '<input type="radio" name="ship" value="overnight"> Over-Night (+$99.99)<br>';
-		
-		echo "<p>Subtotal = $$subtotal </p>";
-		echo "<p>Tax = $$tax </p>";
-		echo "<p>Total = $$total </p>";
-		echo '</div>';
 	?>
-	
+		<form action= "./reciept.php">
 		Billing Information:<br>
 		First name: 
 		<input type="text" name="firstname"><br>
@@ -123,6 +106,26 @@
 
 		Security Code:
 		<input type="text" name="security" maxlength="3"><br>
-		<input type="submit" value="Checkout"><br>
+		
+		<?php
+			echo '<div style="float:right; margin: 10px;">';
+			foreach($result as $row){
+				$price = $row['price'];
+				$quantity = $row['quantity'];
+				$subtotal += ($price * $quantity);
+			}
+			$tax = $subtotal * .06;
+			$total = $subtotal + $tax;
+			
+			echo '<input type="radio" name="ship" value="0" checked> Standard (Free)<br>';
+			echo '<input type="radio" name="ship" value="10.99"> 2-Day (+$10.99)<br>';
+			echo '<input type="radio" name="ship" value="99.99"> Over-Night (+$99.99)<br>';
+		
+			echo "<p>Subtotal = $$subtotal </p>";
+			echo "<p>Tax = $$tax </p>";
+			echo "<p>Total = $$total </p>";
+			echo "<input type="submit" value="Checkout"><br>";
+			echo '</div>';
+		?>
 	</form>
 </body>

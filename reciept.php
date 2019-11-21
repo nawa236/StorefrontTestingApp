@@ -14,4 +14,9 @@
 		require('header.php');
 		include('dbConnect.php');
 		$id = $_COOKIE["TriStorefrontUser"];
+		foreach($_GET as $query_string_variable => $value) {
+			if($query_string_variable != 'search'){
+				echo "$query_string_variable = $value <br>";
+			}
+		};
 	?>

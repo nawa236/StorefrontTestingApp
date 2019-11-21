@@ -35,11 +35,22 @@
 			echo '<input type="hidden" name="oID" value="' . $oID . '" />';
 			$subtotal = 0;
 			echo '<div id="wrapper" class="filter">';
-			foreach($result as $row){
-				$price = $row['price'];
-				$quantity = $row['quantity'];
-			        new cartCard($row['name'],$row['sku'],$price,$quantity,$row['id']);
-				$subtotal += ($price * $quantity);
+			foreach($result as $row) {
+			    echo '<div class="cartcard">';
+				echo '<p style="float:left; margin: 10px;">'. $row['name'] .'	</p>';
+				$formattedPrice = number_format ($row['price'],2);
+				echo '<p style="float:left; margin: 10px;">	SKU: ';
+				echo "$row['sku'] ";
+				echo '</p>';
+				echo '<p style="float:right; margin: 10px;">	Total: $';
+				$total = $row['price'] * $row['quantity'];
+				echo number_format($total,2). " </p>";
+				echo '<p style="float:right; margin: 10px;">	Quantity: <input type="number" id="cart_quantity_' . $row['pid']; 
+				echo '" style="width: 60px" name="' . $row['pid'];
+				echo '" min="0" onkeypress="return event.charCode >= 48" step="1" value=' . $row['quantity'] . '> </p>';
+				echo '<p style="float:right; margin: 10px;">	$' . $formattedPrice . ' </p>';
+				echo "</div>";
+				$subtotal += ($row['price'] * $row['quantity'];
 			}
 			echo "</div>";
 			echo '<p style="text-align: right; margin: 10px;"> Subtotal: $';
