@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
+	<form action= "./reciept.php">
 	<?php
 		require('header.php');
 		include('dbConnect.php');
@@ -34,7 +34,7 @@
 			$tax = $subtotal * .06;
 			$total = $subtotal + $tax;
 			
-			echo '<form action= "./reciept.php">';
+			
 			echo '<input type="radio" name="ship" value="0" checked> Standard (Free)<br>';
 			echo '<input type="radio" name="ship" value="10.99"> 2-Day (+$10.99)<br>';
 			echo '<input type="radio" name="ship" value="99.99"> Over-Night (+$99.99)<br>';
