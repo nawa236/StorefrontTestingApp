@@ -9,23 +9,27 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<form action= "./reciept.php">
+
 	<?php
 		require('header.php');
 		include('dbConnect.php');
-			$id = $_COOKIE["TriStorefrontUser"];
-			$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
-			$statement = $connect->prepare($query);
-			$statement->execute();
-			$result = $statement->fetchAll();
-			$total_row = $statement->rowCount();
+		$id = $_COOKIE["TriStorefrontUser"];
+		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
+		$statement->execute();
+		$result = $statement->fetchAll();
+		$total_row = $statement->rowCount();
+
+		if ($total_row == 0){
+			echo "<p> There is nothing in your cart </p>";
+		} else if ($total_row >= 2) {
+			echo "<p> Error: Multiple incomplete orders detected </p>";
+		} else {
 			$oID = $result[0]['id'];
 			$query = "SELECT * FROM order_products, product WHERE pid=id AND oid=$oID";
 			$statement = $connect->prepare($query);
 			$statement->execute();
 			$result = $statement->fetchAll();
 			$subtotal = 0;
-			echo '<div style="float:right; margin: 10px;">';
 			foreach($result as $row){
 				$price = $row['price'];
 				$quantity = $row['quantity'];
@@ -34,7 +38,8 @@
 			$tax = $subtotal * .06;
 			$total = $subtotal + $tax;
 			
-			
+			echo '<form action= "./reciept.php">';
+			echo '<div style="float:right; margin: 10px;">';
 			echo '<input type="radio" name="ship" value="0" checked> Standard (Free)<br>';
 			echo '<input type="radio" name="ship" value="10.99"> 2-Day (+$10.99)<br>';
 			echo '<input type="radio" name="ship" value="99.99"> Over-Night (+$99.99)<br>';

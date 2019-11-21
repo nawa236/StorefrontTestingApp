@@ -12,10 +12,8 @@
 	<?php
 		require('header.php');
 		include('dbConnect.php');
-		include('cartCard.php');
 		$id = $_COOKIE["TriStorefrontUser"];
-		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';"; /*need to confirm status possibilites*/
-		$statement = $connect->prepare($query);
+		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
 		$statement->execute();
 		$result = $statement->fetchAll();
 		$total_row = $statement->rowCount();
