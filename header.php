@@ -30,6 +30,11 @@
         $accountName = $_COOKIE[$cookie_name2];
 
 
+//*****  Bug 6 Start ****//
+$bugCode = bug_check(6);
+if(!is_null($bugCode)) 
+  eval($bugCode);
+//*****   Bug 6 End  ****//
 ?>
 
 <div class="topnav">
@@ -37,9 +42,9 @@
   <a id="buttonCart" href="./cart.php">Cart</a>
   <a id="buttonOrderHistory" href="./orderHistory.php">Orders</a>
   <div class="drop">
-    <a class="dropbtn"><?php echo "Hello, $accountName"?></a>
+    <a id="buttonAccount-Head" class="dropbtn"><?php echo "Hello, $accountName"?></a>
     <div class="drop-content">
-      <a id="buttonAccount" href="#account">View Account</a>
+      <a id="buttonAccount-Sub" href="#account">View Account</a>
       <a id="buttonLogout" href="./login.php" onclick="logout()" > Logout </a>
     </div>
   </div>
