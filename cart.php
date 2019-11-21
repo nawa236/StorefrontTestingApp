@@ -50,7 +50,7 @@
 				echo '" min="0" onkeypress="return event.charCode >= 48" step="1" value=' . $row['quantity'] . '> </p>';
 				echo '<p style="float:right; margin: 10px;">	$' . $formattedPrice . ' </p>';
 				echo "</div>";
-				$subtotal += ($row['price'] * $row['quantity'];
+				$subtotal += ($row['price'] * $row['quantity']);
 			}
 			echo "</div>";
 			echo '<p style="text-align: right; margin: 10px;"> Subtotal: $';
