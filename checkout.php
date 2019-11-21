@@ -47,7 +47,6 @@
 			echo "<p>Subtotal = $$subtotal </p>";
 			echo "<p>Tax = $$tax </p>";
 			echo "<p>Total = $$total </p>";
-			echo "<input type="submit" value="Checkout"><br>";
 			echo '</div>';
 	?>
 	
@@ -130,6 +129,7 @@
 
 		Security Code:
 		<input type="text" name="security" maxlength="3"><br>
+		<input type="submit" value="Checkout">
 		
 	</form>
 </body>
