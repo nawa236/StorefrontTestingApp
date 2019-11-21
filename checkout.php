@@ -12,19 +12,6 @@
 
 	<?php
 		require('header.php');
-		include('dbConnect.php');
-		$id = $_COOKIE["TriStorefrontUser"];
-		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
-		$statement = $connect->prepare($query);
-		$statement->execute();
-		$result = $statement->fetchAll();
-		$total_row = $statement->rowCount();
-		$oID = $result[0]['id'];
-		$query = "SELECT * FROM order_products, product WHERE pid=id AND oid=$oID";
-		$statement = $connect->prepare($query);
-		$statement->execute();
-		$result = $statement->fetchAll();
-		$subtotal = 0;
 	?>
 		<form action= "./reciept.php">
 		Billing Information:<br>
@@ -108,6 +95,19 @@
 		<input type="text" name="security" maxlength="3"><br>
 		
 		<?php
+			include('dbConnect.php');
+			$id = $_COOKIE["TriStorefrontUser"];
+			$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
+			$statement = $connect->prepare($query);
+			$statement->execute();
+			$result = $statement->fetchAll();
+			$total_row = $statement->rowCount();
+			$oID = $result[0]['id'];
+			$query = "SELECT * FROM order_products, product WHERE pid=id AND oid=$oID";
+			$statement = $connect->prepare($query);
+			$statement->execute();
+			$result = $statement->fetchAll();
+			$subtotal = 0;
 			echo '<div style="float:right; margin: 10px;">';
 			foreach($result as $row){
 				$price = $row['price'];
