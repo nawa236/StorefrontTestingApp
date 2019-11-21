@@ -12,8 +12,40 @@
 
 	<?php
 		require('header.php');
+		include('dbConnect.php');
+			$id = $_COOKIE["TriStorefrontUser"];
+			$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
+			$statement = $connect->prepare($query);
+			$statement->execute();
+			$result = $statement->fetchAll();
+			$total_row = $statement->rowCount();
+			$oID = $result[0]['id'];
+			$query = "SELECT * FROM order_products, product WHERE pid=id AND oid=$oID";
+			$statement = $connect->prepare($query);
+			$statement->execute();
+			$result = $statement->fetchAll();
+			$subtotal = 0;
+			echo '<div style="float:right; margin: 10px;">';
+			foreach($result as $row){
+				$price = $row['price'];
+				$quantity = $row['quantity'];
+				$subtotal += ($price * $quantity);
+			}
+			$tax = $subtotal * .06;
+			$total = $subtotal + $tax;
+			
+			echo '	<form action= "./reciept.php">';
+			echo '<input type="radio" name="ship" value="0" checked> Standard (Free)<br>';
+			echo '<input type="radio" name="ship" value="10.99"> 2-Day (+$10.99)<br>';
+			echo '<input type="radio" name="ship" value="99.99"> Over-Night (+$99.99)<br>';
+		
+			echo "<p>Subtotal = $$subtotal </p>";
+			echo "<p>Tax = $$tax </p>";
+			echo "<p>Total = $$total </p>";
+			echo "<input type="submit" value="Checkout"><br>";
+			echo '</div>';
 	?>
-		<form action= "./reciept.php">
+	
 		Billing Information:<br>
 		First name: 
 		<input type="text" name="firstname"><br>
@@ -94,38 +126,5 @@
 		Security Code:
 		<input type="text" name="security" maxlength="3"><br>
 		
-		<?php
-			include('dbConnect.php');
-			$id = $_COOKIE["TriStorefrontUser"];
-			$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
-			$statement = $connect->prepare($query);
-			$statement->execute();
-			$result = $statement->fetchAll();
-			$total_row = $statement->rowCount();
-			$oID = $result[0]['id'];
-			$query = "SELECT * FROM order_products, product WHERE pid=id AND oid=$oID";
-			$statement = $connect->prepare($query);
-			$statement->execute();
-			$result = $statement->fetchAll();
-			$subtotal = 0;
-			echo '<div style="float:right; margin: 10px;">';
-			foreach($result as $row){
-				$price = $row['price'];
-				$quantity = $row['quantity'];
-				$subtotal += ($price * $quantity);
-			}
-			$tax = $subtotal * .06;
-			$total = $subtotal + $tax;
-			
-			echo '<input type="radio" name="ship" value="0" checked> Standard (Free)<br>';
-			echo '<input type="radio" name="ship" value="10.99"> 2-Day (+$10.99)<br>';
-			echo '<input type="radio" name="ship" value="99.99"> Over-Night (+$99.99)<br>';
-		
-			echo "<p>Subtotal = $$subtotal </p>";
-			echo "<p>Tax = $$tax </p>";
-			echo "<p>Total = $$total </p>";
-			echo "<input type="submit" value="Checkout"><br>";
-			echo '</div>';
-		?>
 	</form>
 </body>
