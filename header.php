@@ -12,7 +12,7 @@
 <?php
   include('bugCheck.php');
   include('dbConnect.php');
-  $accountName = "Account";
+  $accountName = "";
   $cookie_name1 = "TriStorefrontUser";
   $cookie_name2 = "TriStorefrontName";
   if(!isset($_COOKIE[$cookie_name1]))
@@ -24,17 +24,25 @@
         $result = $statement->fetchAll();
         $newName = $result[0]['fname'];
         setcookie("TriStorefrontName", $newName, time()+3600, '/');
-        $accountName = $newName . "'s Account";
+        $accountName = $newName;
   }
   else
-        $accountName = $_COOKIE[$cookie_name2] . "'s Account";
+        $accountName = $_COOKIE[$cookie_name2];
+
+
 ?>
 
 <div class="topnav">
   <a class="active" id="buttonHome" href="./productList.php">Home</a>
   <a id="buttonCart" href="./cart.php">Cart</a>
   <a id="buttonOrderHistory" href="./orderHistory.php">Orders</a>
-  <a id="buttonAccount" class="account" href="#account"><?php echo $accountName ?></a>
+  <div class="drop">
+    <a class="dropbtn"><?php echo "Hello, $accountName"?></a>
+    <div class="drop-content">
+      <a id="buttonAccount" href="#account">View Account</a>
+      <a id="buttonLogout" href="./login.php" onclick="logout()" > Logout </a>
+    </div>
+  </div>
 
   <div class="search-container">
       <input type="text" class="textbox" placeholder="Search.." name="search" id="searchBox">
@@ -62,7 +70,10 @@
 	window.location.href='./productList.php?search=' + searchInput;
     }
 
-
+    function logout(){
+	document.cookie = "TriStorefrontUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "TriStorefrontName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
 </script>
 </body>
 </html>

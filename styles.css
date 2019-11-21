@@ -50,10 +50,10 @@ height:55px;
 }
 
 .topnav .search-container {
+  overflow: hidden;
   display: flex;
   margin-top: 7px;
   background: #fff;
-  overflow: hidden;
 }
 
 .topnav .textbox {
@@ -108,12 +108,19 @@ height:55px;
 }
 }
 
+.drop-content {
+  display: none;
+}
+
+.drop:hover .drop-content {display: block;}
+
+.drop:hover .dropbtn {background-color: #DAF7A6;}
+
 .container {
   margin: auto;
   line-height: 1.5;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-
 }
 
 h3 {
