@@ -15,6 +15,7 @@
 		include('dbConnect.php');
 		$id = $_COOKIE["TriStorefrontUser"];
 		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
+		$statement = $connect->prepare($query);
 		$statement->execute();
 		$result = $statement->fetchAll();
 		$total_row = $statement->rowCount();
@@ -48,6 +49,7 @@
 			echo "<p>Tax = $$tax </p>";
 			echo "<p>Total = $$total </p>";
 			echo '</div>';
+		};
 	?>
 	
 		Billing Information:<br>
