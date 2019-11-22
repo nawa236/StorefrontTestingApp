@@ -25,6 +25,11 @@
 	} else if ($total_row >= 2) {
 		echo "<p> Error: Multiple orders with this id </p>";
 	} else {
+		//*****  Bug 7 Start ****//
+		$bugCode = bug_check(7);
+		if(!is_null($bugCode)) 
+		    eval($bugCode);
+		//*****  Bug 7 End  ****//
 		$query = "SELECT * FROM order_products, product WHERE pid=id AND oid=$order";
 		$statement = $connect->prepare($query);
 		$statement->execute();
