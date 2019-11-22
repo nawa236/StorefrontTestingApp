@@ -199,7 +199,8 @@ function assignmentTable(){
 			id INT(11) NOT NULL AUTO_INCREMENT,
 			bugid INT(11) NOT NULL,
 			userid INT(11) NOT NULL,
-			adate DATE,
+			sdate DATE,
+            edate DATE,
 			PRIMARY KEY (id),
 			FOREIGN KEY fk_bugid (bugid) REFERENCES bug(id) ON UPDATE CASCADE,
 			FOREIGN KEY fk_userid (userid) REFERENCES authentication(id) ON UPDATE CASCADE
