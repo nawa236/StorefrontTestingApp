@@ -94,7 +94,7 @@ $statement->execute();
 $skuResult = $statement->fetchAll();
 
 ?>
-// Display buttons for each of the color variants
+<!-- Display buttons for each of the color variants -->
 <div class="color">
         <span>Color</span>
         <div class="choose">
@@ -112,7 +112,7 @@ $skuResult = $statement->fetchAll();
          </div>
 </div>
 
-// Display buttons for each of the size variants
+<!-- Display buttons for each of the size variants -->
 <div class="size">
         <span>Size</span>
         <div class="choose">
@@ -131,7 +131,7 @@ $skuResult = $statement->fetchAll();
          </div>
 </div>
 
-// Display buttons for each of the SKU variants
+<!-- Display buttons for each of the SKU variants -->
 <div class="sku">
         <span>SKU</span>
         <div class="choose">
@@ -148,7 +148,7 @@ $skuResult = $statement->fetchAll();
 	 </div>
 </div>
 
-// Allow items to be added to the cart with a quantity selection
+<!-- Allow items to be added to the cart with a quantity selection -->
 <div class="toCart">
         <div class="choose">
 		<button id="button_addToCart" class="flashy">Add to Cart</button>
