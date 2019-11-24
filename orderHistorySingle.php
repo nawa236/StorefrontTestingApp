@@ -15,6 +15,8 @@
 	include('orderCard.php');
 	$id = $_COOKIE["TriStorefrontUser"];
 	$order = $_GET["order"];
+
+	// Retrieve all informaton for the order specifed in get parameter, if it belongs to current customer
  	$query = "SELECT * FROM orders WHERE custid = $id AND id = $order;";
 	$statement = $connect->prepare($query);
 	$statement->execute();
@@ -30,6 +32,8 @@
 		if(!is_null($bugCode)) 
 		    eval($bugCode);
 		//*****  Bug 7 End  ****//
+
+		// Get all individual product data for the previously validated order
 		$query = "SELECT * FROM order_products, product WHERE pid=id AND oid=$order";
 		$statement = $connect->prepare($query);
 		$statement->execute();
@@ -37,12 +41,16 @@
 		echo "<h1> Order $order Contents </h1>";
 		$subtotal = 0;
 		echo '<div id="wrapper" class="filter">';
+
+		// Print each item purchased as its own formatted element
 		foreach($result as $row){
 			$price = $row['price'];
 			$quantity = $row['quantity'];
 		        new orderCard($row['name'],$row['sku'],$price,$quantity,$row['id']);
 			$subtotal += ($price * $quantity);
 		}
+
+		// Display overall price at the end
 		echo "</div>";
 		echo '<p style="text-align: right; margin: 10px;"> Subtotal: $';
 		echo number_format($subtotal,2);
@@ -54,8 +62,6 @@
 		echo number_format($total,2);
 		echo "</p>";
 	}
-
-
 ?>
 </body>
 </html>

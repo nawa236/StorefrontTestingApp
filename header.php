@@ -16,7 +16,9 @@
   $cookie_name1 = "TriStorefrontUser";
   $cookie_name2 = "TriStorefrontName";
   if(!isset($_COOKIE[$cookie_name1]))
-        setcookie("TriStorefrontUser", 1 , time()+3600, '/');
+        header("Location: ./login.php");
+
+  // If name is not stored in a cookie, query the name of the active user ID
   if(!isset($_COOKIE[$cookie_name2])){
         $query = "SELECT fname FROM customer WHERE id=" . $_COOKIE[$cookie_name1] . ";";
         $statement = $connect->prepare($query);
@@ -37,6 +39,7 @@ if(!is_null($bugCode))
 //*****   Bug 6 End  ****//
 ?>
 
+<!-- Overall header output format -->
 <div class="topnav">
   <a class="active" id="buttonHome" href="./productList.php">Home</a>
   <a id="buttonCart" href="./cart.php">Cart</a>
@@ -44,7 +47,7 @@ if(!is_null($bugCode))
   <div class="drop">
     <a id="buttonAccount-Head" class="dropbtn"><?php echo "Hello, $accountName"?></a>
     <div class="drop-content">
-      <a id="buttonAccount-Sub" href="#account">View Account</a>
+      <a id="buttonAccount-Sub" href="./accountPage.php">View Account</a>
       <a id="buttonLogout" href="./login.php" onclick="logout()" > Logout </a>
     </div>
   </div>
@@ -54,6 +57,7 @@ if(!is_null($bugCode))
       <button id="buttonSearchBox"><i class="fa fa-search"></i></button>
   </div>
 </div>
+
 
 <script>
     $("#buttonSearchBox").click(function(){

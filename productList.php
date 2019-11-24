@@ -17,6 +17,8 @@
       <h2>Sidebar</h2>
 <div class="sidebarContents">
 
+
+<!-- Sorting options -->
 <h3> Sort By </h3>
 <select class="dropdown select sort" id="optionSort">
      <option value="name Asc">Name: A-Z</option>
@@ -26,9 +28,12 @@
    </select>
 <br><br>
 
+<!-- Filtering Options -->
 <h3> Filters </h3>
 <fieldset>
 <legend><b>Price</b></legend>
+
+<!-- Price slider bars -->
 <div class="slidecontainer">
   <p>Min: $<input type="number" id="minBox" value="0" min="0" max="150" onkeypress="return event.charCode >=48" style="width: 45px"></p>
   <input type="range" min="0" max="150" value="0" class="slider" id="minPriceSlider" oninput="updateMin(this.value)" onchange="finalizeMin(this.value)">
@@ -40,6 +45,7 @@
 </fieldset>
 <br>
 
+<!-- Product Category Buttons -->
 <fieldset>
 <legend><b>Category</b></legend>
   <input type="radio" name="cat" class="select category" id="radioAllCategories" value="All"  checked > All <br>
@@ -69,9 +75,11 @@ var maxPrice = 150;
 var searchInput = "";
 var sort = "name Asc";
 
+// Append event triggers on text input boxes for price sliders
 document.getElementById("minBox").onchange = function() {moveSliderMin(document.getElementById('minBox').value)};
 document.getElementById("maxBox").onchange = function() {moveSliderMax(document.getElementById('maxBox').value)};
 
+// Visualize changes to min slider
 function moveSliderMin(newVal){
     //*****  Bug 4 Start ****//
     var bugCode = "<?php echo bug_check(4);?>";
@@ -89,6 +97,7 @@ function moveSliderMin(newVal){
     finalizeMin(newVal);
 }
 
+// Visualize changes to max slider
 function moveSliderMax(newVal){
     if(newVal == maxPrice)
         return;
@@ -100,6 +109,7 @@ function moveSliderMax(newVal){
     finalizeMax(newVal);
 }
 
+// Finalizes values and calls to rebuild products on display
 function finalizeMin(newVal){
     minPrice = newVal;
     updateMin(newVal);
@@ -107,6 +117,7 @@ function finalizeMin(newVal){
     filter();
 }
 
+// Finalizes values and calls to rebuild products on display
 function finalizeMax(newVal){
     maxPrice = newVal;
     updateMax(newVal);
@@ -114,6 +125,7 @@ function finalizeMax(newVal){
     filter();
 }
 
+// Controls display of max based on input of min (min should not be greater than max)
 function updateMin(newVal){
     document.getElementById('minBox').value=newVal;
     if(newVal >= Number(document.getElementById('maxPriceSlider').value)){
@@ -121,6 +133,8 @@ function updateMin(newVal){
         document.getElementById('maxBox').value=Number(newVal);
      }
 }
+
+// Controls display of min based on input of max (max should not be less than min)
 function updateMax(newVal){
     document.getElementById('maxBox').value=newVal;
     if(newVal <= Number(document.getElementById('minPriceSlider').value)){
@@ -129,6 +143,7 @@ function updateMax(newVal){
     }
 }
 
+// Rebuilds the products on display
 function filter(){
      $.ajax({
             url:"filterProducts.php",
@@ -142,6 +157,8 @@ function filter(){
 
 $(document).ready(function(){
     let searchParams = new URLSearchParams(window.location.search)
+
+    // Process search request that come from searchs made from other pages
     if( searchParams.has('search')){
     	let param = searchParams.get('search')
     	if( document.getElementById("searchBox").value != param){
@@ -154,6 +171,7 @@ $(document).ready(function(){
     	document.getElementById("searchBox").value = "";
     filter();
 
+    // When any select class button is clicked, check to see if the value has changed
     $('.select').click(function(){
 	var changed = false;
 	var tempCat = $("input[name=cat]:checked").val()
@@ -168,17 +186,20 @@ $(document).ready(function(){
                 changed = true;
         }
 
+	// If changed, rebuild the displayed elements
 	if(changed){
 		filter();
 	}
     });
 
+    // Accept enter keypress to submit price on min input box
     $("#minBox").keypress(function(){
   	if ( event.which == 13 ) {
     	    moveSliderMin(document.getElementById('minBox').value);
         }
     });
 
+     // Accept enter keypress to submit price on max input box
      $("#maxBox").keypress(function(){
         if ( event.which == 13 ) {
             moveSliderMax(document.getElementById('maxBox').value);

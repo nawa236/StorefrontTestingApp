@@ -1,5 +1,6 @@
 <?php
 
+// Builds a simple formatted display of the contents of a past order
 class orderCard {
 
 function __construct($name,$sku,$price,$quantity,$pid) {
