@@ -47,7 +47,7 @@ if(!is_null($bugCode))
   <div class="drop">
     <a id="buttonAccount-Head" class="dropbtn"><?php echo "Hello, $accountName"?></a>
     <div class="drop-content">
-      <a id="buttonAccount-Sub" href="#account">View Account</a>
+      <a id="buttonAccount-Sub" href="./accountPage.php">View Account</a>
       <a id="buttonLogout" href="./login.php" onclick="logout()" > Logout </a>
     </div>
   </div>
