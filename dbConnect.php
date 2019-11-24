@@ -1,7 +1,9 @@
 <?php
+// Centralized database connection setup, most other files include this file.
+
 $servername = 'localhost';
 $username = 'root';
-$password = 'TriBugApp'; // use your own username and password for the server.
+$password = 'TriBugApp';
 $dbversion = 0.1;
 $dbname = 'EmployeeTraining';
 

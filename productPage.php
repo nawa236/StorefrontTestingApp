@@ -24,6 +24,7 @@ $id = $_GET['productID'];
 include('dbConnect.php');
 include('productCard.php');
 
+// Retrieve data on requested product id
 $query = "SELECT * FROM product WHERE id = '" .$id;
 $query = $query . "'";
 $statement = $connect->prepare($query);
@@ -35,6 +36,7 @@ if ($total_row == 0){
 	return;
 }
 
+// Build display divide for product image
 $pName = $origResult[0]['name'];
 echo "<h2> Product Page for: $pName </h2>";
 
@@ -47,6 +49,7 @@ echo "<img class='ppImg' src=$image>";
 
 echo '</div></aside><section class="col main"> <div>';
 
+// Display core product data
 foreach($origResult as $row){
 	echo "<b>Name:</b> " . $row['name'] . "<br>";
 	echo "<b>Description:</b> " . $row['description'] . "<br>";
@@ -61,7 +64,7 @@ $currentSize = $origResult[0]['size'];
 $currentSKU = $origResult[0]['sku'];
 $inv = $origResult[0]['inventory'];
 
-
+// Find all color variants that are possible for current product size selection
 $query = "SELECT DISTINCT color.description, product.color FROM product, color  WHERE product.color = color.id AND name = '" .$pName;
 $query = $query . "'";
 $query = $query . " AND size = '" .$currentSize;
@@ -70,6 +73,7 @@ $statement = $connect->prepare($query);
 $statement->execute();
 $colorResult = $statement->fetchAll();
 
+// Find all size variants that are possible for current product color selection
 $query = "SELECT DISTINCT size.code, product.size FROM product, size WHERE product.size = size.id AND name = '" .$pName;
 $query = $query . "'";
 $query = $query . " AND color = '" .$currentColor;
@@ -78,6 +82,7 @@ $statement = $connect->prepare($query);
 $statement->execute();
 $sizeResult = $statement->fetchAll();
 
+// Find all sku variants that otherwise have the exact same color and size
 $query = "SELECT sku FROM product WHERE name = '" .$pName;
 $query = $query . "'";
 $query = $query . " AND color = '" .$currentColor;
@@ -89,6 +94,7 @@ $statement->execute();
 $skuResult = $statement->fetchAll();
 
 ?>
+// Display buttons for each of the color variants
 <div class="color">
         <span>Color</span>
         <div class="choose">
@@ -106,6 +112,7 @@ $skuResult = $statement->fetchAll();
          </div>
 </div>
 
+// Display buttons for each of the size variants
 <div class="size">
         <span>Size</span>
         <div class="choose">
@@ -124,6 +131,7 @@ $skuResult = $statement->fetchAll();
          </div>
 </div>
 
+// Display buttons for each of the SKU variants
 <div class="sku">
         <span>SKU</span>
         <div class="choose">
@@ -140,6 +148,7 @@ $skuResult = $statement->fetchAll();
 	 </div>
 </div>
 
+// Allow items to be added to the cart with a quantity selection
 <div class="toCart">
         <div class="choose">
 		<button id="button_addToCart" class="flashy">Add to Cart</button>
@@ -158,6 +167,8 @@ var pName = "<?php echo $pName ?>";
 var pID = "<?php echo $id ?>";
 var uID = "<?php echo $_COOKIE['TriStorefrontUser']; ?>";
 $(document).ready(function(){
+
+ // Event triggers for page elements
  $('.bColor').click(function(){
         if(currentColor != $.trim($(this).val())){
 		currentColor = $.trim($(this).val());
@@ -185,7 +196,10 @@ $(document).ready(function(){
 	var quantity = document.getElementById("quantitySelect").value;
 	addToCart(quantity);
     });
+  // ******************************
 
+
+// Runs add to cart script, returns basic success/fail message
 function addToCart(quantity){
 $.ajax({
             url:"addToCart.php",
@@ -198,6 +212,7 @@ $.ajax({
 
 }
 
+// Based on current input, determines what product page should be redirected to
 function doQuery(){
 $.ajax({
             url:"productPageSelect.php",
@@ -210,6 +225,7 @@ $.ajax({
 
 }
 
+// Based on current input, determines what product page should be redirected to
 function doSKUQuery(){
 $.ajax({
             url:"productPageSelect.php",

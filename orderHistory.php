@@ -13,14 +13,16 @@
 require('header.php');
 include('dbConnect.php');
 $id = $_COOKIE["TriStorefrontUser"];
-$query = "SELECT DISTINCT oID, status FROM orders,order_products WHERE oid=id AND status != 'Incomplete' and custid=$id;";
 
+// Retrieve all orders and status for the current customer that have been completed
+$query = "SELECT DISTINCT oID, status FROM orders,order_products WHERE oid=id AND status != 'Incomplete' and custid=$id;";
 
 $statement = $connect->prepare($query);
 $statement->execute();
 $result = $statement->fetchAll();
 $total_row = $statement->rowCount();
 
+// For each order, display basic information and a button to see more information for each order
 if($total_row > 0) {
 	foreach($result as $row){
 		$oID = $row['oID'];

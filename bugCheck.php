@@ -1,4 +1,6 @@
 <?php
+// Given a bug id, check to see if that bug is set to active for the current user
+// Return codeblock (Null if not active)
 function bug_check($bug_id){
   include('dbConnect.php');
   $user_id = $_COOKIE["TriStorefrontUser"];
