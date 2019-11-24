@@ -29,6 +29,12 @@ $query = $query . "'";
 $statement = $connect->prepare($query);
 $statement->execute();
 $origResult = $statement->fetchAll();
+$total_row = $statement->rowCount();
+if ($total_row == 0){
+	echo "<h1> This is not a valid product id.</h1>";
+	return;
+}
+
 $pName = $origResult[0]['name'];
 echo "<h2> Product Page for: $pName </h2>";
 

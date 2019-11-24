@@ -12,9 +12,8 @@
 	<?php
 		require('header.php');
 		include('dbConnect.php');
-		include('cartCard.php');
 		$id = $_COOKIE["TriStorefrontUser"];
-		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';"; /*need to confirm status possibilites*/
+		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
 		$statement = $connect->prepare($query);
 		$statement->execute();
 		$result = $statement->fetchAll();
@@ -38,7 +37,23 @@
 			foreach($result as $row){
 				$price = $row['price'];
 				$quantity = $row['quantity'];
-			        new cartCard($row['name'],$row['sku'],$price,$quantity,$row['id']);
+				$sku = $row['sku'];
+				$name = $row['name'];
+				$pid = $row['pid'];
+			    echo '<div class="cartcard">';
+				echo '<p style="float:left; margin: 10px;">'. $name .'	</p>';
+				$formattedPrice = number_format ($price,2);
+				echo '<p style="float:left; margin: 10px;">	SKU: ';
+				echo "$sku ";
+				echo '</p>';
+				echo '<p style="float:right; margin: 10px;">	Total: $';
+				$total = $price * $quantity;
+				echo number_format($total,2). " </p>";
+				echo '<p style="float:right; margin: 10px;">	Quantity: <input type="number" id="cart_quantity_' . $pid; 
+				echo '" style="width: 60px" name="' . $pid;
+				echo '" min="0" onkeypress="return event.charCode >= 48" step="1" value=' . $quantity . '> </p>';
+				echo '<p style="float:right; margin: 10px;">	$' . $formattedPrice . ' </p>';
+				echo "</div>";
 				$subtotal += ($price * $quantity);
 			}
 			echo "</div>";

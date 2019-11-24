@@ -1,0 +1,87 @@
+body {
+    background-color: #e7f4f1;
+    padding: 10px;
+}
+
+ul > nav-pills {
+    display: inline-block;
+}
+
+#roundtab .nav-pills > li {
+    padding: 5px 15px;
+    border-radius: 5px 5px 0 0;
+}
+
+.active {
+    background-color: #3267a1;
+    padding: 5px 15px;
+    border-radius: 5px 5px 0 0;
+}
+
+    .active a {
+        color: #fff;
+    }
+
+#roundtab .tab-content {
+    color: #fff;
+    background-color: #3267a1;
+    border-radius: 0 5px 0 0;
+    padding: 5px 15px;
+}
+
+.multiselect-container {
+    max-height: 200px;
+    overflow: auto;
+}
+
+.listbox-area {
+    padding: 20px;
+    background: #eee;
+    border: 1px solid #aaa;
+    font-size: 0;
+}
+
+.left,
+.right {
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 20px;
+    vertical-align: top;
+    width: 50%;
+}
+
+.left {
+    padding-right: 10px;
+}
+
+.right {
+    padding-left: 10px;
+}
+
+[role="listbox"] {
+    min-height: 18em;
+    padding: 0;
+    background: white;
+    border: 1px solid #aaa;
+}
+
+[role="option"] {
+    display: block;
+    padding: 0 1em 0 1.5em;
+    position: relative;
+    line-height: 1.8em;
+    color: #000;
+}
+
+    [role="option"].focused {
+        background: #bde4ff;
+    }
+
+    [role="option"][aria-selected="true"]::before {
+        content: '✓';
+        position: absolute;
+        left: 0.5em;
+    }
+.listbox-area > .left, .right > label{
+        color: #000;
+    }

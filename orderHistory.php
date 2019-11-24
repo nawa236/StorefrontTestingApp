@@ -23,14 +23,18 @@ $total_row = $statement->rowCount();
 
 if($total_row > 0) {
 	foreach($result as $row){
+		$oID = $row['oID'];
 		echo "<p>Order ID: " . $row['oID']. "  ";
                 echo "Status: " . $row['status']. "  ";
-
 		echo '<a href="./orderHistorySingle.php?order=';
-      		echo $row['oID']; 
+		echo $oID;
       		echo '" class="oButton" ';
-		echo "id=$id >Inspect</a> </p>";
+		echo "id=buttonOrder$oID >Inspect</a> </p>";
 	}
+}
+
+else {
+	echo "<h1>You have no previous orders.</h1>";
 }
 
 ?>

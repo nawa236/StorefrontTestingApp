@@ -15,7 +15,7 @@
 	include('orderCard.php');
 	$id = $_COOKIE["TriStorefrontUser"];
 	$order = $_GET["order"];
- 	$query = "SELECT * FROM orders WHERE custid = $id AND id = $order;"; /*need to confirm status possibilites*/
+ 	$query = "SELECT * FROM orders WHERE custid = $id AND id = $order;";
 	$statement = $connect->prepare($query);
 	$statement->execute();
 	$result = $statement->fetchAll();
@@ -25,6 +25,11 @@
 	} else if ($total_row >= 2) {
 		echo "<p> Error: Multiple orders with this id </p>";
 	} else {
+		//*****  Bug 7 Start ****//
+		$bugCode = bug_check(7);
+		if(!is_null($bugCode)) 
+		    eval($bugCode);
+		//*****  Bug 7 End  ****//
 		$query = "SELECT * FROM order_products, product WHERE pid=id AND oid=$order";
 		$statement = $connect->prepare($query);
 		$statement->execute();

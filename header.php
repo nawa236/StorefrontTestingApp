@@ -10,8 +10,9 @@
 <body>
 
 <?php
+  include('bugCheck.php');
   include('dbConnect.php');
-  $accountName = "Account";
+  $accountName = "";
   $cookie_name1 = "TriStorefrontUser";
   $cookie_name2 = "TriStorefrontName";
   if(!isset($_COOKIE[$cookie_name1]))
@@ -23,17 +24,30 @@
         $result = $statement->fetchAll();
         $newName = $result[0]['fname'];
         setcookie("TriStorefrontName", $newName, time()+3600, '/');
-        $accountName = $newName . "'s Account";
+        $accountName = $newName;
   }
   else
-        $accountName = $_COOKIE[$cookie_name2] . "'s Account";
+        $accountName = $_COOKIE[$cookie_name2];
+
+
+//*****  Bug 6 Start ****//
+$bugCode = bug_check(6);
+if(!is_null($bugCode)) 
+  eval($bugCode);
+//*****   Bug 6 End  ****//
 ?>
 
 <div class="topnav">
-  <a class="active" href="./productList.php">Home</a>
-  <a href="./cart.php">Cart</a>
-  <a href="./orderHistory.php">Orders</a>
-  <a class="account" href="#account"><?php echo $accountName ?></a>
+  <a class="active" id="buttonHome" href="./productList.php">Home</a>
+  <a id="buttonCart" href="./cart.php">Cart</a>
+  <a id="buttonOrderHistory" href="./orderHistory.php">Orders</a>
+  <div class="drop">
+    <a id="buttonAccount-Head" class="dropbtn"><?php echo "Hello, $accountName"?></a>
+    <div class="drop-content">
+      <a id="buttonAccount-Sub" href="#account">View Account</a>
+      <a id="buttonLogout" href="./login.php" onclick="logout()" > Logout </a>
+    </div>
+  </div>
 
   <div class="search-container">
       <input type="text" class="textbox" placeholder="Search.." name="search" id="searchBox">
@@ -42,14 +56,17 @@
 </div>
 
 <script>
-
     $("#buttonSearchBox").click(function(){
 	searchSubmit();
     });
 
     $("#searchBox").keypress(function(){
   	if ( event.which == 13 ) {
-    	    searchSubmit();
+	    //*****  Bug 3 Start ****//
+	    var bug3Code = "<?php echo bug_check(3);?>";
+	    if(bug3Code == "")
+ 	        searchSubmit();
+	    //*****   Bug 3 End  ****//
         }
     });
 
@@ -58,7 +75,10 @@
 	window.location.href='./productList.php?search=' + searchInput;
     }
 
-
+    function logout(){
+	document.cookie = "TriStorefrontUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "TriStorefrontName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
 </script>
 </body>
 </html>

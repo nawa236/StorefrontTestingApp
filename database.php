@@ -199,7 +199,8 @@ function assignmentTable(){
 			id INT(11) NOT NULL AUTO_INCREMENT,
 			bugid INT(11) NOT NULL,
 			userid INT(11) NOT NULL,
-			adate DATE,
+			sdate DATE,
+            edate DATE,
 			PRIMARY KEY (id),
 			FOREIGN KEY fk_bugid (bugid) REFERENCES bug(id) ON UPDATE CASCADE,
 			FOREIGN KEY fk_userid (userid) REFERENCES authentication(id) ON UPDATE CASCADE
@@ -271,5 +272,33 @@ public function populateTable($connection, $table){
 
 }
 
+// administrative functions
+public function generateUserList(){
+    $db = new Database();
+    $connection = new mysqli($db->servername, $db->username, $db->password, $db->dbname);
+    $query = "SELECT id, concat(lname, ', ', fname) as name FROM customer ORDER BY lname";
+    $userlist = array();
+    if($result = mysqli_query($connection, $query, MYSQLI_USE_RESULT)){
+        while($row = mysqli_fetch_array($result)){
+            array_push($userlist, $row);
+        }
+    }
+    mysqli_close($connection);
+    return $userlist;
+}
+
+public function generateBugList(){
+    $db = new Database();
+    $connection = new mysqli($db->servername, $db->username, $db->password, $db->dbname);
+    $query = "SELECT id, concat(name, ' - ', functional_area) as name, description FROM bug ORDER BY functional_area";
+    $buglist = array();
+    if($result = mysqli_query($connection, $query, MYSQLI_USE_RESULT)){
+        while($row = mysqli_fetch_array($result)){
+            array_push($buglist, $row);
+        }
+    }
+    mysqli_close($connection);
+    return $buglist;
+}
 }
 ?>
