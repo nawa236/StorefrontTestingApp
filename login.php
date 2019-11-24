@@ -124,6 +124,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </fieldset>
 </form>
 
+<a href="forgotpassword.php"> Forgot your password? Click here! </a>
+
 <span class="error"> <?php echo $accountError; ?> </span>
 <span class="error"> <?php echo $cookiecheck; ?> </span>
 
