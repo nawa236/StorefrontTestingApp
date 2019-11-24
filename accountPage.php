@@ -68,6 +68,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	        }
 		$sql = "UPDATE customer SET email = '$name' WHERE id = $id";
 		$res = mysqli_query($connection, $sql) or die("Could not update".mysql_error());
+                $sql = "UPDATE authentication SET email = '$name' WHERE id = $id";
+                $res = mysqli_query($connection, $sql) or die("Could not update".mysql_error());
+
 	}
 }
 //query for user account information output

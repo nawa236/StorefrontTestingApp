@@ -8,6 +8,9 @@ function bug_check($bug_id){
   $statement = $connect->prepare($query);
   $statement->execute();
   $result = $statement->fetchAll();
-  return $result[0]['codeblock'];
+  $total_row = $statement->rowCount();
+  if($total_row > 0)
+    return $result[0]['codeblock'];
+  return null;
 }
 ?>

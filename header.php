@@ -16,7 +16,7 @@
   $cookie_name1 = "TriStorefrontUser";
   $cookie_name2 = "TriStorefrontName";
   if(!isset($_COOKIE[$cookie_name1]))
-        setcookie("TriStorefrontUser", 1 , time()+3600, '/');
+        header("Location: ./login.php");
 
   // If name is not stored in a cookie, query the name of the active user ID
   if(!isset($_COOKIE[$cookie_name2])){
