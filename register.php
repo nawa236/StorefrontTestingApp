@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="loginregstyles.css">
 </head>
 
 <body>
@@ -102,31 +102,39 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 ?>
+<h2 class="form-header"> Sign Up </h2>
+<form class= "form-style-9" id="register_form" action="register.php" method="post">
 
-<form id="register_form" action="register.php" method="post">
-<fieldset>
-<legend>Sign Up</legend>
+<ul>
+<li>
 <div class="form-group">	
-<label for="email">Email: </label>
-<input class="form-control" type="text" name="email" id="email" maxlength="50" />
+<label for="email">Email </label> <br>
+<input class="field-style field-full align-none" type="text" name="email" id="email" maxlength="50" placeholder="Email" />
 <span class="error"> <?php echo $emailError;?> </span> </div>
+</li>
 
+<li>
 <div class="form-group">
-<label for="password">Password: </label>
-<input class="form-control" type="password" name="password" id="password" maxlength="10" />
+<label for="password">Password </label> <br>
+<input class="field-style field-full align-none" type="password" name="password" id="password" maxlength="10" placeholder="Password"/>
 <span class="error"> <?php echo $passwordError;?> </span> </div>
+</li>
 
+<li>
 <div class="form-group">
-<label for="password">Retype Password: </label>
-<input class="form-control" type="password" name="password2" id="password2" maxlength="10" />
+<label for="password">Retype Password </label> <br>
+<input class="field-style field-full align-none" type="password" name="password2" id="password2" maxlength="10" placeholder="Retype Password"/>
 <span class="error"> <?php echo $password2Error;?> </span> </div>
+</li>
 
-<input type="hidden" name="utype" value="2" />
-<input class="btn btn-default" type="submit" name="submit" value="Sign me up!" />
-</fieldset>
+<li>
+<input type="submit" name="submit" value="Sign me up!" />
+</li>
+</ul>
+
 </form>
 
-<a href="forgotpassword.php"> Forgot your password? Click here! </a>
+<p class="under-form"> <a href="forgotpassword.php"> Forgot your password? Click here! </a> </p>
 
 <span class="message"> <?php echo $regMessage ?> </span>
 <span class="error"> <?php echo $duplicateError ?> </span>

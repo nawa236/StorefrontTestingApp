@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="loginregstyles.css">
 </head>
 
 <body>
@@ -147,51 +147,68 @@ else {
 <h3 id="formhead"> <?php echo $pageinfo ?> </h3>
 
 
-<form id="info_form" action="firsttime.php" method="post">
-<fieldset>
-<legend>Account Information</legend>
+<h2 class="form-header"> Account Information </h2>
+<form class= "form-style-9" id="info_form" action="firsttime.php" method="post">
+<ul>
+<li>
 <div class="form-group">	
-<label for="fname">First Name: </label>
-<input class="form-control" type="text" name="fname" id="fname" maxlength="40" />
+<label for="fname">First Name </label> <br>
+<input class="field-style field-full align-none" type="text" name="fname" id="fname" maxlength="40"/>
 <span class="error"> <?php echo $fnameError;?> </span> </div>
+</li>
 
+<li>
 <div class="form-group">
-<label for="mname">Middle Name: </label>
-<input class="form-control" type="text" name="mname" id="mname" maxlength="40" />
+<label for="mname">Middle Name </label> <br>
+<input class="field-style field-full align-none" type="text" name="mname" id="mname" maxlength="40" />
 <span class="error"> <?php echo $mnameError;?> </span> </div>
+</li>
 
+<li>
 <div class="form-group">
-<label for="lname">Last Name: </label>
-<input class="form-control" type="text" name="lname" id="lname" maxlength="40" />
+<label for="lname">Last Name </label> <br>
+<input class="field-style field-full align-none" type="text" name="lname" id="lname" maxlength="40" />
 <span class="error"> <?php echo $lnameError;?> </span> </div>
+</li>
 
+<li>
 <div class="form-group">
-<label for="address1">Address 1: </label>
-<input class="form-control" type="text" name="address1" id="address1" maxlength="50" />
+<label for="address1">Address 1 </label> <br>
+<input class="field-style field-full align-none" type="text" name="address1" id="address1" maxlength="50" />
 <span class="error"> <?php echo $address1Error;?> </span> </div>
+</li>
 
+<li>
 <div class="form-group">
-<label for="address2">Address 2: </label>
-<input class="form-control" type="text" name="address2" id="address2" maxlength="50" />
+<label for="address2">Address 2 </label> <br>
+<input class="field-style field-full align-none" type="text" name="address2" id="address2" maxlength="50" />
+</li>
 
+<li>
 <div class="form-group">
-<label for="city">City: </label>
-<input class="form-control" type="text" name="city" id="city" maxlength="30" />
+<label for="city">City </label> <br>
+<input class="field-style field-full align-none" type="text" name="city" id="city" maxlength="30" />
 <span class="error"> <?php echo $cityError;?> </span> </div>
+</li>
 
+<li>
 <div class="form-group">
-<label for="state_province">State or Province: </label>
-<input class="form-control" type="text" name="state_province" id="state_province" maxlength="20" />
+<label for="state_province">State or Province </label> <br>
+<input class="field-style field-full align-none" type="text" name="state_province" id="state_province" maxlength="20" />
 <span class="error"> <?php echo $state_provinceError;?> </span> </div>
+</li>
 
+<li>
 <div class="form-group">
-<label for="postalcode">Postal Code: </label>
-<input class="form-control" type="text" name="postalcode" id="postalcode" maxlength="10" />
+<label for="postalcode">Postal Code </label> <br>
+<input class="field-style field-full align-none" type="text" name="postalcode" id="postalcode" maxlength="10" />
 <span class="error"> <?php echo $postalcodeError;?> </span> </div>
+</li>
 
-<input type="hidden" name="utype" value="2" />
-<input class="btn btn-default" type="submit" name="submit" value="Submit" />
-</fieldset>
+<li>
+<input type="submit" name="submit" value="Submit" />
+</li>
+</ul>
 </form>
 
 <span class="message"> <?php echo $accountMessage; ?> </span>
