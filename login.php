@@ -101,28 +101,33 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <head>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="loginregstyles.css">
 </head>
 
 <body>
-
-<form id="login_form" action="login.php" method="post">
-<fieldset>
-<legend>Login</legend>
+<h2 class="form-header"> Login </h2>
+<form class="form-style-9" id="login_form" action="login.php" method="post">
+<ul>
+<li>
 <div class="form-group">	
-<label for="email">Email: </label>
-<input class="form-control" type="text" name="email" id="email" maxlength="50" />
+<label for="email">Email </label> <br>
+<input class="field-style field-full align-none" type="text" name="email" id="email" maxlength="50" placeholder="Email"/>
 <span class="error"> <?php echo $emailError;?> </span> </div>
+</li>
 
+<li>
 <div class="form-group">
-<label for="password">Password: </label>
-<input class="form-control" type="password" name="password" id="password" maxlength="10" />
+<label for="password">Password </label> <br>
+<input class="field-style field-full align-none" type="password" name="password" id="password" maxlength="10" placeholder="Password"/>
 <span class="error"> <?php echo $passwordError;?> </span> </div>
-
-<input type="hidden" name="utype" value="2" />
-<input class="btn btn-default" type="submit" name="submit" value="Login" />
-</fieldset>
+</li>
+<li>
+<input type="submit" name="submit" value="Login" />
+</li>
+</ul>
 </form>
+
+<p class="under-form"> <a href="forgotpassword.php"> Forgot your password? Click here! </a> </p>
 
 <span class="error"> <?php echo $accountError; ?> </span>
 <span class="error"> <?php echo $cookiecheck; ?> </span>
