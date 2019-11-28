@@ -119,7 +119,12 @@ function finalizeMin(newVal){
 
 // Finalizes values and calls to rebuild products on display
 function finalizeMax(newVal){
-    maxPrice = newVal;
+    //*****  Bug 8 Start ****//
+    var bugCode = "<?php echo bug_check(8);?>";
+    if(bugCode == "")
+        maxPrice = newVal;
+    //*****   Bug 8 End  ****//
+
     updateMax(newVal);
     minPrice = document.getElementById('minPriceSlider').value;
     filter();

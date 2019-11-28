@@ -11,14 +11,11 @@
 </head>
 <body>
 
-
-
 <?php
 require('header.php');
 if(!isset($_GET['productID'])){
 	header("Location: ./productList.php");
 }
-
 
 $id = $_GET['productID'];
 include('dbConnect.php');
@@ -166,6 +163,7 @@ var inv =  "<?php echo $inv ?>";
 var pName = "<?php echo $pName ?>";
 var pID = "<?php echo $id ?>";
 var uID = "<?php echo $_COOKIE['TriStorefrontUser']; ?>";
+var quantity = 1;
 $(document).ready(function(){
 
  // Event triggers for page elements
@@ -188,12 +186,20 @@ $(document).ready(function(){
  $('.bSKU').click(function(){
 	if(currentSKU != $.trim($(this).html())){
                 currentSKU = $.trim($(this).html());
-                doSKUQuery();
+		//*****  Bug 10 Start ****//
+	    	var bugCode = "<?php echo bug_check(10);?>";
+	    	if(bugCode == "")
+		    doSKUQuery();
+	    	//*****  Bug 10 End  ****//
         }
     });
 
  $('.flashy').click(function(){
-	var quantity = document.getElementById("quantitySelect").value;
+	//*****  Bug 9 Start ****//
+	var bugCode = "<?php echo bug_check(9);?>";
+	if(bugCode == "")
+	    quantity = document.getElementById("quantitySelect").value;
+	//*****  Bug 9 End  ****//
 	addToCart(quantity);
     });
   // ******************************
