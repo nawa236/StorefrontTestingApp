@@ -3,6 +3,8 @@
 <head>
 <title>Account</title>
 <link rel = "stylesheet" href = "styles.css"> 
+<link rel = "stylesheet" href = "loginregstyles.css">
+
 </head>
 <body>
 
@@ -90,51 +92,68 @@ if(mysqli_num_rows($res) > 0){
 		$email = $row["email"];
 	}
 }
-?>
+?> <h1 class="form-header"> Account Information </h1> 
+<form class= "form-style-9" id = "Account Page" action = "accountPage.php" method = "post">
+<ul>
+<li>
+<div class="form-group">
+	<label>First Name</label><br>
+	<input class="field-style field-full align-none" type = "text" id="fnameInput" name = "fname" value = "<?php echo $fname;?>"/>
+</li>
 
-<form id = "Account Page" action = "accountPage.php" method = "post">
-<fieldset>
-<legend>Account Information</legend>
-<p>
-	<label>First Name</label>
-	<input type = "text" id="fnameInput" name = "fname" value = "<?php echo $fname;?>"/>
-</p>
-<p>
-	<label>Middle Name</label>
-	<input type = "text" id="mnameInput" name = "mname" value = "<?php echo $mname;?>"/>
-</p>
-<p>
-	<label>Last Name</label>
-	<input type = "text" id="lnameInput" name = "lname" value = "<?php echo $lname;?>"/>
-</p>
-<p>
-	<label>Address 1</label>
-	<input type = "text" id="address1Input" name = "address1" value = "<?php echo $ad1;?>"/>
-</p>
-<p>
-        <label>Address 2</label>
-        <input type = "text" id="address2Input" name = "address2" value = "<?php echo $ad2;?>"/>
-</p>
-<p>
-	<label>City</label>
-	<input type = "text" id="cityInput" name = "city" value = "<?php echo $city;?>"/>
-</p>
-<p>
-	<label>State-Province</label>
-	<input type = "text" id="stateInput" name = "state_province" value = "<?php echo $state;?>"/>
-</p>
-<p>
-	<label>Postal-Code</label>
-	<input type = "number" id="zipInput" name = "postalcode" value = "<?php echo $zip;?>"/>
-</p>
-<p>
-	<label>Email</label>
-	<input type = "email" id="emailInput" name = "email" value = "<?php echo $email;?>"/>
-</p>
-<p>
+<li>
+	<div class="form-group">
+	<label>Middle Name</label><br>
+	<input class="field-style field-full align-none" type = "text" id="mnameInput" name = "mname" value = "<?php echo $mname;?>"/>
+</li>
+
+<li>
+	<div class="form-group">
+	<label>Last Name</label><br>
+	<input class="field-style field-full align-none" type = "text" id="lnameInput" name = "lname" value = "<?php echo $lname;?>"/>
+</li>
+
+<li>
+	<div class="form-group">
+	<label>Address 1</label><br>
+	<input class="field-style field-full align-none" type = "text" id="address1Input" name = "address1" value = "<?php echo $ad1;?>"/>
+</li>
+
+<li>
+	<div class="form-group">
+        <label>Address 2</label><br>
+        <input class="field-style field-full align-none" type = "text" id="address2Input" name = "address2" value = "<?php echo $ad2;?>"/>
+</li>
+
+<li>
+	<div class="form-group">
+	<label>City</label><br>
+	<input class="field-style field-full align-none" type = "text" id="cityInput" name = "city" value = "<?php echo $city;?>"/>
+</li>
+
+<li>
+	<div class="form-group">
+	<label>State-Province</label><br>
+	<input class="field-style field-full align-none" type = "text" id="stateInput" name = "state_province" value = "<?php echo $state;?>"/>
+</li>
+
+<li>
+	<div class="form-group">
+	<label>Postal-Code</label><br>
+	<input class="field-style field-full align-none" type = "number" id="zipInput" name = "postalcode" value = "<?php echo $zip;?>"/>
+</li>
+
+<li>
+	<div class="form-group">
+	<label>Email</label><br>
+	<input class="field-style field-full align-none" type = "email" id="emailInput" name = "email" value = "<?php echo $email;?>"/>
+</li>
+
+<li>
+<br>
 	<input type = "submit" value = "Update"/>
-</p>
-</fieldset>
+</li>
+</ul>
 </form>
 
 </body>
