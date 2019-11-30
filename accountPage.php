@@ -9,9 +9,13 @@
 <body>
 
 <?php
+	
+//set error handling
 ini_set('display_errors',1);
 error_reporting(E_ALL);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+//ensure database connection
 require('header.php');
 include('dbConnect.php');
 $id = $_COOKIE["TriStorefrontUser"];
@@ -20,6 +24,7 @@ $id = $_COOKIE["TriStorefrontUser"];
 if($connection -> connect_error){
         echo "Error connecting to database - " + $connection->connect_error;
 }
+	
 //if user intention is to change account information
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 	//if conditionals to determine if account information is being changed/applies changes
@@ -39,9 +44,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$res = mysqli_query($connection, $sql) or die("Could not update".mysql_error());
 	}
 	if(isset($_POST['address1'])){
-		$name = trim($_POST['address1']);
-		$sql = "UPDATE customer SET address1 = '$name' WHERE id = $id";
-		$res = mysqli_query($connection, $sql) or die("Could not update".mysql_error());
+		//*****  Bug 12 Start ****//
+	    	var bugCode = "<?php echo bug_check(12);?>";
+	    	if(bugCode == ""){
+			$name = trim($_POST['address1']);
+			$sql = "UPDATE customer SET address2 = '$name' WHERE id = $id";
+			$res = mysqli_query($connection, $sql) or die("Could not update".mysql_error());
+		}
+		//***** Bug 12 End *****//
+		else{
+			$name = trim($_POST['address1']);
+			$sql = "UPDATE customer SET address1 = '$name' WHERE id = $id";
+			$res = mysqli_query($connection, $sql) or die("Could not update".mysql_error());
+		}
 	}
 	if(isset($_POST['address2'])){
 		$name = trim($_POST['address2']);
@@ -75,23 +90,42 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 	}
 }
+	
 //query for user account information output
 $sql = "SELECT * FROM customer WHERE id = $id";
 $res = mysqli_query($connection, $sql);
+	
 //cycles through results outputting desired information
 if(mysqli_num_rows($res) > 0){
 	while($row = mysqli_fetch_assoc($res)){
-		$fname = $row["fname"];
-		$mname = $row["mname"];
-		$lname = $row["lname"];
-		$ad1   = $row["address1"];
-		$ad2   = $row["address2"];
-		$city  = $row["city"];
-		$state = $row["state_province"];
-		$zip   = $row["postalcode"];
-		$email = $row["email"];
+		//*****  Bug 11 Start ****//
+	    	var bugCode = "<?php echo bug_check(11);?>";
+	    	if(bugCode == ""){
+		    	$fname = $row["lname"];
+			$mname = $row["fname"];
+			$lname = $row["mname"];
+			$ad1   = $row["address2"];
+			$ad2   = $row["address1"];
+			$city  = $row["state_province"];
+			$state = $row["city"];
+			$zip   = $row["postalcode"];
+			$email = $row["email"];
+		}
+		//***** Bug 11 End *****//
+		else{
+			$fname = $row["fname"];
+			$mname = $row["mname"];
+			$lname = $row["lname"];
+			$ad1   = $row["address1"];
+			$ad2   = $row["address2"];
+			$city  = $row["city"];
+			$state = $row["state_province"];
+			$zip   = $row["postalcode"];
+			$email = $row["email"];
+		}
 	}
 }
+//input form creation
 ?> <h1 class="form-header"> Account Information </h1> 
 <form class= "form-style-9" id = "Account Page" action = "accountPage.php" method = "post">
 <ul>
