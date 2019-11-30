@@ -78,7 +78,7 @@
         <label for="bug_name">Bug Name</label><br />
         <input type="text" id="bug_name"> <br />
         <label for="bug_functional_area">Functional Area</label><br />
-        <input type="text" id="bug_functional_area"><br />
+        <input type="text" id="bug_functional_area" title="Enter page or section where the bug will be active."><br />
         <label for="bug_description">Description</label><br />
         <input type="text" id="bug_description"><br />
         <label for="bug_code">Codeblock</label><br />
@@ -89,6 +89,7 @@
 </div>
 </div>
 <script>
+// bug assignment functions
 function reviewAssignment(){
     var newline = "\r\n";
     var doc = document.getElementById("user_input");
@@ -113,6 +114,7 @@ function saveAssignment(){
     var uid = $("#user-list option[value='" + username + "']").attr('id').replace("u_","");
     var doc2 = document.getElementById("bugs");
     var buglist = new Array();
+    // add selected bugs to an array
     for(var opt of doc2.options){
         if(opt.selected){
             $bid = opt.id;
@@ -126,6 +128,7 @@ function saveAssignment(){
     // Clear form elements.
     resetAssignmentForm();
 
+    // call ajax function for each separate item in the bug array
     if(edate == ""){
         for(let i = 0; i < buglist.length; i++){
             var bid = buglist[i];
@@ -148,6 +151,7 @@ function saveAssignment(){
     }
 }
 
+// clear assignment form data
 function resetAssignmentForm(){
     document.getElementById("review").innerHTML = "";
     document.getElementById("review").addAttribute("hidden");
@@ -163,6 +167,32 @@ function resetAssignmentForm(){
             opt.removeAttribute("selected");
         }
     }
+}
+
+// bug editing functions
+// clear bug form data
+function resetBugForm(){
+    document.getElementById("bug_name").value = "";
+    document.getElementById("bug_functional_area").value = "";
+    document.getElementById("bug_description").value = "";
+    document.getElementById("bug_code").value = "";
+}
+
+function saveNewBug(){
+    var bugname = document.getElementById("bug_name").value;
+    var funcarea = document.getElementById("bug_functional_area").value;
+    var description = document.getElementById("bug_description").value;
+    var codeblock = document.getElementById("bug_code").value;
+
+    // Clear form elements.
+    resetBugForm();
+
+    $.ajax({
+        url:"saveBug.php",
+        method:"POST",
+        data:{ name: bugname, functional_area: funcarea, description: description, codeblock: codeblock },
+            success:function(data){ alert(data); }
+    });
 }
 </script>
 
