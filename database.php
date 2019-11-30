@@ -299,6 +299,28 @@ public function generateBugList(){
     }
     mysqli_close($connection);
     return $buglist;
+    }
+
+public function runQuery($query){
+    $db = new Database();
+    $connection = new mysqli($db->servername, $db->username, $db->password, $db->dbname);
+    if($result = mysqli_query($connection, $query)){
+        $count = mysqli_num_rows($result);
+        return $count;
+    }else{
+        return -1;
+    }
+}
+
+public function runInsert($query){
+    $db = new Database();
+    $connection = new mysqli($db->servername, $db->username, $db->password, $db->dbname);
+    if($result = mysqli_query($connection, $query)){
+        $count = mysqli_affected_rows($connection);
+        return $count;
+    }else{
+        return -1;
+    }
 }
 }
 ?>

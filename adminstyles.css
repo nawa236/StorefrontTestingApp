@@ -30,11 +30,11 @@ ul > nav-pills {
 }
 
 .multiselect-container {
-    max-height: 200px;
+    max-height: 150px;
     overflow: auto;
 }
 
-.listbox-area {
+.area {
     padding: 20px;
     background: #eee;
     border: 1px solid #aaa;
@@ -82,6 +82,7 @@ ul > nav-pills {
         position: absolute;
         left: 0.5em;
     }
-.listbox-area > .left, .right > label{
+
+.area > .left, .right > label{
         color: #000;
     }

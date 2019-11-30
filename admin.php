@@ -23,20 +23,24 @@
 
 <!-- assignment content -->
 <div class="tab-pane active" id="assignment">
-    <div class="listbox-area" id="assign">
+    <div class="area" id="assign">
         <div class="left">
             <label for="users">User List</label><br/>
             <input type="text" id="user_input" list="user-list" placeholder="Type a user name"><br />
-            <datalist id="user-list" role="listbox" aria-labelledby="user-list">
+            <datalist id="user-list" aria-labelledby="user-list">
             <?php
                 $db = new Database();
                 $users = $db->generateUserList();
                 foreach($users as $user){
-                    echo "<option id=\"u_$user[0]\" value=\"$user[0]\">$user[1]</option>";
+                    echo "<option id=\"u_$user[0]\" value=\"$user[1]\" />";
                 }
             ?>
-            </datalist>
+            </datalist><p>
+            <div>
+            <label for="start">Start Date</label> <input type="date" id="start" ><p>
+            <label for="end">End Date</label> <input type="date" id="end"><p>
             <textarea name="review" id="review" rows="10" cols="50" hidden></textarea>
+            </div>
         </div>
         <div class="right">
             <label for="bugs">Bug List</label> <br/>
@@ -48,7 +52,7 @@
                     echo "<option id=\"b_$bug[0]\" value=\"$bug[0]\" title=\"$bug[2]\" >$bug[1]</option>";
                 }
             ?>
-            </select><br />
+            </select><p>
             <input type="button" id="bug_assignment" class="btn btn-primary" onclick="reviewAssignment()" value="Review Bug Assignment">
         </div>
     </div>
@@ -56,11 +60,11 @@
 
 <!-- bug editing content -->
 <div class="tab-pane" id="edit">
-    <div class="listbox-area" id="editor">
+    <div class="area" id="editor">
         <div class="left">
             <label for="bugs">Bug List</label> <br />
             <input type="text" id="bugs" list="bug-list" onchange="updateBugForm()" placeholder="Enter a bug name">
-            <datalist id="bug-list" role="listbox" aria-labelledby="bug-list">
+            <datalist id="bug-list" aria-labelledby="bug-list">
             <?php
                 $db = new Database();
                 $bugs = $db->generateBugList();
@@ -88,8 +92,8 @@
 function reviewAssignment(){
     var newline = "\r\n";
     var doc = document.getElementById("user_input");
-    var userid = doc.value;
-    var username = document.getElementById("u_"+userid).innerHTML;
+    var username = doc.value;
+    var userid = $("#user-list option[value='" + username + "']").attr('id').replace("u_","");
     var doc2 = document.getElementById("bugs");
     var buglist = username + newline;
     for(var opt of doc2.options){
@@ -99,9 +103,68 @@ function reviewAssignment(){
     }
     document.getElementById("review").innerHTML = buglist;
     document.getElementById("review").removeAttribute("hidden");
-    document.getElementById("bug_assignment").onclick = "saveAssignment()";
+    document.getElementById("bug_assignment").setAttribute("onclick", "saveAssignment()");
     document.getElementById("bug_assignment").value = "Save Bug Assignment";
 }
+
+function saveAssignment(){
+    var doc = document.getElementById("user_input");
+    var username = doc.value;
+    var uid = $("#user-list option[value='" + username + "']").attr('id').replace("u_","");
+    var doc2 = document.getElementById("bugs");
+    var buglist = new Array();
+    for(var opt of doc2.options){
+        if(opt.selected){
+            $bid = opt.id;
+            buglist.push($bid.replace("b_",""));     
+        }
+    }
+
+    var sdate = typeof start.value == "" ? new Date().toJSON() : start.value;
+    var edate = end.value;
+
+    // Clear form elements.
+    resetAssignmentForm();
+
+    if(edate == ""){
+        for(let i = 0; i < buglist.length; i++){
+            var bid = buglist[i];
+            $.ajax({
+                url:"saveAssignment.php",
+                method:"POST",
+                data:{ bugid: bid, userid: uid, sdate: sdate },
+                success:function(data){ alert(data); }
+            });
+        }
+    }else{
+        for(let j = 0; j < buglist.length; j++){
+            $.ajax({
+                url:"saveAssignment.php",
+                method:"POST",
+                data:{ bugid: buglist[j], userid: uid, sdate: sdate, edate: edate },
+                success:function(data){ alert(data); }
+            });
+        }
+    }
+}
+
+function resetAssignmentForm(){
+    document.getElementById("review").innerHTML = "";
+    document.getElementById("review").addAttribute("hidden");
+    document.getElementById("user_input").val = "";
+    document.getElementById("start").val = "";
+    document.getElementById("end").val = "";
+    document.getElementById("bug_assignment").setAttribute("onclick", "reviewAssignment()");
+    document.getElementById("bug_assignment").value = "Review Bug Assignment";
+
+    var doc2 = document.getElementById("bugs");
+    for(var opt of doc2.options){
+        if(opt.selected){
+            opt.removeAttribute("selected");
+        }
+    }
+}
 </script>
+
 </body>
 </html>
