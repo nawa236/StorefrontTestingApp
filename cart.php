@@ -20,9 +20,9 @@
 		$total_row = $statement->rowCount();
 
 		if ($total_row == 0){
-			echo "<p> There is nothing in your cart </p>";
+			echo "<p id='emptycart'> There is nothing in your cart </p>";
 		} else if ($total_row >= 2) {
-			echo "<p> Error: Multiple incomplete orders detected </p>";
+			echo "<p id='errorcart'> Error: Multiple incomplete orders detected </p>";
 		} else {
 			$oID = $result[0]['id'];
 			$query = "SELECT * FROM order_products, product WHERE pid=id AND oid=$oID";
@@ -30,7 +30,7 @@
 			$statement->execute();
 			$result = $statement->fetchAll();
 			echo "<h1> Cart Contents </h1>";
-			echo '<form action="./save.php">';
+			echo '<form action="./save.php" id="checkoutform">';
 			echo '<input type="hidden" name="oID" value="' . $oID . '" />';
 			$subtotal = 0;
 			echo '<div id="wrapper" class="filter">';
@@ -40,34 +40,34 @@
 				$sku = $row['sku'];
 				$name = $row['name'];
 				$pid = $row['pid'];
-			    echo '<div class="cartcard">';
+			    echo '<div class="cartcard" id="cartitem' . $pid . '">';
 				echo '<p style="float:left; margin: 10px;">'. $name .'	</p>';
 				$formattedPrice = number_format ($price,2);
-				echo '<p style="float:left; margin: 10px;">	SKU: ';
+				echo '<p style="float:left; margin: 10px;" id="cartsku' . $pid . '">	SKU: ';
 				echo "$sku ";
 				echo '</p>';
-				echo '<p style="float:right; margin: 10px;">	Total: $';
+				echo '<p style="float:right; margin: 10px;" id="carttotal' . $pid . '">	Total: $';
 				$total = $price * $quantity;
 				echo number_format($total,2). " </p>";
-				echo '<p style="float:right; margin: 10px;">	Quantity: <input type="number" id="cart_quantity_' . $pid; 
+				echo '<p style="float:right; margin: 10px;" id="cartquantity' . $pid . '">	Quantity: <input type="number" id="cart_quantity_' . $pid; 
 				echo '" style="width: 60px" name="' . $pid;
-				echo '" min="0" onkeypress="return event.charCode >= 48" step="1" value=' . $quantity . '> </p>';
-				echo '<p style="float:right; margin: 10px;">	$' . $formattedPrice . ' </p>';
+				echo '" min="0" onkeypress="return event.charCode >= 48" step="1" value=' . $quantity . ' id="cartquantityinput' . $pid . '> </p>';
+				echo '<p style="float:right; margin: 10px;" id="carttotal' . $pid . '">	$' . $formattedPrice . ' </p>';
 				echo "</div>";
 				$subtotal += ($price * $quantity);
-			}
+			};
 			echo "</div>";
-			echo '<p style="text-align: right; margin: 10px;"> Subtotal: $';
-			echo number_format($subtotal,2);
-			echo '<p style="text-align: right; margin: 10px;"> Tax (6%): $';
+			echo '<p style="text-align: right; margin: 10px;" id="cartsubtotal"> Subtotal: $';
+			echo number_format($subtotal,2) . '</p>';
+			echo '<p style="text-align: right; margin: 10px;" id="carttax"> Tax (6%): $';
 			$tax = $subtotal * .06;
-			echo number_format($tax,2);
-			echo '<p style="text-align: right; margin: 10px;"> Total: $';
+			echo number_format($tax,2) . '</p>';
+			echo '<p style="text-align: right; margin: 10px;" id="carttotal"> Total: $';
 			$total = $subtotal + $tax;
 			echo number_format($total,2);
 			echo "</p>";
-			echo '<input type="submit" value="Checkout" name="checkout" style="float: right; margin: 10px;">';
-			echo '<input type="submit" value="Save" name="save" style="float: right; margin: 10px;">';
+			echo '<input type="submit" value="Checkout" name="checkout" style="float: right; margin: 10px;" id="cartcheckout">';
+			echo '<input type="submit" value="Save" name="save" style="float: right; margin: 10px;" id="cartsave">';
 			echo "</form>";
 		}
 	?>
