@@ -14,19 +14,22 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 require('dbConnect.php');
 
+// Initialize dynamic text variables
 $emailError = "";
 $passwordError = "";
 $password2Error = "";
 $duplicateError = "";
 $regMessage = "";
 
+// Check if connection to DB was successfull
 if($connection -> connect_error){
 	echo "Error connecting to database - " + $connection->connect_error;
 }
 
+// If the user send in form data/there was a POST request
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    
+    // Check if information is present
     if (empty($_POST['email']) && empty($_POST['password'])) {
         $emailError = "Email is required";
         $emailError = "password is required";
@@ -42,26 +45,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $password2Error = "Passwords must match";
     }
     else {
-
+        // Get email from request
         $username = trim($_POST['email']);
+        // Check if email is in a correct format
         // Regular expression from https://code.tutsplus.com/tutorials/how-to-implement-email-verification-for-new-members--net-3824
         if (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $username)) {
             $emailError = "Email must be in a valid format such as xxxx@yyyy.com";
         }
+        // If email is in correct format
         else {
+            // Check if there is an account already in the DB with that email
             $usernamecheck = "SELECT * FROM  authentication WHERE email = '" . $username . "'"; 
             $usernamecheckquery = mysqli_query($connection, $usernamecheck);
             $usernamecheckcount = mysqli_num_rows($usernamecheckquery);
-
             if ($usernamecheckcount == 0) {
-
+                // Get password from request, hash it, create a hash for the verification link, and insert into the table.
                 $password = trim($_POST['password']);
                 $hashpassword = password_hash($password, PASSWORD_DEFAULT);
-                $currentusers = mysqli_query($connection, "SELECT COUNT(*) FROM authentication");
                 $regHash = md5(rand (0,1000));
                 $query = "INSERT INTO authentication(password, email, type, hash, status) values ('$hashpassword', '$username', '0', '$regHash', '0')";
                 $result = mysqli_query($connection, $query);
-
+                // If DB call is successful, send user an email with the verification link.
                 if ($result == 1) {
 
                     $regMessage = "Registration successful! Please verify your account by clicking the activation link that has been sent to your email.";
@@ -74,7 +78,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     <body>
 
                     <p>Please click the link below to verify your email to finish your account creation on the Trissential bug website.</p> <br>
-                    <a href="localhost/storefront/verify.php?email='.$username.'&hash='.$regHash.'">Verify your account</a>
+                    <a href="40.71.228.49/storefront/verify.php?email='.$username.'&hash='.$regHash.'">Verify your account</a>
 
                     </body>
 
@@ -84,9 +88,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     $headers = "MIME-Version: 1.0" . "\r\n";
                     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-                    $headers .= 'from:trissentialbugsite@gmail.com' . "\r\n";
+                    $headers .= 'from:trissentialbugsite@gmail.com' . "\r\n";   // WILL NEED TO BE CHANGED DEPENDING ON DESIRED USAGE
                     mail($to, $subject, $message, $headers);
                 }
+                // Else, there was an error with the DB call. Inform the user of an error.
                 else {
                     echo "<script type='text/javascript'>alert('There was an error with your registration. Please contact the administrator if these issues persist.'); </script>";
                     $regMessage = "There was an error with your registration. Please contact the administrator if these issues persist.";
@@ -135,9 +140,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </form>
 
 <p class="under-form"> <a href="forgotpassword.php"> Forgot your password? Click here! </a> </p>
+<p class="under-form"> <a href="login.php"> Already have an account? Click here to login! </a> </p>
 
-<span class="message"> <?php echo $regMessage ?> </span>
-<span class="error"> <?php echo $duplicateError ?> </span>
+<p class="under-form"> <?php echo $regMessage ?> </p>
+<p class="under-form-error"> <?php echo $duplicateError ?> </p>
 
 
 </body>

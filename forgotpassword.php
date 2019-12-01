@@ -10,16 +10,19 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 // Database connection
 require('dbConnect.php');
-
+// Initialize variables used for dynamic text/information
 $forgotMessage = "";
 $emailError = "";
 
+// If the user has form input/there is a POST request
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    // Check if email is empty, inform user if so
     if (empty($_POST['email'])) {
         $emailError = "Email is required";
     }
     else {
+        // Put email into a variable and check if that email has an account
         $username = trim($_POST['email']);
         $usernamecheck = "SELECT * FROM  authentication WHERE email = '" . $username . "'"; 
         $usernamecheckquery = mysqli_query($connection, $usernamecheck);
@@ -28,6 +31,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $accountError = "No user found with that email.";
         }
+        // If that email has an account, create a hash and send a forgot password email to the user
         else {
             $forgotHash = md5(rand (0,1000));
             $forgothashquery = "UPDATE authentication SET hash = '$forgotHash' WHERE email = '" . $username . "'";
@@ -43,7 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 <body>
 
                 <p>Please click the link below to reset your password</p> <br>
-                <a href="localhost/storefront/verifyforgotpassword.php?email='.$username.'&hash='.$forgotHash.'">Reset Password</a>
+                <a href="40.71.228.49/storefront/verifyforgotpassword.php?email='.$username.'&hash='.$forgotHash.'">Reset Password</a>
 
                 </body>
 
@@ -53,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-                $headers .= 'from:trissentialbugsite@gmail.com' . "\r\n";
+                $headers .= 'from:trissentialbugsite@gmail.com' . "\r\n";   // WILL NEED TO BE CHANGED DEPENDING ON DESIRED USAGE
                 mail($to, $subject, $message, $headers);
             } 
         }

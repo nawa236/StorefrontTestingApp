@@ -16,6 +16,7 @@ $emailError = "";
 $passwordError = "";
 $accountError = "";
 $cookiecheck = "";
+$reverifyMessage = "";
 
 // Used for user account status check
 define("fullyverified", 2);
@@ -74,18 +75,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         $namequery = "SELECT fname FROM customer WHERE id = $idnum";
                         $nameresult = mysqli_query($connection, $namequery);
                         $fetchedname = mysqli_fetch_assoc($nameresult);
-                        $name = $fetchedname["fname"];
+
+                        //***** Bug Start *****//
+                        $bugCode = bug_check(11);
+                        if(is_null($bugCode)) {
+                            $name = $fetchedname["fname"];
+                        }
+                        else {
+                            eval($bugCode)
+                        }
+                        //***** Bug End *****//
+                        
                         setcookie("TriStorefrontName", $name, time()+3600, "/");
 
                         setcookie("TriStorefrontUser", $idnum,time()+3600, "/");
                         $cookiecheck = "You are now logged in";
                         echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'productList.php';</script>";
                     }
-                    else { // User has not fully completed account creation, so redirect to account finalization page
-                        $idnum = $fetchedquery["id"];
-                        setcookie("TriStorefrontUser", $idnum,time()+3600, "/");
-                        $cookiecheck = "You are now logged in, please enter your information in on the next page to complete account creation.";
-                        echo "<script type='text/javascript'>alert('You are now logged in, please enter your information in on the next page to complete account creation'); window.location = 'firsttime.php';</script>";
+                    else { // User has not fully completed account creation, so check if they have done the email verification and ask if they need to resend the email if not.
+                        if ($fetchedquery["status"] == emailverified) {
+                            $idnum = $fetchedquery["id"];
+                            setcookie("TriStorefrontUser", $idnum,time()+3600, "/");
+                            $cookiecheck = "You are now logged in, please enter your information in on the next page to complete account creation.";
+                            echo "<script type='text/javascript'>alert('You are now logged in, please enter your information in on the next page to complete account creation'); window.location = 'firsttime.php';</script>";
+                        }
+                        else {
+                            $accountError = "Your account has not yet been verified through email. Please verify your account to login.";
+                            echo "<script type='text/javascript'>alert('Your account has not yet been verified through email. Please verify your account to login.');</script>";
+                            $reverifyMessage = "Didn't receive verification email? Click here to resend!";
+                        }
                     }
                 }
             }
@@ -127,7 +145,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </ul>
 </form>
 
+<p class="under-form"> <a href="reverify"> <?php echo $reverifyMessage ?> </a> </p>
+
 <p class="under-form"> <a href="forgotpassword.php"> Forgot your password? Click here! </a> </p>
+<p class="under-form"> <a href="register.php"> Don't have an account? Click here to register! </a> </p>
 
 <span class="error"> <?php echo $accountError; ?> </span>
 <span class="error"> <?php echo $cookiecheck; ?> </span>
