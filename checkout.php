@@ -11,25 +11,31 @@
 <body>
 
 	<?php
+		/*basic includes*/
 		require('header.php');
 		include('dbConnect.php');
+		/*grab user id from cookie*/
 		$id = $_COOKIE["TriStorefrontUser"];
+		
+		/*query sql database to get incomplete order id*/
 		$query = "SELECT * FROM orders WHERE custid = $id AND status = 'Incomplete';";
 		$statement = $connect->prepare($query);
 		$statement->execute();
 		$result = $statement->fetchAll();
 		$total_row = $statement->rowCount();
-
+		/*no incomplete orders found so no cart*/
 		if ($total_row == 0){
 			echo "<p> There is nothing in your cart </p>";
-		} else if ($total_row >= 2) {
+		} else if ($total_row >= 2) { /*multiple incomplete orders found so something went wrong and needs server admin to fix*/
 			echo "<p> Error: Multiple incomplete orders detected </p>";
 		} else {
 			$oID = $result[0]['id'];
+			/*query sql database to get all the order items*/
 			$query = "SELECT * FROM order_products, product WHERE pid=id AND oid=$oID";
 			$statement = $connect->prepare($query);
 			$statement->execute();
 			$result = $statement->fetchAll();
+			/*calculate order subtotal, tax and total*/
 			$subtotal = 0;
 			foreach($result as $row){
 				$price = $row['price'];
@@ -39,12 +45,14 @@
 			$tax = $subtotal * .06;
 			$total = $subtotal + $tax;
 			
+			/*checkout form start*/
 			echo '<form action= "./reciept.php" id="checkoutform">';
+			/*shipping infomation*/
 			echo '<div style="float:right; margin: 10px;">';
 			echo '<input type="radio" name="ship" value="0" checked id="checkoutstandardship"> Standard (Free)<br>';
 			echo '<input type="radio" name="ship" value="10.99" id="checkout2dayship"> 2-Day (+$10.99)<br>';
 			echo '<input type="radio" name="ship" value="99.99" id="checkoutovernightship"> Over-Night (+$99.99)<br>';
-		
+			/*display taxes and totals*/
 			echo "<p id='checkoutsubtotal'>Subtotal = $$subtotal </p>";
 			echo "<p id='checkouttax'>Tax = $$tax </p>";
 			echo "<p id='checkouttotal'>Total = $$total </p>";
@@ -52,7 +60,7 @@
 			echo '</div>';
 		};
 	?>
-	
+		<!-- billing infomation form -->
 		Billing Information:<br>
 		First name: 
 		<input type="text" name="firstname" id="checkoutbillfname"><br>
@@ -118,6 +126,7 @@
 		</select><br>
 		Zip:
 		<input type="text" name="zip" id="checkoutbillzip"><br>
+		<!-- payment infomation form -->
 		Payment type:
 		<input type="radio" name="payment" value="credit" checked id="checkoutbillcredit"> Credit 
 		<input type="radio" name="payment" value="debit" id="checkoutbilldebit"> Debit<br>
@@ -133,6 +142,7 @@
 		Security Code:
 		<input type="text" name="security" maxlength="3" id="checkoutbillseccode"><br>
 		
+		<!-- shipping infomation form -->
 		Shipping Information:<br>
 		First name: 
 		<input type="text" name="shipfirstname" id="checkoutshipfname"><br>
