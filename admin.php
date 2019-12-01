@@ -22,7 +22,7 @@
 <div class="tab-content clearfix">
 
 <!-- assignment content -->
-<div class="tab-pane active" id="assignment">
+<div class="tab-pane active" id="assignment" >
     <div class="area" id="assign">
         <div class="left">
             <label for="users">User List</label><br/>
@@ -63,13 +63,13 @@
     <div class="area" id="editor">
         <div class="left">
             <label for="bugs">Bug List</label> <br />
-            <input type="text" id="bugs" list="bug-list" onchange="updateBugForm()" placeholder="Enter a bug name">
+            <input type="text" id="bug-input" list="bug-list" onchange="updateBugForm()" placeholder="Enter a bug name">
             <datalist id="bug-list" aria-labelledby="bug-list">
             <?php
                 $db = new Database();
                 $bugs = $db->generateBugList();
                 foreach($bugs as $bug){
-                    echo "<option id=\"be_$bug[0]\" title=\"$bug[2]\" >$bug[1]</option>";
+                    echo "<option id=\"be_$bug[0]\" value=\"$bug[1]\" title=\"$bug[2]\" />";
                 }
             ?>
             </datalist>
@@ -77,6 +77,7 @@
         <div class="right">
         <label for="bug_name">Bug Name</label><br />
         <input type="text" id="bug_name"> <br />
+        <input type="hidden" id="bug_id" value="">
         <label for="bug_functional_area">Functional Area</label><br />
         <input type="text" id="bug_functional_area" title="Enter page or section where the bug will be active."><br />
         <label for="bug_description">Description</label><br />
@@ -192,6 +193,29 @@ function saveNewBug(){
         method:"POST",
         data:{ name: bugname, functional_area: funcarea, description: description, codeblock: codeblock },
             success:function(data){ alert(data); }
+    });
+    window.location.reload(true);
+}
+
+function updateBugForm(){
+    // retrieve selected by via name lookup
+    var doc = document.getElementById("bug-input");
+    var bugname = doc.value;
+    var bugid = $("#bug-list option[value='" + bugname + "']").attr('id').replace("be_","");
+
+    // send ajax request and split returned data into array and assign to form elements
+    $.ajax({
+        url:"getBugData.php",
+        method:"POST",
+        data:{ id: bugid },
+        success:function(response){ 
+            var bugData = response.split("|");
+            document.getElementById("bug_id").value = bugData[0];
+            document.getElementById("bug_name").value = bugData[1];
+            document.getElementById("bug_functional_area").value = bugData[2];
+            document.getElementById("bug_description").value = bugData[3];
+            document.getElementById("bug_code").value = bugData[4];
+            }
     });
 }
 </script>
