@@ -13,14 +13,9 @@ error_reporting(E_ALL);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 require('dbConnect.php');
+// Initialize variables used for dynamic text/information
 $userid = 0;
 $pageinfo = "";
-
-$emailError = "";
-$passwordError = "";
-$accountError = "";
-$cookiecheck = "";
-
 $fnameError = "";
 $mnameError = "";
 $lnameError = "";
@@ -32,17 +27,17 @@ $accountMessage = "";
 
 
 
-
+// Check DB connection
 if($connection -> connect_error){
 	echo "Error connecting to database - " + $connection->connect_error;
 }
 
-
+// If the user has submitted their form/a POST request is made
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-
+    // If everything is empty, inform the user as such
     if (empty($_POST['fname']) || empty($_POST['mname']) || empty($_POST['lname']) || empty($_POST['address1']) || empty($_POST['city']) || empty($_POST['state_province']) || empty($_POST['postalcode'])) {
-
+            // Check each input
             if (empty($_POST['fname'])) {
                 $fnameError = "Please enter a first name";
             }
@@ -65,49 +60,53 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $postalcodeError = "Please enter a postal code";
             }
     }
-        else {
-
-            $fname = trim($_POST['fname']);
-            $mname = trim($_POST['mname']);
-            $lname = trim($_POST['lname']);
-            $address1 = trim($_POST['address1']);
-            if (!empty($_POST['address2'])) {
-                $address2 = trim($_POST['address2']);
-            }
-            else {
-                $address2 = "";
-            }
-            $city = trim($_POST['city']);
-            $state_province = trim($_POST['state_province']);
-            $postalcode = trim($_POST['postalcode']);
-
-            $userid = $_COOKIE["TriStorefrontUser"];
-            $custinfoquery = "UPDATE customer SET fname = '$fname', mname = '$mname', lname = '$lname', address1 = '$address1', address2 = '$address2', city = '$city', state_province = '$state_province', postalcode = '$postalcode' WHERE id = $userid";
-            $custinforesult = mysqli_query($connection, $custinfoquery);
-            if ($custinforesult == 1) {
-                $accountstatusquery = "UPDATE authentication SET status = 2 WHERE id = $userid";
-                $accountstatusresult = mysqli_query($connection, $accountstatusquery);
-                if ($accountstatusresult == 1) {
-                    setcookie("TriStorefrontName", $fname, time()+3600, '/');
-                    $accountMessage = "Account Information Successfully Added";
-                    echo "<script type='text/javascript'>alert('Account Information Successfully Added!'); window.location = 'productList.php';</script>";
-                }
-                else {
-                    $accountMessage = "There was a problem adding your account information. Please try again.";
-                }
-            }
-            else {
-            $accountMessage = "There was a problem adding your account information. Please try again.";
-            }
-
-
+    // If there is input for all required aspects of the form
+    else {
+        // Get all input from the user and store into variables
+        $fname = trim($_POST['fname']);
+        $mname = trim($_POST['mname']);
+        $lname = trim($_POST['lname']);
+        $address1 = trim($_POST['address1']);
+        if (!empty($_POST['address2'])) {
+            $address2 = trim($_POST['address2']);
         }
+        else {
+            $address2 = "";
+        }
+        $city = trim($_POST['city']);
+        $state_province = trim($_POST['state_province']);
+        $postalcode = trim($_POST['postalcode']);
+
+        // Insert information into the database
+        $userid = $_COOKIE["TriStorefrontUser"];
+        $custinfoquery = "UPDATE customer SET fname = '$fname', mname = '$mname', lname = '$lname', address1 = '$address1', address2 = '$address2', city = '$city', state_province = '$state_province', postalcode = '$postalcode' WHERE id = $userid";
+        $custinforesult = mysqli_query($connection, $custinfoquery);
+        // If the database call is successful, update the account authentication to show the account is fully intialized and set the name cookie
+        if ($custinforesult == 1) {
+            $accountstatusquery = "UPDATE authentication SET status = 2 WHERE id = $userid";
+            $accountstatusresult = mysqli_query($connection, $accountstatusquery);
+            if ($accountstatusresult == 1) {
+                setcookie("TriStorefrontName", $fname, time()+3600, '/');
+                $accountMessage = "Account Information Successfully Added";
+                echo "<script type='text/javascript'>alert('Account Information Successfully Added!'); window.location = 'productList.php';</script>";
+            }
+            else {
+                $accountMessage = "There was a problem adding your account information. Please try again.";
+            }
+        }
+        else {
+            $accountMessage = "There was a problem adding your account information. Please try again.";
+        }
+
+
+    }
 }
 
 
 
-
+// If the user is logged in and has not submitted a POST request, check the user's account id and do initial population of the customer information table if needed
 if(isset($_COOKIE["TriStorefrontUser"])) {
+    // Check if the user has account authentication information in the db
     $userid = $_COOKIE["TriStorefrontUser"];
     $idcheck = "SELECT * FROM  authentication WHERE id = '" . $userid . "'";
     $idcheckresult = mysqli_query($connection, $idcheck);
@@ -118,11 +117,11 @@ if(isset($_COOKIE["TriStorefrontUser"])) {
             $pageinfo = "An error has occured. Please attempt to log in below. Contact an adminstrator if this issue continues to persist";
     }
     else {
-
+        // Check if the customer table has any information for that userid (i.e. the user has already loaded this page once but not completed entering information)
         $usercheckquery = "SELECT * FROM customer WHERE id = '" . $userid . "'";
         $usercheckresult = mysqli_query($connection, $usercheckquery);
         $usercheckcount = mysqli_num_rows($usercheckresult);
-
+        // If customer table is empty for that userid, initialize the row with the userid and email
         if ($usercheckcount == 0) {
 
             $userfetchedresult = mysqli_fetch_assoc($idcheckresult);
@@ -134,7 +133,7 @@ if(isset($_COOKIE["TriStorefrontUser"])) {
     }
 }
 else {
-    echo "<script type='text/javascript'>alert('Please log in to continue account creation'); window.location = 'firsttimelogin.php';</script>";
+    echo "<script type='text/javascript'>alert('Please log in to continue account creation'); window.location = 'login.php';</script>";
 }
 
 

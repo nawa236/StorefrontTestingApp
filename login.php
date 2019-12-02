@@ -8,8 +8,9 @@ ini_set('display_errors',1);
 error_reporting(E_ALL);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-// Database connection
+// Database connection and bug check framework
 require('dbConnect.php');
+require('bugCheck.php');
 
 // Initialize variables used for dynamic text/information
 $emailError = "";
@@ -77,12 +78,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         $fetchedname = mysqli_fetch_assoc($nameresult);
 
                         //***** Bug Start *****//
-                        $bugCode = bug_check(11);
+                        $bugCode = bug_check(13);
                         if(is_null($bugCode)) {
                             $name = $fetchedname["fname"];
                         }
                         else {
-                            eval($bugCode)
+                            eval($bugCode);
                         }
                         //***** Bug End *****//
                         
