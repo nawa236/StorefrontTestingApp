@@ -155,7 +155,7 @@ function saveAssignment(){
 // clear assignment form data
 function resetAssignmentForm(){
     document.getElementById("review").innerHTML = "";
-    document.getElementById("review").addAttribute("hidden");
+    document.getElementById("review").hidden = true;
     document.getElementById("user_input").val = "";
     document.getElementById("start").val = "";
     document.getElementById("end").val = "";
@@ -198,7 +198,7 @@ function saveNewBug(){
 }
 
 function updateBugForm(){
-    // retrieve selected by via name lookup
+    // retrieve selected id by via name lookup
     var doc = document.getElementById("bug-input");
     var bugname = doc.value;
     var bugid = $("#bug-list option[value='" + bugname + "']").attr('id').replace("be_","");
