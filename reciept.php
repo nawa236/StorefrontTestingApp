@@ -60,7 +60,7 @@
 				echo "</div>";
 				$subtotal += ($price * $quantity);
 		};
-		echo "</div> <br>";
+		echo "</div> <br><br>";
 		/*show shipping choice*/
 		$shipping = (float) $_GET["ship"];
 		echo '<p style="text-align: left; margin: 10px;" id="recieptshipping"> Shipping: $' . $shipping;
