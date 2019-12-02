@@ -62,7 +62,8 @@
 		};
 		echo "</div> <br>";
 		/*show shipping choice*/
-		echo '<p style="text-align: left; margin: 10px;" id="recieptshipping"> Shipping: $' . $_GET["ship"];
+		$shipping = floatval($_GET["ship"])
+		echo '<p style="text-align: left; margin: 10px;" id="recieptshipping"> Shipping: $' . $shipping;
 		/*display subtotal, tax, and total*/
 		echo '<p style="text-align: left; margin: 10px;" id="recieptsubtotal"> Subtotal: $';
 		echo number_format($subtotal,2);
@@ -70,7 +71,6 @@
 		$tax = $subtotal * .06;
 		echo number_format($tax,2);
 		echo '<p style="text-align: left; margin: 10px;" id="reciepttotal"> Total: $';
-		$shipping = floatval($_GET["ship"])
 		$total = $subtotal + $tax + $shipping;
 		echo number_format($total,2);
 		echo "</p>";
