@@ -218,6 +218,23 @@ function updateBugForm(){
             }
     });
 }
+
+function updateBug(){
+    var id = document.getElementById("bug_id").value;
+    var name = document.getElementById("bug_name").value;
+    var area = document.getElementById("bug_functional_area").value;
+    var desc = document.getElementById("bug_description").value;
+    var code = document.getElementById("bug_code").value;
+    // send ajax request and split returned data into array and assign to form elements
+    $.ajax({
+        url:"updateBugData.php",
+        method:"POST",
+        data:{ id: id, name: name, functional_area: area, description: desc, codeblock: code },
+        success:function(response){ 
+            alert(response);
+        }
+    });
+}
 </script>
 
 </body>
