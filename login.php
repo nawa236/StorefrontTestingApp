@@ -76,17 +76,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         $namequery = "SELECT fname FROM customer WHERE id = $idnum";
                         $nameresult = mysqli_query($connection, $namequery);
                         $fetchedname = mysqli_fetch_assoc($nameresult);
-
-                        //***** Bug Start *****//
-                        $bugCode = bug_check(13);
-                        if(is_null($bugCode)) {
-                            $name = $fetchedname["fname"];
-                        }
-                        else {
-                            eval($bugCode);
-                        }
-                        //***** Bug End *****//
-                        
+                        $name = $fetchedname["fname"];
                         setcookie("TriStorefrontName", $name, time()+3600, "/");
 
                         setcookie("TriStorefrontUser", $idnum,time()+3600, "/");
@@ -146,7 +136,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </ul>
 </form>
 
-<p class="under-form"> <a href="reverify"> <?php echo $reverifyMessage ?> </a> </p>
+<p class="under-form"> <a href="reverify.php"> <?php echo $reverifyMessage ?> </a> </p>
 
 <p class="under-form"> <a href="forgotpassword.php"> Forgot your password? Click here! </a> </p>
 <p class="under-form"> <a href="register.php"> Don't have an account? Click here to register! </a> </p>
