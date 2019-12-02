@@ -333,5 +333,16 @@ public function runInsert($query){
         return -1;
     }
 }
+
+public function runUpdate($query){
+    $db = new Database();
+    $connection = new mysqli($db->servername, $db->username, $db->password, $db->dbname);
+    if($result = mysqli_query($connection, $query)){
+        $count = mysqli_affected_rows($connection);
+        return $count;
+    }else{
+        return -1;
+    }
+}
 }
 ?>
