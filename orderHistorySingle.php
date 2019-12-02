@@ -38,7 +38,7 @@
 		$statement = $connect->prepare($query);
 		$statement->execute();
 		$result = $statement->fetchAll();
-		echo "<h1> Order $order Contents </h1>";
+		echo "<h1 id='orderHead_$order'> Order $order Contents </h1>";
 		$subtotal = 0;
 		echo '<div id="wrapper" class="filter">';
 
@@ -52,12 +52,12 @@
 
 		// Display overall price at the end
 		echo "</div>";
-		echo '<p style="text-align: right; margin: 10px;"> Subtotal: $';
+		echo '<p id="subtotal" style="text-align: right; margin: 10px;"> Subtotal: $';
 		echo number_format($subtotal,2);
-		echo '<p style="text-align: right; margin: 10px;"> Tax (6%): $';
+		echo '<p id="tax" style="text-align: right; margin: 10px;"> Tax (6%): $';
 		$tax = $subtotal * .06;
 		echo number_format($tax,2);
-		echo '<p style="text-align: right; margin: 10px;"> Total: $';
+		echo '<p id="total" style="text-align: right; margin: 10px;"> Total: $';
 		$total = $subtotal + $tax;
 		echo number_format($total,2);
 		echo "</p>";
