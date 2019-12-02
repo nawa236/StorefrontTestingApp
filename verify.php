@@ -46,8 +46,8 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
                 $query = "UPDATE authentication SET status = 1 WHERE email = '$email'";
                 $result = mysqli_query($connection, $query);
                 $idnum = $fetchedquery["id"];
-                setcookie("TriStorefrontUser", $idnum, "/");
-                $message = "Account verified successfully. Please click on the link below to go to the login page and login!";
+                setcookie("TriStorefrontUser", $idnum, time()+3600, "/");
+                $message = "Account verified successfully. Please click on the link below to complete your account creation!";
                 $verified = 1;
                 echo "<script type='text/javascript'>alert('Please enter your information on the next page'); window.location = 'firsttime.php';</script>";
             }
@@ -73,6 +73,6 @@ else {
 ?>
 
 <h3> <?php echo $message ?> </h3>
-<?php if ($verified == 1) { echo '<a href="login.php"> Click here to login </a>'; } ?>
+<?php if ($verified == 1) { echo '<a href="firsttime.php"> Click here to complete account creation </a>'; } ?>
 
 </body>
