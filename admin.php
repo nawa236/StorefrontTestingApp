@@ -38,7 +38,7 @@
             ?>
             </datalist><p>
             <div>
-            <label for="start">Start Date</label> <input type="date" id="start" value="<?php echo date('Y-m-d'); ?>"><p>
+            <label for="start">Start Date</label> <input type="date" id="start" value="<?php date_default_timezone_set('America/New_York'); echo date('Y-m-d'); ?>"><p>
             <label for="end">End Date</label> <input type="date" id="end"><p>
             <textarea name="review" id="review" rows="10" cols="50" hidden></textarea>
             </div>
