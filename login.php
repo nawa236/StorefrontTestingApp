@@ -10,7 +10,6 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 // Database connection and bug check framework
 require('dbConnect.php');
-require('bugCheck.php');
 
 // Initialize variables used for dynamic text/information
 $emailError = "";
@@ -64,7 +63,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     $idnum = $fetchedquery["id"];
                     setcookie("TriStorefrontUser", $idnum,time()+3600, "/");
                     $cookiecheck = "You are now logged in";
-                    echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'adminpage.php';</script>";   
+                    echo "<script type='text/javascript'>alert('You are now logged in'); window.location = 'admin.php';</script>";   
                 }
                 // Else, user is not an admin
                 else {
@@ -141,8 +140,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <p class="under-form"> <a href="forgotpassword.php"> Forgot your password? Click here! </a> </p>
 <p class="under-form"> <a href="register.php"> Don't have an account? Click here to register! </a> </p>
 
-<span class="error"> <?php echo $accountError; ?> </span>
-<span class="error"> <?php echo $cookiecheck; ?> </span>
+<p class="under-form-error"> <?php echo $accountError; ?> </p>
+<p class="under-form-error"> <?php echo $cookiecheck; ?> </p>
 
 
 

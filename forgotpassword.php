@@ -47,7 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 <body>
 
                 <p>Please click the link below to reset your password</p> <br>
-                <a href="40.71.228.49/storefront/verifyforgotpassword.php?email='.$username.'&hash='.$forgotHash.'">Reset Password</a>
+                <a href="40.71.228.49/StorefrontTestingApp/verifyforgotpassword.php?email='.$username.'&hash='.$forgotHash.'">Reset Password</a>
 
                 </body>
 
@@ -73,24 +73,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 <head>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="loginregstyles.css">
 </head>
 
 <body>
-
-<form id="forgot_password_form" action="forgotpassword.php" method="post">
-<fieldset>
-<legend>Forgot Password</legend>
+<h2 class="form-header">Forgot Password</h2>
+<form class="form-style-9" id="forgot_password_form" action="forgotpassword.php" method="post">
+<ul>
+<li>
 <div class="form-group">	
 <label for="email">Email: </label>
-<input class="form-control" type="text" name="email" id="email" maxlength="50" />
+<input class="field-style field-full align-none" type="text" name="email" id="email" maxlength="50" />
 <span class="error"> <?php echo $emailError;?> </span> </div>
-
-<input type="hidden" name="utype" value="2" />
-<input class="btn btn-default" type="submit" name="submit" value="Send Verification Email" />
-</fieldset>
+</li>
+<li>
+<input type="submit" name="submit" value="Send Verification Email" />
+</li>
+</ul>
 </form>
 
-<span class="message"> <?php echo $forgotMessage ?> </span>
+<p class="under-form"> <?php echo $forgotMessage ?> </p>
 
 </body>
