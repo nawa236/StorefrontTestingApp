@@ -14,7 +14,6 @@
 <div class="container">
   <div class="flex-grid">
     <aside class="col sidebar">
-      <h2>Sidebar</h2>
 <div class="sidebarContents">
 
 
@@ -60,7 +59,7 @@
 
     </aside>
     <section class="col main">
-      <h2>The Product List</h2>
+      <h2>Product List</h2>
           <div id="wrapper" class="filter">
       </div>
     </div>
