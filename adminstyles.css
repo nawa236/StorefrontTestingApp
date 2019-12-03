@@ -13,7 +13,7 @@ ul > nav-pills {
 }
 
 .active {
-    background-color: #3267a1;
+    background-color: #6846C7;
     padding: 5px 15px;
     border-radius: 5px 5px 0 0;
 }
@@ -24,7 +24,7 @@ ul > nav-pills {
 
 #roundtab .tab-content {
     color: #fff;
-    background-color: #3267a1;
+    background-color: #6846C7;
     border-radius: 0 5px 0 0;
     padding: 5px 15px;
 }
@@ -58,6 +58,17 @@ ul > nav-pills {
     padding-left: 10px;
 }
 
+.full {
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 20px;
+    color: #000;
+    padding-right: 10px;
+    padding-left: 10px;
+    vertical-align: top;
+    width: 100%;
+}
+
 [role="listbox"] {
     min-height: 18em;
     padding: 0;
@@ -83,6 +94,16 @@ ul > nav-pills {
         left: 0.5em;
     }
 
-.area > .left, .right > label{
+.area > .left, .right, .full > label{
         color: #000;
     }
+
+th{
+    padding: 4px;
+    font-weight: 400;
+}
+
+td{
+    padding: 4px;
+    font-weight: 200;
+}

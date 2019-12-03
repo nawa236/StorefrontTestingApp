@@ -316,7 +316,10 @@ public function runDataQuery($query){
     $db = new Database();
     $connection = new mysqli($db->servername, $db->username, $db->password, $db->dbname);
     if($result = mysqli_query($connection, $query)){
-        $data = mysqli_fetch_row($result);
+        $data = array();
+        while($row = mysqli_fetch_row($result)){
+            array_push($data, $row);
+        }
         return $data;
     }else{
         return -1;

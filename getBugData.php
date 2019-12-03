@@ -4,13 +4,9 @@
 
     $id = $_POST["id"];
     $select = "SELECT * FROM bug WHERE id=$id";
-    $result = $db->runDataQuery($select);
-    $datalist = "";
-    if($result != ""){
-        foreach($result as $r){
-            $datalist .= $r . "|";
-        }
-        echo $datalist;
+    $results = $db->runDataQuery($select);
+    if($results != ""){
+        echo json_encode($results);
     }else{
         echo "Error in retrieving bug $id from database.";
     }

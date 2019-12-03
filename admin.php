@@ -15,6 +15,7 @@
 <div class="container" id="roundtab" role="navigation">
     <ul class="nav nav-pills">
         <li class="active"><a data-toggle="tab" id="assign" href="#assignment">Bug Assignment</a></li>
+        <li><a data-toggle="tab" id="assign2" href="#userUpdate">Update Bug Assignment</a></li>
         <li><a data-toggle="tab" id="editor" href="#edit">Bug Creation and Editing</a></li>
     </ul>
 
@@ -25,7 +26,7 @@
 <div class="tab-pane active" id="assignment" >
     <div class="area" id="assign">
         <div class="left">
-            <label for="users">User List</label><br/>
+            <label for="user_input">User List</label><br/>
             <input type="text" id="user_input" list="user-list" placeholder="Type a user name"><br />
             <datalist id="user-list" aria-labelledby="user-list">
             <?php
@@ -37,7 +38,7 @@
             ?>
             </datalist><p>
             <div>
-            <label for="start">Start Date</label> <input type="date" id="start" ><p>
+            <label for="start">Start Date</label> <input type="date" id="start" value="<?php echo date('Y-m-d'); ?>"><p>
             <label for="end">End Date</label> <input type="date" id="end"><p>
             <textarea name="review" id="review" rows="10" cols="50" hidden></textarea>
             </div>
@@ -86,11 +87,40 @@
         <textarea id="bug_code" name="bug_code" rows="10" cols="50"></textarea><br />
         <input type="button" class="btn btn-primary" onclick="updateBug()" value="Update Bug">
         <input type="button" class="btn btn-warning" onclick="saveNewBug()" value="Save New Bug">
+        </div>
+    </div>
+</div>
+<!-- update bug assignments content -->
+<div class="tab-pane" id="userUpdate">
+    <div class="area" id="assign2">
+        <div class="full">
+            <!-- Define list of users -->
+            <label for="users_update">User List</label> <br />
+            <input type="text" id="users_update" list="update-list" onchange="populateBugList()" placeholder="Enter a user name"><br />
+            <datalist id="update-list" aria-labelledby="update-list">
+            <?php
+                $db = new Database();
+                $users = $db->generateUserList();
+                foreach($users as $user){
+                    echo "<option id=\"uu_$user[0]\" value=\"$user[1]\" />";
+                }
+            ?>
+            </datalist><br />
+
+            <!-- Define list of bugs assigned to selected user -->
+            <table id="user-bug-list" style="display:none" >
+                <thead><tr><th>Bug Name</th><th>Start Date</th><th>End Date</th><th>Actions</th></tr></thead>
+                <tbody></tbody>
+            </table>
     </div>
 </div>
 </div>
 <script>
 // bug assignment functions
+function updateDate(){
+    document.getElementById("start").value = new Date().toDateInputValue();
+}
+
 function reviewAssignment(){
     var newline = "\r\n";
     var doc = document.getElementById("user_input");
@@ -123,7 +153,7 @@ function saveAssignment(){
         }
     }
 
-    var sdate = typeof start.value == "" ? new Date().toJSON() : start.value;
+    var sdate = start.value == "" ? new Date().toJSON().slice(0,10) : start.value;
     var edate = end.value;
 
     // Clear form elements.
@@ -208,14 +238,16 @@ function updateBugForm(){
         url:"getBugData.php",
         method:"POST",
         data:{ id: bugid },
-        success:function(response){ 
-            var bugData = response.split("|");
-            document.getElementById("bug_id").value = bugData[0];
-            document.getElementById("bug_name").value = bugData[1];
-            document.getElementById("bug_functional_area").value = bugData[2];
-            document.getElementById("bug_description").value = bugData[3];
-            document.getElementById("bug_code").value = bugData[4];
+        success:function(response){
+            var temp_array = JSON.parse(response);
+            if(temp_array.length == 1){
+                document.getElementById("bug_id").value = temp_array[0][0];
+                document.getElementById("bug_name").value = temp_array[0][1];
+                document.getElementById("bug_functional_area").value = temp_array[0][2];
+                document.getElementById("bug_description").value = temp_array[0][3];
+                document.getElementById("bug_code").value = temp_array[0][4];
             }
+        }
     });
 }
 
@@ -234,6 +266,69 @@ function updateBug(){
             alert(response);
         }
     });
+}
+
+function populateBugList(){
+    var username = document.getElementById("users_update").value;
+    var userid = $("#update-list option[value='" + username + "']").attr('id').replace("uu_","");
+    // send ajax request and process returned data as an array for the bug assignment table
+    $.ajax({
+        url: "getUserBugAssignments.php",
+        method: "POST",
+        data: {userid: userid},
+        success: function(response){
+            var temp_array = JSON.parse(response);
+            if(temp_array.length < 1){
+                document.getElementById("user-bug-list").style.display = "none"; 
+                return;
+            }
+
+            var table = document.getElementById("user-bug-list").getElementsByTagName("tbody")[0];
+            document.getElementById("user-bug-list").style.removeProperty("display"); 
+            var new_tbody = document.createElement("tbody");
+            for(let i = 0; i < temp_array.length; i++){
+                var newrow = new_tbody.insertRow(-1);
+                newrow.setAttribute("id", "assignment_" + temp_array[i][0])
+                var bname_cell = newrow.insertCell(0);
+                var bstart_cell = newrow.insertCell(1);
+                var bend_cell = newrow.insertCell(2);
+                var bug_actions = newrow.insertCell(3);
+                bname_cell.innerHTML = temp_array[i][1];
+                bstart_cell.innerHTML = '<input type="date" id="sd_assign" value="' + temp_array[i][2] + '" >';
+                bend_cell.innerHTML = '<input type="date" id="ed_assign" value="' + temp_array[i][3] + '" >';
+                bug_actions.innerHTML = '<input type="button" class="btn btn-info" onclick="updateAssignment(' + temp_array[i][0] + ')" value="Update"> '; 
+                bug_actions.innerHTML += '<input type="button" class="btn btn-danger" onclick="deleteAssignment(' + temp_array[i][0] + ')" value="Delete">';
+            }
+            table.parentNode.replaceChild(new_tbody,table);
+        }
+    });
+}
+
+function updateAssignment(id){
+    var sdate = sd_assign.value == "" ? new Date().toJSON() : sd_assign.value;
+    var edate = ed_assign.value;
+    // send ajax request and split returned data into array and assign to form elements
+    $.ajax({
+        url:"updateAssignment.php",
+        method:"POST",
+        data:{ id: id, sdate: sdate, edate: edate },
+        success:function(response){ 
+            alert(response);
+        }
+    });
+}
+
+function deleteAssignment(id){
+    // send ajax request and split returned data into array and assign to form elements
+    $.ajax({
+        url:"deleteAssignment.php",
+        method:"POST",
+        data:{ id: id },
+        success:function(response){ 
+            alert("Assignment deletion was successful.");
+        }
+    });
+    window.location.reload(true);
 }
 </script>
 
