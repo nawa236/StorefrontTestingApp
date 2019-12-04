@@ -111,10 +111,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <li>
     <input class="btn btn-default" type="submit" name="submit" value="Reset Password" />
     </li>
+    </ul>
     </form>
 
     
     <p class="under-form"> <?php echo $message ?> </p>
+    <p class="under-form"> <a href="login.php"> <?php echo $loginmessage ?> </a> </p>
 
 <?php else: ?>
 

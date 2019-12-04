@@ -132,16 +132,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <li>
 <input type="submit" name="submit" value="Login" />
 </li>
-</ul>
 </form>
+
+<h4 class="under-form-error"> <?php echo $accountError; ?> </h4>
+</ul>
+<h4 class="under-form-error"> <?php echo $cookiecheck; ?> </h4>
 
 <p class="under-form"> <a href="reverify.php"> <?php echo $reverifyMessage ?> </a> </p>
 
 <p class="under-form"> <a href="forgotpassword.php"> Forgot your password? Click here! </a> </p>
 <p class="under-form"> <a href="register.php"> Don't have an account? Click here to register! </a> </p>
 
-<p class="under-form-error"> <?php echo $accountError; ?> </p>
-<p class="under-form-error"> <?php echo $cookiecheck; ?> </p>
 
 
 
