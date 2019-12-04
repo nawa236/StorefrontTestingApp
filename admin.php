@@ -10,6 +10,7 @@
 </head>
 <body>
 <?php include("database.php") ?>
+<?php include("adminCookie.php") ?>
 
 <!-- navigation -->
 <div class="container-fluid" id="roundtab" role="navigation">
@@ -223,7 +224,6 @@ function saveNewBug(){
         method:"POST",
         data:{ name: bugname, functional_area: funcarea, description: description, codeblock: codeblock },
             success:function(response){ 
-                console.log(response);
                 var saved_bug = JSON.parse(response);
                 alert("Bug " + saved_bug[0][0] + " " + saved_bug[0][1] + " successfully saved."); 
             }
