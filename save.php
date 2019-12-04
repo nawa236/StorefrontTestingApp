@@ -17,11 +17,19 @@
 				if($q == 0){ /*if quantity is set to 0, delete matching row*/
 					$query = "DELETE FROM order_products WHERE pid = $pID AND oid=$oID";
 					$statement = $connect->prepare($query);
-					$statement->execute();
+					//***** Bug 16 Start *****//
+					$bugCode = bug_check(16);
+					if(is_null($bugCode))
+					    $statement->execute();
+					//***** Bug 16 End *****//
 				} else {/*else update quantity*/
 					$query = "UPDATE order_products SET quantity = $q WHERE pid = $pID AND oid=$oID";
 					$statement = $connect->prepare($query);
-					$statement->execute();
+                                        //***** Bug 17 Start *****//
+                                        $bugCode = bug_check(17);
+                                        if(is_null($bugCode))
+                                            $statement->execute();
+                                        //***** Bug 17 End *****//
 				}
 			}
 		};

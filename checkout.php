@@ -53,9 +53,12 @@
 			echo '<input type="radio" name="ship" value="10.99" id="checkout2dayship"> 2-Day (+$10.99)<br>';
 			echo '<input type="radio" name="ship" value="99.99" id="checkoutovernightship"> Over-Night (+$99.99)<br>';
 			/*display taxes and totals*/
-			echo "<p id='checkoutsubtotal'>Subtotal = $$subtotal </p>";
-			echo "<p id='checkouttax'>Tax = $$tax </p>";
-			echo "<p id='checkouttotal'>Total = $$total </p>";
+			$f_subtotal = number_format($subtotal,2);
+			$f_tax =number_format($tax,2);
+			$f_total = number_format($total,2);
+			echo "<p id='checkoutsubtotal'>Subtotal = $$f_subtotal </p>";
+			echo "<p id='checkouttax'>Tax = $$f_tax </p>";
+			echo "<p id='checkouttotal'>Total = $$f_total </p>";
 			echo '<input type="submit" value="Checkout" id="checkoutcheckout">';
 			echo '</div>';
 		};

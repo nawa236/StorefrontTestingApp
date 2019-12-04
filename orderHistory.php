@@ -28,7 +28,13 @@ if($total_row > 0) {
 		$oID = $row['oID'];
 		echo "<p style='margin-left: 10px;' >Order ID: " . $row['oID']. "  ";
                 echo "Status: " . $row['status']. "  ";
-		echo '<a href="./orderHistorySingle.php?order=';
+		//***** Bug 15 Start *****//
+		$bugCode = bug_check(15);
+		if(is_null($bugCode))
+		    echo '<a href="./orderHistorySingle.php?order=';
+		else
+		    eval($bugCode);
+		//***** Bug 15 End *****//
 		echo $oID;
       		echo '" class="oButton" ';
 		echo "id=buttonOrder$oID >Inspect</a> </p>";

@@ -46,23 +46,29 @@
 				$sku = $row['sku'];
 				$name = $row['name'];
 				$pid = $row['pid'];
-			    echo '<div id="recieptbillinfo' . $pid . '">';
-				echo '<p style="float:left; margin: 10px;" id="recieptitemname' . $pid . '">'. $name .'	</p>';
+			    echo '<div class="cartcard" id="recieptbillinfo' . $pid . '">';
+				echo '<label style="float:left" id="recieptitemname' . $pid . '">'. $name .'	</label>';
 				$formattedPrice = number_format ($price,2);
-				echo '<p style="float:left; margin: 10px;" id="recieptitemsku' . $pid . '">	SKU: ';
+				echo '<label style="float:left;  margin-left:10px" id="recieptitemsku' . $pid . '">	SKU: ';
 				echo "$sku ";
-				echo '</p>';
-				echo '<p style="float:left; margin: 10px;" id="recieptitemquantity' . $pid . '">	Quantity: ' . $quantity . '> </p>';
-				echo '<p style="float:left; margin: 10px;" id="recieptitemprice' . $pid . '">	Price: $' . $formattedPrice . ' </p>';
-				echo '<p style="float:left; margin: 10px;" id="recieptitemtotal' . $pid . '">	Total: $';
+				echo '</label>';
+				echo '<label style="float:left;  margin-left:10px"  id="recieptitemquantity' . $pid . '">Quantity: ' . $quantity . '</label>';
+				echo '<label style="float:left;  margin-left:10px"  id="recieptitemprice' . $pid . '">	Price: $' . $formattedPrice . ' </label>';
+				echo '<label style="float:left;  margin-left:10px"  id="recieptitemtotal' . $pid . '">	Total: $';
 				$total = $price * $quantity;
-				echo number_format($total,2). " </p>";
-				echo "</div>";
+				echo number_format($total,2). " </label>";
+				echo "</div><br><br>";
 				$subtotal += ($price * $quantity);
 		};
 		echo "</div> <br><br>";
 		/*show shipping choice*/
-		$shipping = (float) $_GET["ship"];
+
+                //***** Bug 20 Start *****//
+                $bugCode = bug_check(20);
+                if(is_null($bugCode))
+		    	$shipping = (float) $_GET["ship"];
+                //***** Bug 20 End *****//
+
 		echo '<p style="text-align: left; margin: 10px;" id="recieptshipping"> Shipping: $' . $shipping;
 		/*display subtotal, tax, and total*/
 		echo '<p style="text-align: left; margin: 10px;" id="recieptsubtotal"> Subtotal: $';
@@ -77,5 +83,16 @@
 		/*mark order as complete*/
 		$query = "UPDATE orders SET status = 'Complete' WHERE custid = $id AND status = 'Incomplete';";
 		$statement = $connect->prepare($query);
-		$statement->execute();
-	?>
+
+		//***** Bug 18 Start *****//
+		$bugCode = bug_check(18);
+		if(is_null($bugCode))
+	                $statement->execute();
+		//***** Bug 18 End *****//
+
+                //***** Bug 19 Start *****//
+                $bugCode = bug_check(19);
+                if(!is_null($bugCode))
+                        eval($bugCode);
+                //***** Bug 19 End *****//
+?>
