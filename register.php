@@ -135,15 +135,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <li>
 <input type="submit" name="submit" value="Sign me up!" />
 </li>
-</ul>
 
 </form>
+
+<h4 class="under-form-error"> <?php echo $duplicateError ?> </h4>
+</ul>
 
 <p class="under-form"> <a href="forgotpassword.php"> Forgot your password? Click here! </a> </p>
 <p class="under-form"> <a href="login.php"> Already have an account? Click here to login! </a> </p>
 
-<p class="under-form"> <?php echo $regMessage ?> </p>
-<p class="under-form-error"> <?php echo $duplicateError ?> </p>
+<h2 class="under-form"> <?php echo $regMessage ?> </h2>
+<h4 class="under-form-error"> <?php echo $duplicateError ?> </h4>
 
 
 </body>
