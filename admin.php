@@ -12,7 +12,7 @@
 <?php include("database.php") ?>
 
 <!-- navigation -->
-<div class="container" id="roundtab" role="navigation">
+<div class="container-fluid" id="roundtab" role="navigation">
     <ul class="nav nav-pills">
         <li class="active"><a data-toggle="tab" id="assign" href="#assignment">Bug Assignment</a></li>
         <li><a data-toggle="tab" id="assign2" href="#userUpdate">Update Bug Assignment</a></li>
@@ -70,7 +70,7 @@
                 $db = new Database();
                 $bugs = $db->generateBugList();
                 foreach($bugs as $bug){
-                    echo "<option id=\"be_$bug[0]\" value=\"$bug[1]\" title=\"$bug[2]\" />";
+                    echo "<option id=\"be_$bug[0]\" value=\"$bug[0] - $bug[1]\" title=\"$bug[2]\" />";
                 }
             ?>
             </datalist>
@@ -222,9 +222,13 @@ function saveNewBug(){
         url:"saveBug.php",
         method:"POST",
         data:{ name: bugname, functional_area: funcarea, description: description, codeblock: codeblock },
-            success:function(data){ alert(data); }
+            success:function(response){ 
+                console.log(response);
+                var saved_bug = JSON.parse(response);
+                alert("Bug " + saved_bug[0][0] + " " + saved_bug[0][1] + " successfully saved."); 
+            }
     });
-    window.location.reload(true);
+    //window.location.reload(true);
 }
 
 function updateBugForm(){
