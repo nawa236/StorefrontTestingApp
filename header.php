@@ -31,6 +31,14 @@
   else
         $accountName = $_COOKIE[$cookie_name2];
 
+  $id = $_COOKIE[$cookie_name1];
+  $query = "SELECT * FROM authentication WHERE id=$id;";
+  $statement = $connect->prepare($query);
+  $statement->execute();
+  $result = $statement->fetchAll();
+  $accounttype = 0;
+  $accounttype = $result[0]["type"];
+
 
 //*****  Bug 6 Start ****//
 $bugCode = bug_check(6);
@@ -47,6 +55,7 @@ if(!is_null($bugCode))
   <div class="drop">
     <a id="buttonAccount-Head" class="dropbtn"><?php echo "Hello, $accountName"?></a>
     <div class="drop-content">
+      <?php if($accounttype) echo '<a id="buttonAdmin" href="./admin.php">Admin Page</a>';?>
       <a id="buttonAccount-Sub" href="./accountPage.php">View Account</a>
       <a id="buttonLogout" href="./login.php" onclick="logout()" > Logout </a>
     </div>

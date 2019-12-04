@@ -8,12 +8,12 @@
 </head>
 <body>
 
-
 <?php
 require('header.php');
 include('dbConnect.php');
 $id = $_COOKIE["TriStorefrontUser"];
 
+echo "<h1>Past Orders</h1>";
 // Retrieve all orders and status for the current customer that have been completed
 $query = "SELECT DISTINCT oID, status FROM orders,order_products WHERE oid=id AND status != 'Incomplete' and custid=$id;";
 
@@ -26,7 +26,7 @@ $total_row = $statement->rowCount();
 if($total_row > 0) {
 	foreach($result as $row){
 		$oID = $row['oID'];
-		echo "<p>Order ID: " . $row['oID']. "  ";
+		echo "<p style='margin-left: 10px;' >Order ID: " . $row['oID']. "  ";
                 echo "Status: " . $row['status']. "  ";
 		echo '<a href="./orderHistorySingle.php?order=';
 		echo $oID;
