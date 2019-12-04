@@ -41,8 +41,18 @@ echo '<div class="container">
   <div class="flex-grid">
     <aside class="col sidebar2">
 <div class="sidebarContents">';
-$image = "./images/" . $id . ".jpg"; 
-echo "<img class='ppImg' src=$image>";
+
+
+//***** Bug 13 Start *****//
+$bugCode = bug_check(13);
+if(is_null($bugCode))
+    $image = "./images/" . $id . ".jpg";
+else
+    eval($bugCode);
+//***** Bug 13 End *****//
+
+
+echo "<img id=\"image$id\" class='ppImg' src=$image>";
 
 echo '</div></aside><section class="col main"> <div>';
 

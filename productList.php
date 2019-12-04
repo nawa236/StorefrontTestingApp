@@ -11,11 +11,21 @@
 <body>
 <?php require('header.php'); ?>
 
+
 <div class="container">
   <div class="flex-grid">
     <aside class="col sidebar">
-<div class="sidebarContents">
 
+<?php
+//***** Bug Start *****//
+$bugCode = bug_check(14);
+    if(is_null($bugCode))
+	echo '<div class="sidebarContents">';
+    else{
+	eval($bugCode);
+}
+//***** Bug End *****//
+?>
 
 <!-- Sorting options -->
 <h3> Sort By </h3>
