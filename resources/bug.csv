@@ -1,0 +1,20 @@
+1,Duplicated Filter Category Select,Product List Filtering,Category filter shows the same result for Clothing as Boxes,"$categories = array(""Paper""=>1,""Envelopes""=>2,""Boxes""=>3,""Labels""=>4,""Clothing""=>3,""Misc""=>6);"
+2,Broken Product Sort,Product List Sorting,Sorting dropdown provides the same output regardless of input,"$sort = ""name Asc"";"
+3,Search box lacks enter response,Product List Searching,Header bar element designed for searching product list will no longer submit upon pressing the enter key,**No code needed**
+4,Broken Min Price Input Filter,Product List Filtering,Typing or incrementing in the min price selection box for filtering the product list will not trigger any response,newVal = minPrice;
+5,Incorrect redirection to product page,Product List to Product Page Redirection,Clicking the configure button on the product card on the product list page redirects user to the wrong product page,echo $id+1;
+6,Null account name,Page Header,"No matter who is actually logged in, Hello Message in header will read Hello, Null","$accountName = ""Null"";"
+7,Wrong single order inspect,Past Orders,"When clicking to view the details of an old order, the order displayed is not what was clicked.",$order = $order + 1;
+8,Max price slider doesn't filter,Product List Filtering,Moving the max price slider does not update maxPrice filter variable,**No code needed**
+9,Add to Cart always adds only 1,Add to cart,"Regardless of quantity select when adding an item to the cart, only 1 item will be added",**No code needed**
+10,Broken SKU Select,Product Page,The buttons on the product page that allow sub-selection of item based on sku do not function,**No code needed**
+11,Account Page jumbled name,Account Page,"In the account page, the user first middle and last name are displayed in the wrong order","$fname = $row[""lname""];$mname = $row[""fname""];$lname = $row[""mname""];"
+12,Address update does not work,Account Page,Changing Address 1 and submitting does not update the address,**No code needed**
+13,Incorrect Image,Product Page,Display next product image,"$image = ""./images/"" . ($id+1) . "".jpg"";"
+14,Missing Sidebar,Product List,Remove sidebar from product list display,"echo \'<div class=""sidebarContents"" style=""display: none;"">\';"
+15,Past order links go nowhere,Past Orders,Link to more details on a past order doesn't lead to a new page,"echo \'<a href=""#\';"
+16,Cant delete items from cart,Cart,Reducing quantity of item in cart to 0 and saving does nothing,**No code needed**
+17,Cant update cart quantity from cart,Cart,Changing cart quantity other than 0 does nothing,**No code needed**
+18,Cant complete order,Checkout,"Reciept shows, but order never processed",**No code needed**
+19,Reciept not shown,Checkout,"Clicking checkout skips the reciept page, returns user to cart page","header(""Location: ./cart.php"");"
+20,Shipping cost missing from reciept,Checkout,"Reciept page shipping cost is blank, no matter what shipping is selected in checkout",**No code needed**
