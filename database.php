@@ -49,7 +49,7 @@ public static function buildDatabase(){
 public static function populateTables(){
     // check to see if the store databases are populated, and then populate tables
     $db = new Database();
-    $tables = [ "size", "color","category","product"];
+    $tables = [ "size", "color","category","product", "bug"];
 
     foreach($tables as $t){
         $query = "SELECT * FROM $t;";
