@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="icon" type="image/png"  href="./images/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -33,7 +34,10 @@
 			$statement = $connect->prepare($query);
 			$statement->execute();
 			$result = $statement->fetchAll();
-			
+			if ($statement->rowCount() == 0){
+				echo "<h1> Cart is Empty </h1>";
+				return;
+			}
 			echo "<h1> Cart Contents </h1>";
 			/*cart form start*/
 			echo '<form action="./save.php" id="checkoutform">';
