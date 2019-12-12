@@ -84,7 +84,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     </html>
 
-                    ';
+                    '; // EDIT URL BASED ON EVENTUAL SITE LOCATION
 
                     $headers = "MIME-Version: 1.0" . "\r\n";
                     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
@@ -99,7 +99,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             else
             {
-                $duplicateError = "There is already an account with that email. Forgot password? Well, too bad. I haven't implemented that page yet.";
+                $duplicateError = "There is already an account with that email. Forgot password? Please use the link below the form to reset your password!";
             }
         }
     }
