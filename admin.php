@@ -127,6 +127,7 @@ function reviewAssignment(){
     var doc = document.getElementById("user_input");
     var username = doc.value;
     var userid = $("#user-list option[value='" + username + "']").attr('id').replace("u_","");
+    console.log(userid);
     var doc2 = document.getElementById("bugs");
     var buglist = username + newline;
     for(var opt of doc2.options){
@@ -298,8 +299,8 @@ function populateBugList(){
                 var bend_cell = newrow.insertCell(2);
                 var bug_actions = newrow.insertCell(3);
                 bname_cell.innerHTML = temp_array[i][1];
-                bstart_cell.innerHTML = '<input type="date" id="sd_assign" value="' + temp_array[i][2] + '" >';
-                bend_cell.innerHTML = '<input type="date" id="ed_assign" value="' + temp_array[i][3] + '" >';
+                bstart_cell.innerHTML = '<input type="date" id="sd_assign' + temp_array[i][0] + '" value="' + temp_array[i][2] + '" >';
+                bend_cell.innerHTML = '<input type="date" id="ed_assign' + temp_array[i][0] + '" value="' + temp_array[i][3] + '" >';
                 bug_actions.innerHTML = '<input type="button" class="btn btn-info" onclick="updateAssignment(' + temp_array[i][0] + ')" value="Update"> '; 
                 bug_actions.innerHTML += '<input type="button" class="btn btn-danger" onclick="deleteAssignment(' + temp_array[i][0] + ')" value="Delete">';
             }
@@ -309,8 +310,9 @@ function populateBugList(){
 }
 
 function updateAssignment(id){
-    var sdate = sd_assign.value == "" ? new Date().toJSON() : sd_assign.value;
-    var edate = ed_assign.value;
+    var sdate = document.getElementById('sd_assign' + id).value == "" ? new Date().toJSON() : document.getElementById('sd_assign' + id).value;
+    var edate = document.getElementById('ed_assign' + id).value;
+    console.log(sdate + " - " + edate);
     // send ajax request and split returned data into array and assign to form elements
     $.ajax({
         url:"updateAssignment.php",
