@@ -52,10 +52,11 @@ if(!is_null($bugCode))
   <a class="active" id="buttonHome" href="./productList.php">Home</a>
   <a id="buttonCart" href="./cart.php">Cart</a>
   <a id="buttonOrderHistory" href="./orderHistory.php">Orders</a>
+  <?php if($accounttype == 2) echo '<a id="buttonManageStore" href="">Store Management</a>';?>
   <div class="drop">
     <a id="buttonAccount-Head" class="dropbtn"><?php echo "Hello, $accountName"?></a>
     <div class="drop-content">
-      <?php if($accounttype) echo '<a id="buttonAdmin" href="./admin.php">Admin Page</a>';?>
+      <?php if($accounttype == 1) echo '<a id="buttonAdmin" href="./admin.php">Admin Page</a>';?>
       <a id="buttonAccount-Sub" href="./accountPage.php">View Account</a>
       <a id="buttonLogout" href="./login.php" onclick="logout()" > Logout </a>
     </div>

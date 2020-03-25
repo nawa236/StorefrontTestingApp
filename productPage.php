@@ -17,7 +17,11 @@ if(!isset($_GET['productID'])){
 	header("Location: ./productList.php");
 }
 
-$id = $_GET['productID'];
+$id = 0;
+if($_SERVER["REQUEST_METHOD"] == "GET")
+    $id = $_GET['productID'];
+if($_SERVER["REQUEST_METHOD"] == "POST")
+    $id = trim($_POST['id']);
 include('dbConnect.php');
 include('productCard.php');
 
@@ -66,6 +70,10 @@ foreach($origResult as $row){
 
 echo "<br>";
 
+$currentId = $origResult[0]['id'];
+$currentDesc = $origResult[0]['description'];
+$currentPrice = $origResult[0]['price'];
+$currentInventory = $origResult[0]['inventory'];
 $currentColor = $origResult[0]['color'];
 $currentSize = $origResult[0]['size'];
 $currentSKU = $origResult[0]['sku'];
@@ -164,6 +172,87 @@ $skuResult = $statement->fetchAll();
 </div>
 
 </div>
+
+<?php 
+    $cookie_name1 = "TriStorefrontUser";
+    if(!isset($_COOKIE[$cookie_name1]))
+        header("Location: ./login.php");
+
+    $userId = $_COOKIE[$cookie_name1];
+    $query = "SELECT * FROM authentication WHERE id=$userId;";
+    $statement = $connect->prepare($query);
+    $statement->execute();
+    $result = $statement->fetchAll();
+    $accounttype = 0;
+    $accounttype = $result[0]["type"];
+
+    //if user intention is to change product information
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        //if conditionals to determine if product information is being changed/applies changes
+        if(isset($_POST['name'])){
+            $name = trim($_POST['name']);
+            $sql = "UPDATE product SET name = '$name' WHERE id = $id";
+            $res = mysqli_query($connection, $sql) or die("Could not update".mysql_error());
+        }
+        if(isset($_POST['description'])){
+            $name = trim($_POST['description']);
+            $sql = "UPDATE product SET description = '$name' WHERE id = $currentId";
+            $res = mysqli_query($connection, $sql) or die("Could not update".mysql_error());
+        }
+        if(isset($_POST['sku'])){
+            $name = trim($_POST['sku']);
+            $sql = "UPDATE product SET sku = '$name' WHERE id = $currentId";
+            $res = mysqli_query($connection, $sql) or die("Could not update".mysql_error());
+        }
+	}
+
+    if($accounttype == 2) echo "
+    <h1 class='form-header'> Update Product </h1> 
+    <form class= 'form-style-9' id = 'Product Update' action = 'productPage.php' method = 'post'>
+    <input type = 'hidden' id = 'prodId' name = 'id' value = '$id'>
+    <ul>
+    <li>
+        <div class='form-group'>
+        <label>Name</label><br>
+        <input class='field-style field-full align-none' type = 'text' id='prodNameInput' name = 'name' value = '$pName'>
+    </li>
+    <li>
+        <div class='form-group'>
+        <label>Description</label><br>
+        <input class='field-style field-full align-none' type = 'text' id='prodDescInput' name = 'description' value = '$currentDesc'>
+    </li>
+    <li>
+        <div class='form-group'>
+        <label>SKU</label><br>
+        <input class='field-style field-full align-none' type = 'text' id='prodSkuInput' name = 'sku' value = '$currentSKU'>
+    </li>
+    <li>
+        <div class='form-group'>
+        <label>Price</label><br>
+        <input class='field-style field-full align-none' type = 'number' id='prodDescInput' name = 'price' value = '$currentPrice'>
+    </li>
+    <li>
+        <div class='form-group'>
+        <label>Stock</label><br>
+        <input class='field-style field-full align-none' type = 'number' id='prodInvInput' name = 'inventory' value = '$currentInventory'>
+    </li>
+    <li>
+        <div class='form-group'>
+        <label>Color</label><br>
+        <input class='field-style field-full align-none' type = 'number' id='prodColorInput' name = 'color' value = '$currentColor'>
+    </li>
+    <li>
+        <div class='form-group'>
+        <label>Size</label><br>
+        <input class='field-style field-full align-none' type = 'text' id='prodSizeInput' name = 'size' value = '$currentSize'>
+    </li>
+    <li>
+    <br>
+	<input type = 'submit' value = 'Update'/>
+    </li>
+    </ul>
+    </form>";
+?>
 
 <script>
 var currentColor = "<?php echo $currentColor ?>";
