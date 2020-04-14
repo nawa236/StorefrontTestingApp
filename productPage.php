@@ -160,6 +160,7 @@ $skuResult = $statement->fetchAll();
         <div class="choose">
 		<button id="button_addToCart" class="flashy">Add to Cart</button>
 		<input type="number" onkeypress="return event.charCode >=48" min="1" value="1" style="width: 48px" id="quantitySelect"> 
+        <button id="button_addToWishlist" class="wish">Add to Wishlist</button>
         </div>
 </div>
 
@@ -212,6 +213,12 @@ $(document).ready(function(){
 	//*****  Bug 9 End  ****//
 	addToCart(quantity);
     });
+$('.wish').click(function(){
+        var bugCode = "<?php echo bug_check(9);?>";
+        if(bugCode == "")
+            quantity = 1;
+        addToWishlist(quantity);
+    })
   // ******************************
 
 
@@ -226,6 +233,16 @@ $.ajax({
             }
         });
 
+}
+function addToWishlist(quantity){
+$.ajax({
+            url:"addToWishlist.php",
+            method:"POST",
+            data:{pID:pID, uID:uID, quantity:quantity, inv:inv},
+            success:function(data){
+                alert(data);
+            }
+    })
 }
 
 // Based on current input, determines what product page should be redirected to

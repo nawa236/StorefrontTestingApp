@@ -1,0 +1,72 @@
+<?php
+include('dbConnect.php');
+
+// Extract post variables
+$pID = $_POST["pID"];
+$uID = $_POST["uID"];
+$quantity = $_POST["quantity"];
+$inv = $_POST["inv"];
+
+// Find current user's cart
+$query = "SELECT id FROM orders WHERE custid = '" .$uID;
+$query = $query . "'";
+$query = $query . " AND status = 'Wishlist'";
+
+$statement = $connect->prepare($query);
+$statement->execute();
+$result = $statement->fetchAll();
+$total_row = $statement->rowCount();
+
+// If cart found, run insert cart function
+if($total_row == 1){
+	insertCart($result,$pID,$quantity);
+}
+
+// If user does not have a wishlist
+else if($total_row == 0){
+	// create a wishlist
+	$query = "INSERT INTO orders(status,custid) values ('Wishlist'," . $uID . ");";
+        $statement = $connect->prepare($query);
+        $statement->execute();
+
+	// find the id of that created wishlist and add item
+	$query = "SELECT id FROM orders WHERE custid = '" .$uID;
+	$query = $query . "'";
+	$query = $query . " AND status = 'Wishlist'";
+	$statement = $connect->prepare($query);
+	$statement->execute();
+	$result = $statement->fetchAll();
+
+	insertCart($result,$pID,$quantity);
+}
+else  	// this should never happen, but if multiple wishlists exist, acknowledge the issue
+	echo "Well, there are multiple wishlists, everything is on fire apparently.";
+
+
+function insertCart($result,$pID,$quantity){
+        global $connect, $inv;
+	$oID =  $result[0]['id'];
+
+	// Check if there is already some quantity of this product already in wishlist
+       	$query = "SELECT * FROM order_products WHERE oid = " . $oID . " AND pid = " . $pID . ";";
+	$statement = $connect->prepare($query);
+	$statement->execute();
+	$result = $statement->fetchAll();
+	$total_row = $statement->rowCount();
+
+	// If no matching products, safe to insert
+	if($total_row == 0){
+            $query = "INSERT INTO order_products VALUES(" . $oID . ", " . $pID . ", " . $quantity  . ");";
+            $statement = $connect->prepare($query);
+            if($statement->execute())
+        	echo "Successfully added the item to the wishlist.";
+            else
+                echo "Item was not added to the wishlist.";
+	}
+	else{
+		echo "Item already in wishlist";
+	}
+}
+?>
+
+

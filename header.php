@@ -51,6 +51,7 @@ if(!is_null($bugCode))
 <div class="topnav">
   <a class="active" id="buttonHome" href="./productList.php">Home</a>
   <a id="buttonCart" href="./cart.php">Cart</a>
+  <a id="buttonWishlist" href="./wishlist.php">Wishlist</a>
   <a id="buttonOrderHistory" href="./orderHistory.php">Orders</a>
   <div class="drop">
     <a id="buttonAccount-Head" class="dropbtn"><?php echo "Hello, $accountName"?></a>
