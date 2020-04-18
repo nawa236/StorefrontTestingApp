@@ -49,15 +49,15 @@ if(!is_null($bugCode))
 
 <!-- Overall header output format -->
 <div class="topnav">
-  <a class="active" id="buttonHome" href="./productList.php">Home</a>
-  <a id="buttonCart" href="./cart.php">Cart</a>
-  <a id="buttonOrderHistory" href="./orderHistory.php">Orders</a>
+  <a class="active" id="buttonHome" href="./productList.php"><img src="./images/logo.png" style="width:100px;margin-left:-7px;margin-top:-7px;margin-bottom:-7px;"></img></a>
+  <a id="buttonCart" href="./cart.php" style="font-family:Tahoma;letter-spacing:1px;">Cart</a>
+  <a id="buttonOrderHistory" href="./orderHistory.php" style="font-family:Tahoma;letter-spacing:1px;">Orders</a>
   <div class="drop">
-    <a id="buttonAccount-Head" class="dropbtn"><?php echo "Hello, $accountName"?></a>
+    <a id="buttonAccount-Head" class="dropbtn" style="font-family:Tahoma;letter-spacing:1px;"><?php echo "Hello, $accountName"?></a>
     <div class="drop-content">
-      <?php if($accounttype) echo '<a id="buttonAdmin" href="./admin.php">Admin Page</a>';?>
-      <a id="buttonAccount-Sub" href="./accountPage.php">View Account</a>
-      <a id="buttonLogout" href="./login.php" onclick="logout()" > Logout </a>
+      <?php if($accounttype) echo '<a id="buttonAdmin" href="./admin.php" style="font-family:Tahoma;letter-spacing:1px;">Admin Page</a>';?>
+      <a id="buttonAccount-Sub" href="./accountPage.php" style="font-family:Tahoma;letter-spacing:1px;">View Account</a>
+      <a id="buttonLogout" href="./login.php" style="font-family:Tahoma;letter-spacing:1px;" onclick="logout()" > Logout </a>
     </div>
   </div>
 

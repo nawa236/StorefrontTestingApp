@@ -1,23 +1,13 @@
-body {background-color: #FFFFFF;
+body {background-color: #ffffff;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 .topnav {
   overflow: hidden;
-  background-color: #6846C7;
+  background-color: #6846c7;
 }
 
 img {max-width:100%;}
-
-
-.desc {
-height:40px;
-}
-
-.name {
-margin-top: 4px;
-height:55px;
-}
 
 .topnav a {
   float: right;
@@ -36,7 +26,6 @@ height:55px;
 
 .topnav a.active {
   float: left;
-  background-color: #2196F3;
   color: white;
   margin-right: 50px;
 }
@@ -54,6 +43,7 @@ height:55px;
   display: flex;
   margin-top: 7px;
   background: #fff;
+  border-radius: 12px;
 }
 
 .topnav .textbox {
@@ -70,16 +60,11 @@ height:55px;
 }
 
 .topnav .search-container button {
-
   padding: 6px 10px;
-  background: #fff;
+  background: #ffe4b5;
   font-size: 17px;
   border: none;
   cursor: pointer;
-}
-
-.topnav .search-container button:hover {
-  background: moccasin;
 }
 
 @media screen and (max-width: 630px) {
@@ -127,8 +112,9 @@ color: white;
 }
 
 h3 {
-  background-color: #111111;
-  color:white;
+  background-color: #3a3742;
+  border-radius:8px;
+  color:#ffffff;
   text-align:center;
 }
 .slidecontainer {
@@ -169,7 +155,8 @@ h3 {
 h2 {
   color: white;
   text-align: center;
-  background-color: #111111;
+  background-color: #3a3742;
+  border-radius:8px;
 }
 
 .sidebarContents {
@@ -201,11 +188,49 @@ h2 {
 .main {
   flex: 8;
 }
+
+.productBox {
+  width: 500px;
+}
+
+.hr {
+  display: block;
+  height: 5px;
+  border: 0;
+  border-top: 5px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.name {
+  margin-top: 4px;
+  margin-bottom: 0px;
+  margin-left: 5px;
+  font-size:18px;
+  text-align: left;
+}
+  
+.desc {
+  margin-left: 5px;
+  text-align: left;
+  color: grey;
+  font-size: 14px;
+}
+  
+.textBox {
+  box-sizing: border-box;
+  float: right;
+  width: 475px;
+  height: 120px;
+}
+
 .card {
+  box-sizing: border-box;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   background-color: white;
-  max-width: 300px;
-  min-width: 300px;
+  border-style: dotted;
+  width: 650px;
+  height: 140px;
   margin: 10px;
   text-align: center;
   font-family: arial;
@@ -227,18 +252,25 @@ h2 {
   font-family: arial;
 }
 .price {
-  color: grey;
+  color: #000000;
   font-size: 22px;
+  position: relative;
+  margin-left: 5px;
+  font-size: 18px;
+  text-align: left;
+  bottom: 10px;
+  border-top: 1px;
 }
 .card a.button {
   display:inline-block;
   border: none;
   outline: 0;
   text-decoration: none;
-  padding: 12px;
+  padding: 0px;
   color: white;
   background-color: #111111;
   text-align: center;
+  vertical-align: middle;
   cursor: pointer;
   width: 100%;
   box-sizing: border-box;
