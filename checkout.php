@@ -48,7 +48,7 @@
 			/*checkout form start*/
 			echo '<form action= "./reciept.php" id="checkoutform">';
 			/*shipping infomation*/
-			echo '<div style="float:right; margin: 10px;">';
+			echo '<div style="float:right; margin:10px; border-style:double; padding:10px; margin-right:50px;">';
 			echo '<input type="radio" name="ship" value="0" checked id="checkoutstandardship"> Standard (Free)<br>';
 			echo '<input type="radio" name="ship" value="10.99" id="checkout2dayship"> 2-Day (+$10.99)<br>';
 			echo '<input type="radio" name="ship" value="99.99" id="checkoutovernightship"> Over-Night (+$99.99)<br>';
@@ -60,21 +60,21 @@
 			echo "<p id='checkouttax'>Tax = $$f_tax </p>";
 			echo "<p id='checkouttotal'>Total = $$f_total </p>";
 			echo '<input type="submit" value="Checkout" id="checkoutcheckout">';
-			echo '</div>';
+			echo '</div></div>';
 		};
 	?>
 		<!-- billing infomation form -->
-		Billing Information:<br>
-		First name: 
-		<input type="text" name="firstname" id="checkoutbillfname"><br>
-		Last name: 
-		<input type="text" name="lastname" id="checkoutbilllname"><br>
-		Address:
-		<input type="text" name="address" id="checkoutbilladdress"><br>
-		City:
-		<input type="text" name="city" id="checkoutbillcity"><br>
-		State:
-		<select name="state" id="checkoutbillstate">
+		<div style="margin-left:10px;"><h3 style="width:20%;">Billing Information:</h3>
+		<div style="height:5px;">First Name:
+		<input type="text" name="creditcard" id="checkoutbillcard" style="position:absolute;margin-left:36px;width:150px;"></div><br>
+		<div style="height:5px;">Last Name:
+		<input type="text" name="creditcard" id="checkoutbillcard" style="position:absolute;margin-left:37px;width:150px;"></div><br>
+		<div style="height:5px;">Address:
+		<input type="text" name="creditcard" id="checkoutbillcard" style="position:absolute;margin-left:56px;width:150px;"></div><br>
+		<div style="height:5px;">City:
+		<input type="text" name="creditcard" id="checkoutbillcard" style="position:absolute;margin-left:87px;width:150px;"></div><br>
+		<div style="height:5px;">State:
+		<select name="shipstate" id="checkoutshipstate" style="position:absolute;margin-left:77px;width:154px;">
 			<option value="AL">Alabama</option>
 			<option value="AK">Alaska</option>
 			<option value="AZ">Arizona</option>
@@ -126,37 +126,37 @@
 			<option value="WV">West Virginia</option>
 			<option value="WI">Wisconsin</option>
 			<option value="WY">Wyoming</option>
-		</select><br>
-		Zip:
-		<input type="text" name="zip" id="checkoutbillzip"><br>
+		</select></div><br>
+		<div style="height:5px;">Zip:
+		<input type="text" name="creditcard" id="checkoutbillcard" style="position:absolute;margin-left:92px;width:150px;"></div><br><br>
 		<!-- payment infomation form -->
-		Payment type:
+		<h3 style="width:20%;">Payment type:</h3>
 		<input type="radio" name="payment" value="credit" checked id="checkoutbillcredit"> Credit 
 		<input type="radio" name="payment" value="debit" id="checkoutbilldebit"> Debit<br>
-		Card Number:
-		<input type="text" name="creditcard" id="checkoutbillcard"><br>
-		Expiration Date:
+		<div style="height:5px;">Card Number:
+		<input type="text" name="creditcard" id="checkoutbillcard" style="position:absolute;margin-left:19px;width:150px;"></div><br>
+		<div style="height:5px;">Expiration Date:
 		<span class="expiration" id="checkoutbillexpiration">
-			<input type="text" name="month" placeholder="MM" maxlength="2" size="2" id="checkoutbillmonth">
-			<span>/</span>
-			<input type="text" name="year" placeholder="YY" maxlength="2" size="2" id="checkoutbillyear">
-		</span><br>
+			<input type="text" name="month" placeholder="MM" maxlength="2" size="2" id="checkoutbillmonth" style="position:absolute;margin-left:5px;width:65px;">
+			<span style="position:absolute;margin-left:80px;">/</span>
+			<input type="text" name="year" placeholder="YY" maxlength="2" size="2" id="checkoutbillyear" style="position:absolute;margin-left:90px;width:65px;">
+		</span></div><br>
 
-		Security Code:
-		<input type="text" name="security" maxlength="3" id="checkoutbillseccode"><br>
+		<div style="height:5px;">Security Code:
+		<input type="text" name="security" maxlength="3" id="checkoutbillseccode" style="position:absolute;margin-left:14px;width:150px;"></div><br><br>
 		
 		<!-- shipping infomation form -->
-		Shipping Information:<br>
-		First name: 
-		<input type="text" name="shipfirstname" id="checkoutshipfname"><br>
-		Last name: 
-		<input type="text" name="shiplastname" id="checkoutshiplname"><br>
-		Address:
-		<input type="text" name="shipaddress" id="checkoutshipaddress"><br>
-		City:
-		<input type="text" name="shipcity" id="checkoutshipcity"><br>
-		State:
-		<select name="shipstate" id="checkoutshipstate">
+		<h3 style="width:20%;">Shipping Information:</h3>
+		<div style="height:5px;">First Name:
+		<input type="text" name="creditcard" id="checkoutbillcard" style="position:absolute;margin-left:36px;width:150px;"></div><br>
+		<div style="height:5px;">Last Name:
+		<input type="text" name="creditcard" id="checkoutbillcard" style="position:absolute;margin-left:37px;width:150px;"></div><br>
+		<div style="height:5px;">Address:
+		<input type="text" name="creditcard" id="checkoutbillcard" style="position:absolute;margin-left:56px;width:150px;"></div><br>
+		<div style="height:5px;">City:
+		<input type="text" name="creditcard" id="checkoutbillcard" style="position:absolute;margin-left:87px;width:150px;"></div><br>
+		<div style="height:5px;">State:
+		<select name="shipstate" id="checkoutshipstate" style="position:absolute;margin-left:77px;width:154px;">
 			<option value="AL">Alabama</option>
 			<option value="AK">Alaska</option>
 			<option value="AZ">Arizona</option>
@@ -208,9 +208,9 @@
 			<option value="WV">West Virginia</option>
 			<option value="WI">Wisconsin</option>
 			<option value="WY">Wyoming</option>
-		</select><br>
-		Zip:
-		<input type="text" name="shipzip" id="checkoutshipzip"><br>
+		</select></div><br>
+		<div style="height:5px;">Zip:
+		<input type="text" name="creditcard" id="checkoutbillcard" style="position:absolute;margin-left:92px;width:150px;"></div><br>
 		
 	</form>
 </body>
