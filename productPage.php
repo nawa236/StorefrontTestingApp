@@ -40,6 +40,13 @@
         return;
     }
 
+    // Check if there is a store-wide discount currently set
+    $query = "SELECT * FROM configuration WHERE parameter = 'discount'";
+    $statement = $connect->prepare($query);
+    $statement->execute();
+    $disc_result = $statement->fetchAll();
+    $discount = $disc_result[0]["value"];
+
     // Build display divide for product image
     $pName = $origResult[0]['name'];
     echo "<h2> Product Page for: $pName </h2>";
@@ -62,12 +69,13 @@
     echo "<img id=\"image$id\" class='ppImg' src=$image>";
 
     echo '</div></aside><section class="col main"> <div>';
-
+    
     // Display core product data
     foreach ($origResult as $row) {
         echo "<b>Name:</b> " . $row['name'] . "<br>";
         echo "<b>Description:</b> " . $row['description'] . "<br>";
-        echo "<b>Price:</b> " . $row['price'] . "<br>";
+        $formattedPrice = number_format (number_format ($row['price'],2) -  (number_format ($row['price'],2) * number_format ($discount,2) / 100),2); 
+        echo "<b>Price:</b> " . $formattedPrice . "<br>";
         echo "<b>Stock:</b> " . $row['inventory'] . "<br>";
     }
 
