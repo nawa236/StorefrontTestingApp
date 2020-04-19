@@ -52,6 +52,7 @@
   <div class="topnav">
     <a class="active" id="buttonHome" href="./productList.php">Home</a>
     <a id="buttonCart" href="./cart.php">Cart</a>
+    <a id="buttonWishlist" href="./wishlist.php">Wishlist</a>
     <a id="buttonOrderHistory" href="./orderHistory.php">Orders</a>
     <?php if ($accounttype == 2) echo '<a id="buttonManageStore" href="./storeManagement.php">Store Management</a>'; ?>
     <div class="drop">
