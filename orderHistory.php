@@ -15,7 +15,7 @@ $id = $_COOKIE["TriStorefrontUser"];
 
 echo "<h1>Past Orders</h1>";
 // Retrieve all orders and status for the current customer that have been completed
-$query = "SELECT DISTINCT oID, status FROM orders,order_products WHERE oid=id AND status != 'Incomplete' and custid=$id;";
+$query = "SELECT DISTINCT oID, status FROM orders,order_products WHERE oid=id AND status != 'Incomplete' and custid=$id AND status != 'Wishlist'";
 
 $statement = $connect->prepare($query);
 $statement->execute();
