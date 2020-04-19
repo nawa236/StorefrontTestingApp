@@ -57,7 +57,7 @@ function insertCart($result,$pID,$quantity){
 	$oID =  $result[0]['id'];
 
 	// Check if there is already some quantity of this product already in cart
-       	$query = "SELECT * FROM order_products WHERE oid = " . $oID . " AND pid = " . $pID . ";";
+    $query = "SELECT * FROM order_products WHERE oid = " . $oID . " AND pid = " . $pID . ";";
 	$statement = $connect->prepare($query);
 	$statement->execute();
 	$result = $statement->fetchAll();

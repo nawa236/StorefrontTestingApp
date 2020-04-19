@@ -9,10 +9,6 @@
 				$option = 1;
 			} else if($query_string_variable == 'checkout'){/*if they ar checking out do option 2*/
 				$option = 2;
-			} else if($query_string_variable == 'tocart'){
-				$option = 3;
-			} else if($query_string_variable == 'remove'){
-				$option = 4;
 			} else if($query_string_variable == 'oID'){ /*save oID for later*/
 				$oID = $value;
 			} else { /*update quantities in sql table*/
@@ -43,12 +39,6 @@
 			die();
 		}else if($option == 2){/*user hit checkout, advance to checkout page*/
 			header('Location: ./checkout.php');
-			die();
-		}else if($option == 3){/*user hit add to cart from the wishlist page, return to wishlist*/
-			header('Location: ./wishlist.php');
-			die();
-		}else if($option == 4){/*user hit remove from the wishlist page, return to wishlist*/
-			header('Location: ./wishlist.php');
 			die();
 		}else{/*something went wrong*/
 			echo "How did you get here?";

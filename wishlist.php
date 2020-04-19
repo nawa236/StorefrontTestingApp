@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <title>Cart</title>
+    <title>Wishlist</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -23,9 +23,9 @@
 		$total_row = $statement->rowCount();
 		/*no wishlist items therefore no wishlist*/
 		if ($total_row == 0){
-			echo "<p id='emptycart'> There is nothing in your wishlist </p>";
+			echo "<p id='emptywishlist'> There is nothing in your wishlist </p>";
 		} else if ($total_row >= 2) { /*multiple incomplete orders found so something went wrong and needs server admin to fix*/
-			echo "<p id='errorcart'> Error: Multiple lists detected </p>";
+			echo "<p id='errorwishlist'> Error: Multiple lists detected </p>";
 		} else {
 			$oID = $result[0]['id'];
 			/*query sql database to get all the order items*/
@@ -38,8 +38,11 @@
 				return;
 			}
 			echo "<h1> Wishlist </h1>";
-			/*cart form start*/
-			echo '<form action="./save.php" id="wishlistForm">';
+			/*wishlist form start*/
+			//Form made for user inputs regarding removing an item from the wishlist or adding one to the cart
+			echo '<form action="./saveW.php" id="wishlistForm">';
+			echo '<input type="submit" value="Add to Cart" name="tocart" style="float: right; margin: 10px;" id="wishlistForm">';
+			echo '<input type="submit" value="Remove" name="remove" style="float: right; margin: 10px;" id="wishlistForm">';
 			echo '<input type="hidden" name="oID" value="' . $oID . '" />';
 			$subtotal = 0;
 			echo '<div id="wrapper" class="filter">';
@@ -54,18 +57,21 @@
 				/*display information in a new div*/
 			    echo '<div class="cartcard" id="cartitem' . $pid . '">';
 				echo '<p style="float:left; margin: 10px;">'. $name .'	</p>';
-				$formattedPrice = number_format ($price,2);
 				echo '<p style="float:left; margin: 10px;" id="cartsku' . $pid . '">	SKU: ';
 				echo "$sku ";
 				echo '</p>';
-				echo '<input type="submit" value="Add to Cart" name="tocart" style="float: right; margin: 10px;" id="wishlistForm">';
-				echo '<input type="submit" value="Remove" name="remove" style="float: right; margin: 10px;" id="wishlistForm">';
+				echo '<p style="float:right; margin: 10px;" id="cartquantity' . $pid . '"><input type="checkbox" value="Yes"   id="wishCheck"' . $pid;
+				echo '" style="width: 60px" name="' . $pid;	
+				echo '<p style="float:right; margin: 10px;" id="carttotal' . $pid . '">' . ' </p>';
 				echo '</div>';
+				
 			};
 			echo "</div>";
 			/*submit buttons go to the same save page but pass different values*/
+			
 			echo "</form>";
 		}
+		
 	?>
 </body>
 </html>
