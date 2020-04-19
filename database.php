@@ -162,6 +162,7 @@ function orderTable(){
 			products VARCHAR(255),
 			status VARCHAR(10),
 			custid INT(11) NOT NULL,
+            discount VARCHAR(50) DEFAULT 0,
 			PRIMARY KEY (id),
 			FOREIGN KEY fk_customer (custid) REFERENCES customer(id) ON UPDATE RESTRICT
 			);";
@@ -204,6 +205,17 @@ function assignmentTable(){
 			PRIMARY KEY (id),
 			FOREIGN KEY fk_bugid (bugid) REFERENCES bug(id) ON UPDATE CASCADE,
 			FOREIGN KEY fk_userid (userid) REFERENCES authentication(id) ON UPDATE CASCADE
+			);";
+
+    return $query;
+}
+
+function configurationTable(){
+    $query = "CREATE TABLE configuration (
+			id INT(11) NOT NULL AUTO_INCREMENT,
+			parameter VARCHAR(50),
+            value VARCHAR(50),
+			PRIMARY KEY (id)
 			);";
 
     return $query;
