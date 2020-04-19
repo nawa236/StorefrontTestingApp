@@ -3,8 +3,8 @@
 class Database{
 
     public $servername = 'localhost';
-    public $username = 'store';
-    public $password = 'finalproject'; // use your own username and password for the server.
+    public $username = 'root';
+    public $password = 'TriBugApp'; // use your own username and password for the server.
     public $dbname = 'EmployeeTraining';
 
 public static function openServer(){
